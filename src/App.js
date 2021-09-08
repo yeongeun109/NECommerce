@@ -1,23 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
-
+import GetAccount from './component/GetAccount';
+import ChargeEther from './component/ChargeEther';
+import CreateWallet from './component/CreateWallet';
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>계정정보 가져오기</h1>
+      <GetAccount/>
+      <h1>이더를 충전하기</h1>
+      <ChargeEther/>
+      <h1>지갑을 생성해보자</h1>
+      <CreateWallet/>
     </div>
   );
 }
