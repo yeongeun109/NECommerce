@@ -1,4 +1,4 @@
-package com.blockchain.backend.api;
+package com.ecommerce.blockchain.api;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;

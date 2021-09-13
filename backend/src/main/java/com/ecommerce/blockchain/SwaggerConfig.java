@@ -1,4 +1,4 @@
-package com.blockchain.backend;
+package com.ecommerce.blockchain;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

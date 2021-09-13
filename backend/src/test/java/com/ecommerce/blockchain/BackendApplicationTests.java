@@ -1,4 +1,4 @@
-package com.blockchain.backend;
+package com.ecommerce.blockchain;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
