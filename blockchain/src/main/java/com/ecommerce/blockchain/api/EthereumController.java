@@ -27,13 +27,13 @@ public class EthereumController {
     @ApiOperation(value = "eth test")
     public Object ethTest() throws Exception
     {
-        Web3j web3j = Web3j.build(new HttpService("http://localhost:8545/"));
+        Web3j web3j = Web3j.build(new HttpService("http://j5a4071.p.ssafy.io:8545"));
         Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
 
         Map<String, Object> resultMap = new HashMap<>();
 
         resultMap.put("version", web3ClientVersion.getWeb3ClientVersion());
-        BigInteger balance = web3j.ethGetBalance("0xb70926e42409dfc50ba726497f6c3ed222f46e0f", DefaultBlockParameterName.LATEST).send().getBalance();
+        BigInteger balance = web3j.ethGetBalance("0x05bad9b0d2e8b8a0da5a97694bf4fc279d5b0cbd", DefaultBlockParameterName.LATEST).send().getBalance();
 
         resultMap.put("balance", Convert.fromWei(balance.toString(), Convert.Unit.ETHER));
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
