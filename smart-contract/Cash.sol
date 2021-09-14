@@ -1,24 +1,64 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.4.3;
+pragma solidity ^0.4.6;
 
-// https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v3.0.0/contracts/token/ERC20/IERC20.sol
-interface IERC20 {
-    function totalSupply() external view returns (uint);
+import "./ERC20Lib.sol";
 
-    function balanceOf(address account) external view returns (uint);
+/**
+ * Standard ERC20 token
+ *
+ * https://github.com/ethereum/EIPs/issues/20
+ * Based on code by FirstBlood:
+ * https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
+ */
 
-    function transfer(address recipient, uint amount) external returns (bool);
+contract StandardToken {
+    using ERC20Lib for ERC20Lib.TokenStorage;
 
-    function allowance(address owner, address spender) external view returns (uint);
+    ERC20Lib.TokenStorage token;
 
-    function approve(address spender, uint amount) external returns (bool);
+    string public name = "SimpleToken";
+    string public symbol = "SIM";
+    uint256 public decimals = 18;
+    uint256 public INITIAL_SUPPLY = 10000;
+
+    function StandardToken() {
+        token.init(INITIAL_SUPPLY);
+    }
+
+    function totalSupply() constant returns (uint256) {
+        return token.totalSupply;
+    }
+
+    function balanceOf(address who) constant returns (uint256) {
+        return token.balanceOf(who);
+    }
+
+    function allowance(address owner, address spender)
+        constant
+        returns (uint256)
+    {
+        return token.allowance(owner, spender);
+    }
+
+    function transfer(address to, uint256 value) returns (bool ok) {
+        return token.transfer(to, value);
+    }
 
     function transferFrom(
-        address sender,
-        address recipient,
-        uint amount
-    ) external returns (bool);
+        address from,
+        address to,
+        uint256 value
+    ) returns (bool ok) {
+        return token.transferFrom(from, to, value);
+    }
 
-    event Transfer(address indexed from, address indexed to, uint value);
-    event Approval(address indexed owner, address indexed spender, uint value);
+    function approve(address spender, uint256 value) returns (bool ok) {
+        return token.approve(spender, value);
+    }
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
 }
