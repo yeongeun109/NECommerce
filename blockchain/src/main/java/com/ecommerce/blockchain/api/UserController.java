@@ -1,2 +1,4 @@
-package com.ecommerce.blockchain.api;public class UserController {
+package com.ecommerce.blockchain.api;
+
+public class UserController {
 }
