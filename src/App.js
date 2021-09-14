@@ -2,6 +2,7 @@ import './App.css';
 import GetAccount from './component/GetAccount';
 import ChargeEther from './component/ChargeEther';
 import CreateWallet from './component/CreateWallet';
+import UploadImageToS3 from './component/Uploadfiles';
 function App() {
 
   return (
@@ -12,6 +13,8 @@ function App() {
       <ChargeEther/>
       <h1>지갑을 생성해보자</h1>
       <CreateWallet/>
+      <h1>그림올리기</h1>
+      <UploadImageToS3/>
     </div>
   );
 }
