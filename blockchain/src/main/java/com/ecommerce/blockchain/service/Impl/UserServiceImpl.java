@@ -1,2 +1,4 @@
-package com.ecommerce.blockchain.service.Impl;public class UserServiceImpl {
+package com.ecommerce.blockchain.service.Impl;
+
+public class UserServiceImpl {
 }

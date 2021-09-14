@@ -1,2 +1,4 @@
-package com.ecommerce.blockchain.domain.wallet;public class WalletRequestDto {
+package com.ecommerce.blockchain.domain.wallet;
+
+public class WalletRequestDto {
 }
