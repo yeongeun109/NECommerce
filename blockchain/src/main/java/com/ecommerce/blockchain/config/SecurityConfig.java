@@ -45,11 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/");
 //                .logoutSuccessHandler(customLogoutSuccessHandler)
 
-                .and()
-                .oauth2Login();
+//                .and()
+//                .oauth2Login()
         //front-end CI/CD 구현시 변경될 uri
 //                .loginPage("")
 //                .loginPage("http://localhost:8080/")
@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .antMatchers(
