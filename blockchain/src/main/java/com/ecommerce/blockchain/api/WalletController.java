@@ -19,9 +19,19 @@ public class WalletController {
     // 이더리움 지갑(계정) 주소로 지갑 정보 조회
     @ApiOperation(value = "get Wallet info")
     @RequestMapping(value = "/wallets/{address}", method = RequestMethod.GET)
-    public Object getWelletInfo(@PathVariable String address) throws Exception{
+    public Object getWalletInfo(@PathVariable String address) throws Exception{
 
         WalletResponseDto result = walletService.getWallet(address);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    // 이더리움 지갑 주소에 이더 충전 요청(수수료 및 토큰 구매용)
+    @ApiOperation(value = "charge ether")
+    @RequestMapping(value ="/wallets/{address}", method = RequestMethod.PUT)
+    public Object requestEth(@PathVariable String address) throws Exception{ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
+
+        WalletResponseDto result = walletService.chargeEther(address);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
