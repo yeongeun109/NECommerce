@@ -2,29 +2,15 @@ package com.ecommerce.blockchain.domain.users;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
 @Data
-@Table(name="users")
-public class Users {
+public class UsersDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    int id;
-
-    @Column
+    private int id;
     private String name;
-
-    @Column
     private String email;
-
-    @Column
     private Timestamp created_at;
-
-    @Column
     private String password;
 
 }
