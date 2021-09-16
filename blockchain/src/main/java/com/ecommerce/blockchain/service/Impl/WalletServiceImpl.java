@@ -4,11 +4,13 @@ import com.ecommerce.blockchain.domain.wallet.WalletResponseDto;
 import com.ecommerce.blockchain.service.WalletService;
 import org.springframework.stereotype.Service;
 
+import org.web3j.crypto.RawTransaction;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.methods.response.PersonalUnlockAccount;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthCoinbase;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
@@ -26,6 +28,7 @@ public class WalletServiceImpl implements WalletService{
 
     Web3j web3j = Web3j.build(new HttpService("http://j5a4071.p.ssafy.io:5407"));
 
+    //계정 관리 API 사용 ex) 지갑의 unlock
     Admin admin = Admin.build(new HttpService("http://j5a4071.p.ssafy.io:5407"));
 
     @Override
@@ -47,8 +50,13 @@ public class WalletServiceImpl implements WalletService{
     @Override
     public WalletResponseDto chargeEther(String address) throws IOException, ExecutionException, InterruptedException {
 
-        // 지갑의 lock 해제
-        PersonalUnlockAccount personalUnlockAccount = admin.personalUnlockAccount(address, "eth").send();
+        // 마이닝한 이더를 가지고 있는 코인베이스 계정을 조회
+        EthCoinbase coinbase = web3j.ethCoinbase().sendAsync().get();
+        String coinbaseAddr = coinbase.getAddress();
+        //System.out.println(coinbaseAddr);
+
+        // 코인베이스 계정의 lock 해제
+        PersonalUnlockAccount personalUnlockAccount = admin.personalUnlockAccount(coinbaseAddr, "eth").send();
 
         // 트랜잭션 생성
 //                        <from address>,
@@ -67,12 +75,21 @@ public class WalletServiceImpl implements WalletService{
 
         // poll for transaction response via org.web3j.protocol.Web3j.ethGetTransactionReceipt(<txHash>)
 
-
+        // 코인베이스 계정의 nonce 값 얻기
         EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
-                address, DefaultBlockParameterName.LATEST).sendAsync().get();
+                coinbaseAddr, DefaultBlockParameterName.LATEST).sendAsync().get();
 
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
         System.out.println(nonce);
+
+        // 충전할 이더량 wei로 환산
+        BigInteger transferAmountWei =
+        Convert.toWei("10", Convert.Unit.ETHER).toBigIntegerExact();
+        System.out.println(transferAmountWei);
+
+//        RawTransaction rawTransaction  = RawTransaction.createEtherTransaction(
+//                nonce, <gas price>, <gas limit>, <toAddress>, <value>);
+
 
         WalletResponseDto walletDto = new WalletResponseDto();
         return walletDto;
