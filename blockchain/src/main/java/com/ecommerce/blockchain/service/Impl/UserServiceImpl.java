@@ -1,18 +1,18 @@
 package com.ecommerce.blockchain.service.Impl;
 
 import com.ecommerce.blockchain.domain.users.Users;
-import com.ecommerce.blockchain.domain.users.UsersRepository;
+import com.ecommerce.blockchain.repository.UserRepository;
 import com.ecommerce.blockchain.domain.users.UsersRequestDto;
-import com.ecommerce.blockchain.service.UsersService;
+import com.ecommerce.blockchain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
 @Service
-public class UsersServiceImpl implements UsersService {
+public class UserServiceImpl implements UserService {
     @Autowired
-    UsersRepository usersRepository;
+    UserRepository userRepository;
 
     @Override
     public Users registerUser(UsersRequestDto usersRequestDto) {
@@ -24,6 +24,24 @@ public class UsersServiceImpl implements UsersService {
         user.setCreated_at(timestamp);
         user.setPassword(usersRequestDto.getPassword());
 
-        return usersRepository.save(user);
+        return userRepository.save(user);
     }
+
+    @Override
+    public Users getUserByEmail(String email) {
+        Users user = userRepository.findByEmail(email);
+        return user;
+    }
+//
+//    @Override
+//    public int updateUser(Users user, String name) {
+//        if(userRepository.findByName(name) == null){
+//            user.setName(name);
+//            userRepository.save(user);
+//            return 1;
+//        }else{
+//            return 0;
+//        }
+//    }
+
 }

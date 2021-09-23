@@ -5,8 +5,9 @@ import com.ecommerce.blockchain.domain.users.UsersRequestDto;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface UsersService {
+public interface UserService {
 
     Users registerUser(UsersRequestDto usersRequestDto);
+    Users getUserByEmail(String email);
 
 }
