@@ -9,5 +9,6 @@ public interface UserService {
 
     Users registerUser(UsersRequestDto usersRequestDto);
     Users getUserByEmail(String email);
+    int deleteUser(String email);
 
 }
