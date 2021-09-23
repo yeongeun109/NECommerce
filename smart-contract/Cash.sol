@@ -10,13 +10,13 @@ import "./ERC20Lib.sol";
  * https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
  */
 
-contract StandardToken {
+contract NEToken {
     using ERC20Lib for ERC20Lib.TokenStorage;
 
     ERC20Lib.TokenStorage token;
 
-    string public name = "SimpleToken";
-    string public symbol = "SIM";
+    string public name = "NEToken";
+    string public symbol = "a407";
     uint256 public decimals = 18;
     uint256 public INITIAL_SUPPLY = 10000;
 
