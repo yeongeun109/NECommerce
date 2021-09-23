@@ -1,5 +1,6 @@
 package com.ecommerce.blockchain.api;
 
+import com.ecommerce.blockchain.common.response.BaseResponseBody;
 import com.ecommerce.blockchain.domain.users.UserLoginPostReq;
 import com.ecommerce.blockchain.domain.users.UserLoginPostRes;
 import com.ecommerce.blockchain.domain.users.Users;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,6 +45,18 @@ public class UsersController {
             }
         } catch (NullPointerException e) {
             return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다."));
+        }
+    }
+
+    // 회원탈퇴
+    @ApiOperation(value = "delete user")
+    @DeleteMapping()
+    public ResponseEntity<? extends BaseResponseBody> deleteUser(String email) {
+        if(userService.deleteUser(email) == 1) {
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "회원탈퇴에 성공하였습니다."));
+        }
+        else {
+            return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원탈퇴중에 문제가 발생하였습니다."));
         }
     }
 }
