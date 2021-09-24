@@ -1,8 +1,8 @@
 package com.ecommerce.blockchain.service.Impl;
 
-import com.ecommerce.blockchain.domain.users.Users;
+import com.ecommerce.blockchain.domain.user.User;
 import com.ecommerce.blockchain.repository.UserRepository;
-import com.ecommerce.blockchain.domain.users.UsersRequestDto;
+import com.ecommerce.blockchain.domain.user.UserRequestDto;
 import com.ecommerce.blockchain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,26 +16,25 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public Optional<Users> getUser(int userId) {
+    public Optional<User> getUser(int userId) {
         return userRepository.findById(userId);
     }
 
-    @Override
-    public Users registerUser(UsersRequestDto usersRequestDto) {
-        Users user = new Users();
-        user.setName(usersRequestDto.getName());
-        user.setEmail(usersRequestDto.getEmail());
+    public User registerUser(UserRequestDto userRequestDto) {
+        User user = new User();
+        user.setName(userRequestDto.getName());
+        user.setEmail(userRequestDto.getEmail());
         Long datetime = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(datetime);
         user.setCreated_at(timestamp);
-        user.setPassword(usersRequestDto.getPassword());
+        user.setPassword(userRequestDto.getPassword());
 
         return userRepository.save(user);
     }
 
     @Override
-    public Users getUserByEmail(String email) {
-        Users user = userRepository.findByEmail(email);
+    public User getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
         return user;
     }
 

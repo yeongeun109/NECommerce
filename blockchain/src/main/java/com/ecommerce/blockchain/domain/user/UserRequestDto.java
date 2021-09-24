@@ -1,13 +1,11 @@
-package com.ecommerce.blockchain.domain.users;
+package com.ecommerce.blockchain.domain.user;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-
 @Getter
 @Setter
-public class UsersRequestDto {
+public class UserRequestDto {
     String name;
     String email;
 //    Timestamp created_at;

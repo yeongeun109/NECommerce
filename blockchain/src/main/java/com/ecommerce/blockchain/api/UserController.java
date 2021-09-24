@@ -1,30 +1,31 @@
 package com.ecommerce.blockchain.api;
 
 import com.ecommerce.blockchain.common.response.BaseResponseBody;
-import com.ecommerce.blockchain.domain.users.UserLoginPostReq;
-import com.ecommerce.blockchain.domain.users.UserLoginPostRes;
-import com.ecommerce.blockchain.domain.users.Users;
-import com.ecommerce.blockchain.domain.users.UsersRequestDto;
+import com.ecommerce.blockchain.domain.user.*;
+import com.ecommerce.blockchain.service.JwtService;
 import com.ecommerce.blockchain.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
-public class UsersController {
+public class UserController {
 
     @Autowired
     UserService userService;
 
+    @Autowired
+    JwtService jwtService;
+
     // 회원가입
     @ApiOperation(value = "register user")
     @PostMapping("/register")
-    public Object registerUser(@RequestBody UsersRequestDto usersRequestDto) {
-        Users user = userService.registerUser(usersRequestDto);
+    public Object registerUser(@RequestBody UserRequestDto userRequestDto) {
+        User user = userService.registerUser(userRequestDto);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
@@ -37,14 +38,17 @@ public class UsersController {
         String password = loginInfo.getPassword();
 
         try {
-            Users user = userService.getUserByEmail(email);
+            User user = userService.getUserByEmail(email);
+            UserDto userDto = new UserDto();
+            BeanUtils.copyProperties(user, userDto);
             if (user.getPassword().equals(password)) {
-                return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인 성공!"));
+                String jwtToken = jwtService.create(userDto);
+                return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인 성공!", jwtToken));
             } else {
-                return ResponseEntity.status(401).body(new UserLoginPostRes(401, "잘못된 비밀번호입니다."));
+                return ResponseEntity.status(401).body(new UserLoginPostRes(401, "잘못된 비밀번호입니다.", null));
             }
         } catch (NullPointerException e) {
-            return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다."));
+            return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null));
         }
     }
 

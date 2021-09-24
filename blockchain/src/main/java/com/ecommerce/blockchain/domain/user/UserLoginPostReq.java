@@ -1,4 +1,4 @@
-package com.ecommerce.blockchain.domain.users;
+package com.ecommerce.blockchain.domain.user;
 
 import lombok.Getter;
 import lombok.Setter;
