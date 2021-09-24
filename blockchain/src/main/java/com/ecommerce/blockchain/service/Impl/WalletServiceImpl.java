@@ -1,7 +1,13 @@
 package com.ecommerce.blockchain.service.Impl;
 
+import com.ecommerce.blockchain.domain.user.User;
+import com.ecommerce.blockchain.domain.wallet.Wallet;
+import com.ecommerce.blockchain.domain.wallet.WalletRegistReq;
 import com.ecommerce.blockchain.domain.wallet.WalletResponseDto;
+import com.ecommerce.blockchain.repository.UserRepository;
+import com.ecommerce.blockchain.repository.WalletRepository;
 import com.ecommerce.blockchain.service.WalletService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.web3j.crypto.RawTransaction;
@@ -27,6 +33,12 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class WalletServiceImpl implements WalletService{
 
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    WalletRepository walletRepository;
+
     Web3j web3j = Web3j.build(new HttpService("http://j5a4071.p.ssafy.io:54072"));
 
     //계정 관리 API 사용 ex) 지갑의 unlock
@@ -36,6 +48,20 @@ public class WalletServiceImpl implements WalletService{
 
     BigInteger GAS_LIMIT = BigInteger.valueOf(100000);
 
+    // 지갑 등록
+    @Override
+    public void registWallet(WalletRegistReq request) {
+
+        int ownerId = request.getOwnerId();
+        User owner = userRepository.findById(ownerId).get();
+
+        Wallet wallet = new Wallet();
+        wallet.setUser(owner);
+        wallet.setAddress(request.getAddress());
+
+        walletRepository.save(wallet);
+    }
+    // 주소로 지갑 정보 조회
     @Override
     public WalletResponseDto getWallet(String address) throws IOException {
 

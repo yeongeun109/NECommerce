@@ -1,9 +1,12 @@
 package com.ecommerce.blockchain.domain.user;
 
+import com.ecommerce.blockchain.domain.wallet.Wallet;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,4 +30,7 @@ public class User {
     @Column
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Wallet> wallet;
 }
