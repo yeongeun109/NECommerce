@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public interface WalletService {
+    
 
     WalletResponseDto getWallet(String address) throws IOException;
 

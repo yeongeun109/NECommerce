@@ -8,11 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
+
+    @Override
+    public Optional<Users> getUser(int userId) {
+        return userRepository.findById(userId);
+    }
 
     @Override
     public Users registerUser(UsersRequestDto usersRequestDto) {
