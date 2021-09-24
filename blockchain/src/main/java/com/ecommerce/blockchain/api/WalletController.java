@@ -1,6 +1,6 @@
 package com.ecommerce.blockchain.api;
 
-import com.ecommerce.blockchain.domain.users.Users;
+import com.ecommerce.blockchain.domain.user.User;
 import com.ecommerce.blockchain.domain.wallet.WalletRegistReq;
 import com.ecommerce.blockchain.domain.wallet.WalletResponseDto;
 import com.ecommerce.blockchain.service.UserService;
@@ -31,7 +31,7 @@ public class WalletController {
     public Object register(@RequestBody WalletRegistReq request) {
 
         int userId = request.getOwnerId();
-        Optional<Users> usersOpt = userService.getUser(userId);
+        Optional<User> usersOpt = userService.getUser(userId);
         if (!usersOpt.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 비회원
 
 
