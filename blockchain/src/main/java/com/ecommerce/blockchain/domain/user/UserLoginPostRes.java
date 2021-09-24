@@ -1,4 +1,4 @@
-package com.ecommerce.blockchain.domain.users;
+package com.ecommerce.blockchain.domain.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +11,11 @@ public class UserLoginPostRes {
 
     String message;
     int statusCode;
+    String jwtToken;
 
-    public UserLoginPostRes(int statusCode, String message){
+    public UserLoginPostRes(int statusCode, String message, String jwtToken){
         this.message = message;
         this.statusCode = statusCode;
+        this.jwtToken = jwtToken;
     }
 }

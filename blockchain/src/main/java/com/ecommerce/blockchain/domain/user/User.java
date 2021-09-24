@@ -1,4 +1,4 @@
-package com.ecommerce.blockchain.domain.users;
+package com.ecommerce.blockchain.domain.user;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @Table(name="users")
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

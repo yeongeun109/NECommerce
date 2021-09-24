@@ -1,11 +1,11 @@
-package com.ecommerce.blockchain.domain.users;
+package com.ecommerce.blockchain.domain.user;
 
 import lombok.Data;
 
 import java.sql.Timestamp;
 
 @Data
-public class UsersDto {
+public class UserDto {
 
     private int id;
     private String name;
