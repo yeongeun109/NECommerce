@@ -20,7 +20,7 @@ public class JwtService {
     private Long expireMin = 120L; // 토큰 유효기간 120분으로 설정
 
 
-    //	로그인 성공시 사용자 정보를 기반으로 JWTToken을 생성하여 반환.
+    //	로그인 성공시 사용자 정보를 기반으로 JWT를 생성하여 반환.
     public String create(UserDto user){
         JwtBuilder jwtBuilder = Jwts.builder();
 
@@ -41,7 +41,7 @@ public class JwtService {
                 .setHeader(headerMap)
                 .setSubject("JWToken") // 토큰의 제목 설정
                 .setExpiration(expireTime) // 유효기간 설정
-                .claim("email", user.getEmail()) // 회원 정보 저장
+                .claim("uid", user.getId()) // 회원 인덱스 번호 저장
                 .signWith(signatureAlgorithm, signingKey);//암호화
         String jwt = jwtBuilder.compact(); // 직렬화
 
@@ -60,7 +60,7 @@ public class JwtService {
         }
     }
 
-    //	JWT Token을 분석해서 발급한 회원 아이디 반환
+    //	JWT를 분석해서 발급한 회원 아이디(이메일) 반환
     public int getUserId(String jwt) {
         Jws<Claims> claims = null;
         try {
@@ -69,6 +69,6 @@ public class JwtService {
             e.printStackTrace();
         }
         logger.info("claims : {}", claims);
-        return (int) claims.getBody().get("user_id");
+        return (int) claims.getBody().get("uid");
     }
 }
