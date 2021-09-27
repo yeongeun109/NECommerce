@@ -1,5 +1,6 @@
 package com.ecommerce.blockchain.service;
 
+import com.ecommerce.blockchain.domain.user.User;
 import com.ecommerce.blockchain.domain.wallet.WalletRegistReq;
 import com.ecommerce.blockchain.domain.wallet.WalletResponseDto;
 
@@ -10,7 +11,9 @@ public interface WalletService {
 
     void registWallet(WalletRegistReq request);
 
-    WalletResponseDto getWallet(String address) throws IOException;
+    WalletResponseDto getWalletByAddress(String address) throws IOException;
+
+    WalletResponseDto getWalletById(User user) throws IOException;
 
     WalletResponseDto chargeEther(String address) throws IOException, ExecutionException, InterruptedException;
 
