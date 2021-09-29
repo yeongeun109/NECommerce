@@ -1,0 +1,56 @@
+package com.ecommerce.blockchain.service;
+
+import com.ecommerce.blockchain.domain.contract.NeERC20;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.RemoteCall;
+import org.web3j.protocol.core.methods.response.Web3ClientVersion;
+import org.web3j.protocol.http.HttpService;
+
+import java.io.IOException;
+import java.math.BigInteger;
+
+import static org.web3j.tx.Transfer.GAS_LIMIT;
+import static org.web3j.tx.gas.DefaultGasProvider.GAS_PRICE;
+
+@Service
+public class ERC20Service {
+
+//    @Autowired
+//    private Web3j web3j;
+    String testnetUrl = "https://ropsten.infura.io/v3";
+    String testnetToken = "9aa3d95b3bc440fa88ea12eaa4456161";
+    String privateKey = "something";
+
+    Web3j web3j = Web3j.build(new HttpService(testnetUrl + "/" + testnetToken));
+
+    Logger logger = LoggerFactory.getLogger(ERC20Service.class);
+
+    public String test() throws IOException {
+        Web3ClientVersion web3ClientVersion = null;
+        web3ClientVersion = web3j.web3ClientVersion().send();
+        String clientVersion = web3ClientVersion.getWeb3ClientVersion();
+        System.out.println(clientVersion);
+        return clientVersion;
+    }
+
+    public void deployERC20() throws Exception {
+        Credentials credentials = Credentials.create(privateKey);
+        BigInteger decimal = new BigInteger("18");
+        RemoteCall<NeERC20> contract = NeERC20.deploy(web3j, credentials, GAS_PRICE, GAS_LIMIT, "NeToken", "NE", decimal);
+        NeERC20 result = contract.send();  // constructor params
+        logger.debug("배포한 컨트랙트 : {}", result);
+    }
+
+    public void loadERC20() throws Exception {
+        Credentials credentials = Credentials.create(privateKey);
+        NeERC20 contract = NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, GAS_PRICE, GAS_LIMIT);
+        logger.debug("로드한 컨트랙트 : {}", contract);
+        BigInteger result = contract.totalSupply().send();
+        logger.debug("총 토큰 개수 : {}", result.toString());
+    }
+
+}
