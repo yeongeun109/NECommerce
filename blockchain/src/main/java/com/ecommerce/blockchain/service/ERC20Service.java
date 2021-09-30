@@ -44,7 +44,7 @@ public class ERC20Service {
         BigInteger gasPrice = new BigInteger("1500000");
         BigInteger gasLimit = new BigInteger("1500000");
         RemoteCall<NeERC20> contract = NeERC20.deploy(web3j, credentials, gasPrice, gasLimit, "NeToken", "NE", decimal);
-        NeERC20 result = contract.send();  // constructor params
+        String result = contract.send().getContractAddress();  // constructor params
         logger.debug("배포한 컨트랙트 : {}", result);
     }
 
