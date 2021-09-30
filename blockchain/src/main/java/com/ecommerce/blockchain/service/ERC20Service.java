@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.RemoteCall;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 
@@ -40,7 +41,9 @@ public class ERC20Service {
     public void deployERC20() throws Exception {
         Credentials credentials = Credentials.create(privateKey);
         BigInteger decimal = new BigInteger("18");
-        RemoteCall<NeERC20> contract = NeERC20.deploy(web3j, credentials, GAS_PRICE, GAS_LIMIT, "NeToken", "NE", decimal);
+        BigInteger gasPrice = new BigInteger("1500000");
+        BigInteger gasLimit = new BigInteger("1500000");
+        RemoteCall<NeERC20> contract = NeERC20.deploy(web3j, credentials, gasPrice, gasLimit, "NeToken", "NE", decimal);
         NeERC20 result = contract.send();  // constructor params
         logger.debug("배포한 컨트랙트 : {}", result);
     }
@@ -52,5 +55,17 @@ public class ERC20Service {
         BigInteger result = contract.totalSupply().send();
         logger.debug("총 토큰 개수 : {}", result.toString());
     }
+
+    public void transferERC20Test() throws Exception {
+        Credentials credentials = Credentials.create(privateKey);
+        BigInteger gasPrice = new BigInteger("50000");
+        BigInteger gasLimit = new BigInteger("50000");
+        NeERC20 contract = NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, gasPrice, gasLimit);
+        logger.debug("로드한 컨트랙트 : {}", contract);
+        BigInteger amount = new BigInteger("10000");
+        TransactionReceipt transactionReceipt = contract.transfer("0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074", amount).send();
+        logger.debug("트랜잭션 결과 : {}", transactionReceipt);
+    }
+
 
 }
