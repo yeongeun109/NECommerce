@@ -1,9 +1,8 @@
-const loginUser = (user, userName) => {
-  console.log(user, userName);
+const loginUser = (user) => {
+  console.log(user);
   return {
     type: "LOGIN",
     user,
-    userName,
   };
 };
 

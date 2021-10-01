@@ -8,9 +8,10 @@ import { HashRouter as Router, Switch } from "react-router-dom";
 import Layout from './layouts/Layout';
 import PrivateRouter from "./router/PrivateRouter";
 import PublicRouter from "./router/PublicRouter";
-import Main from './pages/Main';
+import Enter from './pages/Enter';
 import MyPage from './pages/MyPage';
-
+import MintingNFT from './pages/MintingNFT';
+import Main from './pages/Main';
 function App() {
 
   return (
@@ -19,8 +20,10 @@ function App() {
         <Layout>
           <Container style={{ minHeight: "75vh", position: "relative" }}>
           
-            <PublicRouter component={Main} path="/" exact />
+            <PublicRouter component={Enter} path="/" exact />
             <PrivateRouter component={MyPage} path="/mypage" exact />
+            <PrivateRouter component={Main} path="/main" exact />
+            <PrivateRouter component={MintingNFT} path="/minting" exact/>
           </Container>
         </Layout>
       </Switch>
