@@ -3,6 +3,7 @@ package com.ecommerce.blockchain.service;
 import com.ecommerce.blockchain.domain.contract.ERC721;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
@@ -24,7 +25,9 @@ public class ERC721Service {
 //    private Web3j web3j;
     String testnetUrl = "https://ropsten.infura.io/v3";
     String testnetToken = "9aa3d95b3bc440fa88ea12eaa4456161";
-    String privateKey = "somting";
+
+    @Value("${erc20.privateKey}")
+    private String privateKey;
 
     Web3j web3j = Web3j.build(new HttpService(testnetUrl + "/" + testnetToken));
 

@@ -15,6 +15,7 @@ public interface WalletService {
 
     WalletResponseDto getWalletById(User user) throws IOException;
 
-    WalletResponseDto chargeEther(String address) throws IOException, ExecutionException, InterruptedException;
+//    WalletResponseDto chargeEther(String address) throws IOException, ExecutionException, InterruptedException;
+boolean chargeNEToken(int chargeNEToken, String address) throws IOException, ExecutionException, InterruptedException;
 
 }

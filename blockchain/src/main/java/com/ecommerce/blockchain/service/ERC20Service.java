@@ -56,6 +56,16 @@ public class ERC20Service {
         logger.debug("총 토큰 개수 : {}", result.toString());
     }
 
+    public void transferNEToken(String address, BigInteger amount) throws Exception {
+        Credentials credentials = Credentials.create(privateKey);
+        BigInteger gasPrice = new BigInteger("50000");
+        BigInteger gasLimit = new BigInteger("50000");
+        NeERC20 contract = NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, gasPrice, gasLimit);
+        logger.debug("로드한 컨트랙트 : {}", contract);
+        TransactionReceipt transactionReceipt = contract.transfer(address, amount).send();
+        logger.debug("트랜잭션 결과 : {}", transactionReceipt);
+    }
+
     public void transferERC20Test() throws Exception {
         Credentials credentials = Credentials.create(privateKey);
         BigInteger gasPrice = new BigInteger("50000");
