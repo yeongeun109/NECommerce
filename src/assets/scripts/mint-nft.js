@@ -1,6 +1,6 @@
 require("dotenv").config();
 const Web3 = require('web3')
-const { API_URL, PRIVATE_KEY, PUBLIC_KEY, MY_AMAZON_SERVER } = process.env;
+const { API_URL, PRIVATE_KEY, PUBLIC_KEY } = process.env;
 
 const provider = require("eth-provider");
 const web3 = new Web3(provider(API_URL))
@@ -38,4 +38,5 @@ async function mintNFT(tokenURI) {
 
   }
 
-// mintNFT(`${MY_AMAZON_SERVER}/nft-metadata.json`)
+// mintNFT("https://myimageuploadserver.s3.ap-northeast-2.amazonaws.com/nft-metadata.json")
+export default mintNFT  
