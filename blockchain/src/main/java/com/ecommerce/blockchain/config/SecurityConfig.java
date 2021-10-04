@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -37,7 +36,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**", "/error", "/favicon.ico").permitAll()
                 //antMatchers의 url은 frontend와 함께 정리하여 변환.
                 .antMatchers("/**").permitAll()
-//                .antMatchers("/token/**","/api/v1/**").hasRole(Role.USER.name())
 
                 .antMatchers("/api/guest/**", "/api/user/**").permitAll()
                 .anyRequest().authenticated()
@@ -46,20 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
-//                .logoutSuccessHandler(customLogoutSuccessHandler)
-
-//                .and()
-//                .oauth2Login()
-        //front-end CI/CD 구현시 변경될 uri
-//                .loginPage("")
-//                .loginPage("http://localhost:8080/")
-//                .userInfoEndpoint()
-//                .userService(customOAuth2UserService)
-
-//                .and()
-//                .successHandler(customOAuth2SuccessHandler);
-
-//        http.addFilterBefore(new JwtAuthFilter(tokenService,userRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

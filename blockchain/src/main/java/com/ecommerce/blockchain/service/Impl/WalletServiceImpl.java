@@ -6,6 +6,7 @@ import com.ecommerce.blockchain.domain.wallet.WalletRegistReq;
 import com.ecommerce.blockchain.domain.wallet.WalletResponseDto;
 import com.ecommerce.blockchain.repository.UserRepository;
 import com.ecommerce.blockchain.repository.WalletRepository;
+import com.ecommerce.blockchain.service.ERC20Service;
 import com.ecommerce.blockchain.service.WalletService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,15 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @Service
-public class WalletServiceImpl implements WalletService{
+public class WalletServiceImpl implements WalletService {
 
     @Autowired
     UserRepository userRepository;
@@ -50,6 +53,8 @@ public class WalletServiceImpl implements WalletService{
     BigInteger GAS_PRICE = BigInteger.valueOf(154000000000L);
 
     BigInteger GAS_LIMIT = BigInteger.valueOf(100000);
+
+    private ERC20Service erc20Service = new ERC20Service();
 
     // 지갑 등록
     @Override
@@ -77,7 +82,7 @@ public class WalletServiceImpl implements WalletService{
 
         // 지갑의 주소로 네트워크에서 잔액 조회
         BigInteger balance = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send().getBalance();
-        BigDecimal ethBalance = Convert.fromWei( balance.toString(), Convert.Unit.ETHER );
+        BigDecimal ethBalance = Convert.fromWei(balance.toString(), Convert.Unit.ETHER);
 
         WalletResponseDto walletDto = new WalletResponseDto();
         BeanUtils.copyProperties(wallet, walletDto);
@@ -87,13 +92,14 @@ public class WalletServiceImpl implements WalletService{
         // DB에 지갑 잔액 업데이트
         BigDecimal curBalance = wallet.getBalance();
 
-        if(!wallet.getBalance().equals(ethBalance)) {
+        if (!wallet.getBalance().equals(ethBalance)) {
             wallet.setBalance(ethBalance);
             walletRepository.save(wallet);
         }
 
         return walletDto;
     }
+
     // 주소로 지갑 정보 조회
     @Override
     public WalletResponseDto getWalletByAddress(String address) throws IOException {
@@ -103,7 +109,7 @@ public class WalletServiceImpl implements WalletService{
 
         //address = "0x05bad9b0d2e8b8a0da5a97694bf4fc279d5b0cbd"; //coinbase 계정 주소
         BigInteger balance = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send().getBalance();
-        BigDecimal ethBalance = Convert.fromWei( balance.toString(), Convert.Unit.ETHER );
+        BigDecimal ethBalance = Convert.fromWei(balance.toString(), Convert.Unit.ETHER);
 
         WalletResponseDto walletDto = new WalletResponseDto();
         walletDto.setAddress(address);
@@ -114,66 +120,101 @@ public class WalletServiceImpl implements WalletService{
 
         return walletDto;
     }
+
+    //    // 해당 계정에 10이더 충전
+//    @Override
+//    public WalletResponseDto chargeEther(String address) throws IOException, ExecutionException, InterruptedException {
+//
+//        // 충전량 제한하여 충전
+//        // user 및 wallet DB 필요
+//
+//        // 마이닝한 이더를 가지고 있는 코인베이스 계정을 조회
+//        EthCoinbase coinbase = web3j.ethCoinbase().sendAsync().get();
+//        String coinbaseAddr = coinbase.getAddress();
+//        System.out.println(coinbaseAddr);
+//
+//        // 코인베이스 계정의 lock 해제
+//        PersonalUnlockAccount personalUnlockAccount = admin.personalUnlockAccount(coinbaseAddr, "eth").send();
+//
+//        // 트랜잭션 생성
+////                        <from address>,
+////                <nonce>,
+////                BigInteger.valueOf(<gas price>),  // we use default gas limit
+////        "0x...<smart contract code to execute>"
+////        Transaction transaction = Transaction.createEtherTransaction(
+////
+////        );
+//
+////        org.web3j.protocol.core.methods.response.EthSendTransaction
+////                transactionResponse = parity.ethSendTransaction(ethSendTransaction)
+////                .send();
+////
+////        String transactionHash = transactionResponse.getTransactionHash();
+//
+//        // poll for transaction response via org.web3j.protocol.Web3j.ethGetTransactionReceipt(<txHash>)
+//
+//        // 코인베이스 계정의 nonce 값 얻기
+//        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
+//                coinbaseAddr, DefaultBlockParameterName.LATEST).sendAsync().get();
+//
+//        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+//        System.out.println(nonce);
+//
+//        // 충전할 이더량 wei로 환산
+//        BigInteger value =
+//        Convert.toWei("10", Convert.Unit.ETHER).toBigIntegerExact();
+//        System.out.println(value);
+//
+//        // wei를 이더로 환산
+////        int result = Integer.parseInt( Convert.fromWei(value.toString() , Convert.Unit.ETHER).toString() );
+////        System.out.println(result);
+//
+//        // 트랜잭션 생성
+////        RawTransaction rawTransaction  = RawTransaction.createEtherTransaction(
+////                nonce, GAS_PRICE, GAS_LIMIT, address, value);
+//
+//        Transaction transaction =
+//        Transaction.createFunctionCallTransaction(coinbaseAddr, nonce, GAS_PRICE, GAS_LIMIT, address, value, null);
+//        EthSendTransaction ethSendTransaction = web3j.ethSendTransaction(transaction).sendAsync().get();
+//
+//        System.out.println(ethSendTransaction.getTransactionHash());
+//        WalletResponseDto walletDto = new WalletResponseDto();
+//
+//
+//        return getWalletByAddress(address);
+//    }
+
     // 해당 계정에 10이더 충전
+    @Transactional
     @Override
-    public WalletResponseDto chargeEther(String address) throws IOException, ExecutionException, InterruptedException {
+    public boolean chargeNEToken(int userId, String address) throws IOException, ExecutionException, InterruptedException {
 
-        // 충전량 제한하여 충전
-        // user 및 wallet DB 필요
-        
-        // 마이닝한 이더를 가지고 있는 코인베이스 계정을 조회
-        EthCoinbase coinbase = web3j.ethCoinbase().sendAsync().get();
-        String coinbaseAddr = coinbase.getAddress();
-        System.out.println(coinbaseAddr);
+        // nowtime
+        //DB userID 조회 마지막 충전 요청 날짜
+        //nowtime == 조회결과
+//        return
+        //nowtime != 조회결과
+        //DB userID 마지막 충전 요청 날짜 update
 
-        // 코인베이스 계정의 lock 해제
-        PersonalUnlockAccount personalUnlockAccount = admin.personalUnlockAccount(coinbaseAddr, "eth").send();
+        LocalDateTime now =  LocalDateTime.now();
+        int nowDayOfYear = now.getDayOfYear();
 
-        // 트랜잭션 생성
-//                        <from address>,
-//                <nonce>,
-//                BigInteger.valueOf(<gas price>),  // we use default gas limit
-//        "0x...<smart contract code to execute>"
-//        Transaction transaction = Transaction.createEtherTransaction(
-//
-//        );
+        User user = userRepository.findById(userId).get();
+        LocalDateTime userLatelyTime = user.getLatelyTime();
 
-//        org.web3j.protocol.core.methods.response.EthSendTransaction
-//                transactionResponse = parity.ethSendTransaction(ethSendTransaction)
-//                .send();
-//
-//        String transactionHash = transactionResponse.getTransactionHash();
+        if(nowDayOfYear == userLatelyTime.getDayOfYear())
+            return false;
+        // ERC20Service
+        BigInteger amount = new BigInteger("5000000000000000000");
+        try {
+            erc20Service.transferNEToken(address,amount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        // poll for transaction response via org.web3j.protocol.Web3j.ethGetTransactionReceipt(<txHash>)
+        user.setLatelyTime(now);
+        userRepository.save(user);
 
-        // 코인베이스 계정의 nonce 값 얻기
-        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
-                coinbaseAddr, DefaultBlockParameterName.LATEST).sendAsync().get();
-
-        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-        System.out.println(nonce);
-
-        // 충전할 이더량 wei로 환산
-        BigInteger value =
-        Convert.toWei("10", Convert.Unit.ETHER).toBigIntegerExact();
-        System.out.println(value);
-
-        // wei를 이더로 환산
-//        int result = Integer.parseInt( Convert.fromWei(value.toString() , Convert.Unit.ETHER).toString() );
-//        System.out.println(result);
-
-        // 트랜잭션 생성
-//        RawTransaction rawTransaction  = RawTransaction.createEtherTransaction(
-//                nonce, GAS_PRICE, GAS_LIMIT, address, value);
-
-        Transaction transaction =
-        Transaction.createFunctionCallTransaction(coinbaseAddr, nonce, GAS_PRICE, GAS_LIMIT, address, value, null);
-        EthSendTransaction ethSendTransaction = web3j.ethSendTransaction(transaction).sendAsync().get();
-
-        System.out.println(ethSendTransaction.getTransactionHash());
-        WalletResponseDto walletDto = new WalletResponseDto();
-
-
-        return getWalletByAddress(address);
+        return true;
     }
 }
