@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 // import MDEditor from "@uiw/react-md-editor";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import mintNFT from "../assets/scripts/mint-nft";
+import TransactNFT from "../assets/scripts/mint-nft";
 
 const MintingNFT = ({history}) => {
     const [imgFile, setImgFile] = useState("");
@@ -45,11 +45,12 @@ const MintingNFT = ({history}) => {
         const formData = new FormData();
         const tokenURI = watch("tokenURI", "")
         formData.append("category", categoryValue.current.value);
-        formData.append("nftName", watch("name", ""));
+        // formData.append("nftName", watch("name", ""));
         formData.append("thumbnail", imgFile);
         formData.append("price", watch("price", ""));
-        formData.append("URI", )
-        mintNFT(tokenURI)
+        formData.append("URI", watch("tokenURI", ""))
+        console.log(tokenURI)
+        TransactNFT(tokenURI)
         // axios
         //   .post(
         //     '/api/nft/create',
