@@ -9,11 +9,11 @@ import java.util.concurrent.ExecutionException;
 
 public interface WalletService {
 
-    void registWallet(WalletRegistReq request);
-
-    WalletResponseDto getWalletByAddress(String address) throws IOException;
-
-    WalletResponseDto getWalletById(User user) throws IOException;
+//    void registWallet(WalletRegistReq request);
+//
+//    WalletResponseDto getWalletByAddress(String address) throws IOException;
+//
+//    WalletResponseDto getWalletById(User user) throws IOException;
 
 //    WalletResponseDto chargeEther(String address) throws IOException, ExecutionException, InterruptedException;
 boolean chargeNEToken(int chargeNEToken, String address) throws IOException, ExecutionException, InterruptedException;
