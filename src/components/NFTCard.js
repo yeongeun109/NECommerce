@@ -57,7 +57,7 @@ const NFTCard = (props) => {
     height: "35vw",
   };
   return (
-    <Link to={`/course/${props.code}`} className="text-decoration-none">
+    <Link to={`/detail/${props.id}`} className="text-decoration-none">
       <Card className={NFT.root} id="NFT-card" style={cardStyle}>
         <span className="ribbon-angle" id={category(props.category)}>
           <small className="card-ribbon">{category(props.category)}</small>

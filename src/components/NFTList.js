@@ -73,7 +73,7 @@ const NFTList = (props) => {
             {filteredNFTs.map((NFT, idx) => {
               return (
                 <div key={idx}>
-                  {/* <RoomCard
+                  <NFTCard
                     key={NFT.id}
                     id={NFT.id}
                     intro={NFT.intro}
@@ -83,7 +83,7 @@ const NFTList = (props) => {
                     description={NFT.description}
                     category={NFT.category}
                     price={NFT.price}
-                  /> */}
+                  />
                 </div>
               );
             })}

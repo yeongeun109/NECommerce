@@ -9,13 +9,14 @@
     "@material-ui/core": "^4.12.3",
     "@metamask/detect-provider": "^1.2.0",
     "@metamask/onboarding": "^1.0.1",
-    "@openzeppelin/contracts": "^3.1.0-solc-0.7",
+    "@openzeppelin/contracts": "^3.4.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@uiw/react-md-editor": "^3.6.4",
     "axios": "^0.21.4",
     "dotenv": "^10.0.0",
+    "eth-provider": "^0.9.4",
     "http-proxy-middleware": "^2.0.1",
     "metamask-react": "^2.0.2",
     "react": "^17.0.2",
@@ -30,7 +31,7 @@
     "redux-persist": "^6.0.0",
     "semantic-ui-react": "^2.0.4",
     "web-vitals": "^1.0.1",
-    "web3": "^1.5.2"
+    "web3": "^1.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
