@@ -100,7 +100,7 @@ public class WalletController {
     @RequestMapping(value ="/wallet/token", method = RequestMethod.PUT)
     public Object requestEth(@RequestBody WalletRegistReq request, @RequestHeader String token) throws Exception{ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
 
-        int userId = request.getOwnerId();
+        Long userId = request.getOwnerId();
         Optional<User> userOpt = userService.getUser(userId);
         if (!userOpt.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 비회원
 

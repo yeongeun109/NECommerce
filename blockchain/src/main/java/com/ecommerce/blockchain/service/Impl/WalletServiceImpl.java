@@ -167,7 +167,7 @@ public class WalletServiceImpl implements WalletService {
     // 해당 계정에 10이더 충전
     @Transactional
     @Override
-    public boolean chargeNEToken(int userId, String address) throws IOException, ExecutionException, InterruptedException {
+    public boolean chargeNEToken(Long userId, String address) throws IOException, ExecutionException, InterruptedException {
 
         // nowtime
         //DB userID 조회 마지막 충전 요청 날짜

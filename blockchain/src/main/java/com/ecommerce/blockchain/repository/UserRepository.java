@@ -6,14 +6,13 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
     User findByName(String name);
 
-    LocalDateTime findLatelyTimeById(int userId);
+    LocalDateTime findLatelyTimeById(Long userId);
 
     @Transactional
     int deleteByEmail(String email);
