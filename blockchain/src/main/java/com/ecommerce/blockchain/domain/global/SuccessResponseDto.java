@@ -12,4 +12,9 @@ public class SuccessResponseDto {
     public SuccessResponseDto(Object success) {
         this.success = success;
     }
+
+    @Override
+    public String toString() {
+        return "this Object : ["+success+"]";
+    }
 }

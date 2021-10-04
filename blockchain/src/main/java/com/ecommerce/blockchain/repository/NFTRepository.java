@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface NFTRepository extends JpaRepository<NFT, Long> {
 
-    List<NFTMapping> findByUserId(Long userId);
+    List<NFTMapping> findBySellerId(Long userId);
 }
