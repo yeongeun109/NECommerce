@@ -17,11 +17,11 @@ const persistor = persistStore(store);
 ReactDOM.render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          {/* <React.StrictMode> */}
+          <React.StrictMode>
             <MetaMaskProvider>  
           <App />
             </MetaMaskProvider>
-          {/* </React.StrictMode> */}
+          </React.StrictMode>
         </PersistGate>
       </Provider>,
   document.getElementById("root")

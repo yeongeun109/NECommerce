@@ -2,7 +2,7 @@ import React, {useState, useRef} from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
-import MDEditor from "@uiw/react-md-editor";
+// import MDEditor from "@uiw/react-md-editor";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -10,7 +10,7 @@ const MintingNFT = ({history}) => {
     const [imgFile, setImgFile] = useState("");
     const [imgBase64, setImgBase64] = useState(""); // 파일 base64
     const categoryValue = useRef();
-    const [value, setValue] = useState();
+    // const [value, setValue] = useState();
     const introValue = useRef()
     const {
         watch,
@@ -46,6 +46,7 @@ const MintingNFT = ({history}) => {
         formData.append("nftName", watch("name", ""));
         formData.append("thumbnail", imgFile);
         formData.append("price", watch("price", ""));
+        formData.append("URI", )
         axios
           .post(
             '/api/nft/create',
@@ -61,7 +62,7 @@ const MintingNFT = ({history}) => {
           .then((response) => {
             alert("상품 등록에 성공하였습니다");
             history.push(`/detail/${response.data}`);
-            //response.data = code값
+            //response.data = NFT의 ID값
           })
           .catch((error) => {
             alert("상품을 등록하지 못햇습니다");
@@ -127,7 +128,7 @@ const MintingNFT = ({history}) => {
                         </div>
 
                         <div className="input-box thumbnail">
-                            <h4>상품 이미지</h4>
+                            <h4> 이미지</h4>
                             <div className="input-box-thumbnail-content">
                                 <div
                                     className={

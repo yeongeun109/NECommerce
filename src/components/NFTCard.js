@@ -58,28 +58,28 @@ const NFTCard = (props) => {
   };
   return (
     <Link to={`/course/${props.code}`} className="text-decoration-none">
-      <Card className={classes.root} id="NFT-card" style={cardStyle}>
+      <Card className={NFT.root} id="NFT-card" style={cardStyle}>
         <span className="ribbon-angle" id={category(props.category)}>
           <small className="card-ribbon">{category(props.category)}</small>
         </span>
         <CardHeader
           className="card-header"
           avatar={
-            <Avatar className={classes.avatar} id="card-avatar">
-              {classTeacherName && classTeacherName[0]}
+            <Avatar className={NFT.avatar} id="card-avatar">
+              {ownerName && ownerName[0]}
             </Avatar>
           }
-          title={<Typography variant="subtitle1">{classTitle}</Typography>}
+          title={<Typography variant="subtitle1">{Title}</Typography>}
           subheader={
             <Typography variant="subtitle2">
-              {classTeacherName}({classTeacherID})
+              {ownerName}({ownerID})
             </Typography>
           }
         />
 
         <div>
           <p className="card-desc-p">{props.intro}</p>
-          <CardMedia id="card-image" className={classes.media} image={imgSrc} />
+          <CardMedia id="card-image" className={NFT.media} image={imgSrc} />
         </div>
 
       </Card>
