@@ -27,6 +27,7 @@ public class ERC20Service {
 
 //    @Value("${erc20.privateKey}")
     private String privateKey = "dabfca3161aeb1bfdbed8fc43f34437addf16e04d694530cb0f26092371badb5";
+    private final String SmartContract = "0xDA4a547a5622fc3D592F0144fBCae2754679245e";
 
     Web3j web3j = Web3j.build(new HttpService(testnetUrl + "/" + testnetToken));
 
@@ -45,6 +46,7 @@ public class ERC20Service {
         BigInteger decimal = new BigInteger("18");
         BigInteger gasPrice = new BigInteger("3500000");
         BigInteger gasLimit = new BigInteger("3500000");
+        logger.debug("ERC20 배포");
         RemoteCall<NeERC20_sol_NeERC20> contract = NeERC20_sol_NeERC20.deploy(web3j, credentials, gasPrice, gasLimit, "NeToken", "NE", decimal);
         String result = contract.send().getContractAddress();  // constructor params
         logger.debug("배포한 컨트랙트 : {}", result);
@@ -52,7 +54,7 @@ public class ERC20Service {
 
     public void loadERC20() throws Exception {
         Credentials credentials = Credentials.create(privateKey);
-        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, GAS_PRICE, GAS_LIMIT);
+        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load(SmartContract, web3j, credentials, GAS_PRICE, GAS_LIMIT);
         logger.debug("로드한 컨트랙트 : {}", contract);
         BigInteger result = contract.totalSupply().send();
         logger.debug("총 토큰 개수 : {}", result.toString());
@@ -63,9 +65,10 @@ public class ERC20Service {
         Credentials credentials = Credentials.create(privateKey);
         BigInteger gasPrice = new BigInteger("50000");
         BigInteger gasLimit = new BigInteger("50000");
-        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, gasPrice, gasLimit);
+        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load(SmartContract, web3j, credentials, gasPrice, gasLimit);
         logger.debug("로드한 컨트랙트 : {}", contract);
         logger.debug("충전 요청한 주소 : {}", address);
+        logger.debug("충전 NEToken 량 : {}", amount);
         TransactionReceipt transactionReceipt = contract.transfer(address, amount).send();
         logger.debug("트랜잭션 결과 : {}", transactionReceipt);
     }
@@ -74,9 +77,9 @@ public class ERC20Service {
         Credentials credentials = Credentials.create(privateKey);
         BigInteger gasPrice = new BigInteger("50000");
         BigInteger gasLimit = new BigInteger("50000");
-        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, gasPrice, gasLimit);
+        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load(SmartContract, web3j, credentials, gasPrice, gasLimit);
         logger.debug("로드한 컨트랙트 : {}", contract);
-        BigInteger amount = new BigInteger("10000");
+        BigInteger amount = new BigInteger("5000000000000000000");
         TransactionReceipt transactionReceipt = contract.transfer("0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074", amount).send();
         logger.debug("트랜잭션 결과 : {}", transactionReceipt);
     }

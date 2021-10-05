@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTime {
+
     @CreatedDate
     @Column
     private LocalDateTime createdAt;

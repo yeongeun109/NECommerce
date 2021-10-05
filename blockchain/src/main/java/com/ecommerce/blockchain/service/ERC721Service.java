@@ -3,7 +3,6 @@ package com.ecommerce.blockchain.service;
 import com.ecommerce.blockchain.domain.contract.ERC721;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
@@ -53,7 +52,7 @@ public class ERC721Service {
 
     public void loadERC721() throws Exception {
         Credentials credentials = Credentials.create(privateKey);
-        ERC721 contract = ERC721.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, GAS_PRICE, GAS_LIMIT);
+        ERC721 contract = ERC721.load("0xDA4a547a5622fc3D592F0144fBCae2754679245e", web3j, credentials, GAS_PRICE, GAS_LIMIT);
         logger.debug("로드한 컨트랙트 : {}", contract);
 //        BigInteger result = contract.totalSupply().send();
 //        logger.debug("총 토큰 개수 : {}", result.toString());
@@ -77,7 +76,7 @@ public class ERC721Service {
         ERC721 contract = ERC721.load("0x23a496b29f189aee7690abdc28f0321545dcdd5e", web3j, credentials, gasPrice, gasLimit);
         logger.debug("로드한 컨트랙트 : {}", contract);
         BigInteger amount = new BigInteger("10000");
-        TransactionReceipt transactionReceipt = contract.mintImage("강쥐", "0x737C7Ef052FeA39fde48E83e1E94d18B2FdfafE7","https://user-images.githubusercontent.com/54837242/135557307-8a67f97e-6a9a-4905-bf36-02e9ab91350a.gif","강아지입니다!",amount).send();
+        TransactionReceipt transactionReceipt = contract.mintImage("강쥐", "0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074","https://user-images.githubusercontent.com/54837242/135557307-8a67f97e-6a9a-4905-bf36-02e9ab91350a.gif","강아지입니다!",amount).send();
         logger.debug("트랜잭션 결과 : {}", transactionReceipt);
     }
 

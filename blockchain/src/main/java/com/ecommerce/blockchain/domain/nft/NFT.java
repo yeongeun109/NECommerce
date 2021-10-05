@@ -5,11 +5,13 @@ import com.ecommerce.blockchain.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class NFT extends BaseTime {

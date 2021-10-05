@@ -33,6 +33,9 @@ public class NFTController {
         return new ResponseEntity<>(successResponseDto,status);
     }
 
+    /*
+    *   seller를 변경한다면 seller가 소유하고있는 nft 전체 목록
+     */
     @GetMapping("/nft/list/{userId}")
     public ResponseEntity<SuccessResponseDto> loadAllNFT(@PathVariable Long userId) throws Exception {
         logger.debug("등록한 nft 목록 요청 : 유저 pk {}",userId);
