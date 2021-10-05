@@ -8,6 +8,8 @@ import com.ecommerce.blockchain.service.WalletService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +35,8 @@ public class WalletController {
 
     @Autowired
     JwtService jwtService;
+
+    Logger logger = LoggerFactory.getLogger(WalletController.class);
 
 //    // 지갑 등록
 //    @ApiOperation(value = "생성된 지갑을 DB에 등록")
@@ -106,12 +110,16 @@ public class WalletController {
 
         try {
             if (userId == jwtService.getUserId(token)) { // 요청자가 토큰 발급한 유저와 같다면
-                boolean flag = walletService.chargeNEToken(userId, request.getAddress());
-                return new ResponseEntity<>(HttpStatus.OK);
+                if (request.getAddress().equals("0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074")) {
+                    logger.debug("controller에서 입력받은 주소 : {}", request.getAddress());
+                    boolean flag = walletService.chargeNEToken(userId, request.getAddress());
+                    return new ResponseEntity<>(HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
             } else {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 권한 없음
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 유효하지 않은 토큰

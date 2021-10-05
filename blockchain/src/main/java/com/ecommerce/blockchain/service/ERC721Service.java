@@ -26,8 +26,8 @@ public class ERC721Service {
     String testnetUrl = "https://ropsten.infura.io/v3";
     String testnetToken = "9aa3d95b3bc440fa88ea12eaa4456161";
 
-    @Value("${erc20.privateKey}")
-    private String privateKey;
+//    @Value("${erc20.privateKey}")
+    private String privateKey = "dabfca3161aeb1bfdbed8fc43f34437addf16e04d694530cb0f26092371badb5";
 
     Web3j web3j = Web3j.build(new HttpService(testnetUrl + "/" + testnetToken));
 

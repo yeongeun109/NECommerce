@@ -4,6 +4,8 @@ import com.ecommerce.blockchain.domain.user.User;
 import com.ecommerce.blockchain.repository.UserRepository;
 import com.ecommerce.blockchain.service.ERC20Service;
 import com.ecommerce.blockchain.service.WalletService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
@@ -21,6 +23,8 @@ public class WalletServiceImpl implements WalletService {
 
     @Autowired
     UserRepository userRepository;
+
+    Logger logger = LoggerFactory.getLogger(WalletServiceImpl.class);
 
 //    @Autowired
 //    WalletRepository walletRepository;
@@ -182,11 +186,17 @@ public class WalletServiceImpl implements WalletService {
         User user = userRepository.findById(userId).get();
         LocalDateTime userLatelyTime = user.getLatelyTime();
 
-        if(nowDayOfYear == userLatelyTime.getDayOfYear())
+        if (userLatelyTime == null) {
+            logger.debug("userLatelyTime is null");
+        }
+        else if (userLatelyTime != null && nowDayOfYear == userLatelyTime.getDayOfYear()) {
             return false;
+        }
+
         // ERC20Service
         BigInteger amount = new BigInteger("5000000000000000000");
         try {
+            logger.debug("erc20Service 호출");
             erc20Service.transferNEToken(address,amount);
         } catch (Exception e) {
             e.printStackTrace();
