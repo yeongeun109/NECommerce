@@ -1,6 +1,6 @@
 package com.ecommerce.blockchain.service;
 
-import com.ecommerce.blockchain.domain.contract.NeERC20;
+import com.ecommerce.blockchain.domain.contract.NeERC20_sol_NeERC20;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,9 @@ public class ERC20Service {
 //    private Web3j web3j;
     String testnetUrl = "https://ropsten.infura.io/v3";
     String testnetToken = "9aa3d95b3bc440fa88ea12eaa4456161";
-    String privateKey = "something";
+
+//    @Value("${erc20.privateKey}")
+    private String privateKey = "dabfca3161aeb1bfdbed8fc43f34437addf16e04d694530cb0f26092371badb5";
 
     Web3j web3j = Web3j.build(new HttpService(testnetUrl + "/" + testnetToken));
 
@@ -41,27 +43,29 @@ public class ERC20Service {
     public void deployERC20() throws Exception {
         Credentials credentials = Credentials.create(privateKey);
         BigInteger decimal = new BigInteger("18");
-        BigInteger gasPrice = new BigInteger("1500000");
-        BigInteger gasLimit = new BigInteger("1500000");
-        RemoteCall<NeERC20> contract = NeERC20.deploy(web3j, credentials, gasPrice, gasLimit, "NeToken", "NE", decimal);
+        BigInteger gasPrice = new BigInteger("3500000");
+        BigInteger gasLimit = new BigInteger("3500000");
+        RemoteCall<NeERC20_sol_NeERC20> contract = NeERC20_sol_NeERC20.deploy(web3j, credentials, gasPrice, gasLimit, "NeToken", "NE", decimal);
         String result = contract.send().getContractAddress();  // constructor params
         logger.debug("배포한 컨트랙트 : {}", result);
     }
 
     public void loadERC20() throws Exception {
         Credentials credentials = Credentials.create(privateKey);
-        NeERC20 contract = NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, GAS_PRICE, GAS_LIMIT);
+        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, GAS_PRICE, GAS_LIMIT);
         logger.debug("로드한 컨트랙트 : {}", contract);
         BigInteger result = contract.totalSupply().send();
         logger.debug("총 토큰 개수 : {}", result.toString());
     }
 
     public void transferNEToken(String address, BigInteger amount) throws Exception {
+        logger.debug("private key : {}", privateKey); // 지워야 함!!!!!
         Credentials credentials = Credentials.create(privateKey);
         BigInteger gasPrice = new BigInteger("50000");
         BigInteger gasLimit = new BigInteger("50000");
-        NeERC20 contract = NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, gasPrice, gasLimit);
+        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, gasPrice, gasLimit);
         logger.debug("로드한 컨트랙트 : {}", contract);
+        logger.debug("충전 요청한 주소 : {}", address);
         TransactionReceipt transactionReceipt = contract.transfer(address, amount).send();
         logger.debug("트랜잭션 결과 : {}", transactionReceipt);
     }
@@ -70,7 +74,7 @@ public class ERC20Service {
         Credentials credentials = Credentials.create(privateKey);
         BigInteger gasPrice = new BigInteger("50000");
         BigInteger gasLimit = new BigInteger("50000");
-        NeERC20 contract = NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, gasPrice, gasLimit);
+        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load("0x528E38bc6d03BFaabaE9585048c484b440b09fa8", web3j, credentials, gasPrice, gasLimit);
         logger.debug("로드한 컨트랙트 : {}", contract);
         BigInteger amount = new BigInteger("10000");
         TransactionReceipt transactionReceipt = contract.transfer("0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074", amount).send();
