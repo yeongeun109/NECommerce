@@ -6,5 +6,5 @@ import lombok.Data;
 public class WalletRegistReq {
     private String address;
     private int ownerId;
-    private String token;
+    //private String token;
 }
