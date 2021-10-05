@@ -98,16 +98,15 @@ public class WalletController {
     // 이더리움 지갑 주소에 이더 충전 요청(수수료 및 토큰 구매용)
     @ApiOperation(value = "주소로 NEToken 충전")
     @RequestMapping(value ="/wallet/token", method = RequestMethod.PUT)
-    public Object requestEth(@RequestBody WalletRegistReq request, @RequestHeader String token) throws Exception{ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
+    public Object requestEth(@RequestBody WalletRegistReq request) throws Exception{ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
 
         int userId = request.getOwnerId();
         Optional<User> userOpt = userService.getUser(userId);
         if (!userOpt.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 비회원
 
         try {
-            if (userId == jwtService.getUserId(token)) { // 요청자가 토큰 발급한 유저와 같다면
+            if (userId == jwtService.getUserId(request.getToken())) { // 요청자가 토큰 발급한 유저와 같다면
                 //boolean flag = walletService.chargeNEToken(userId, request.getAddress());
-                System.out.println("dddddd");
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 권한 없음
@@ -119,5 +118,29 @@ public class WalletController {
         }
     }
 
+
+
+//    @ApiOperation(value = "주소로 NEToken 충전")
+//    @RequestMapping(value ="/wallet/token", method = RequestMethod.PUT)
+//    public Object requestEth(@RequestBody WalletRegistReq request, @RequestHeader String token) throws Exception{ // 테스트 가능하도록 일정 개수의 코인을 충전해준다.
+//
+//        int userId = request.getOwnerId();
+//        Optional<User> userOpt = userService.getUser(userId);
+//        if (!userOpt.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 비회원
+//
+//        try {
+//            if (userId == jwtService.getUserId(token)) { // 요청자가 토큰 발급한 유저와 같다면
+//                //boolean flag = walletService.chargeNEToken(userId, request.getAddress());
+//                System.out.println("dddddd");
+//                return new ResponseEntity<>(HttpStatus.OK);
+//            } else {
+//                return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 권한 없음
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 유효하지 않은 토큰
+//        }
+//    }
 }
 
