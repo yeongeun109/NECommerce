@@ -106,7 +106,8 @@ public class WalletController {
 
         try {
             if (userId == jwtService.getUserId(token)) { // 요청자가 토큰 발급한 유저와 같다면
-                boolean flag = walletService.chargeNEToken(userId, request.getAddress());
+                //boolean flag = walletService.chargeNEToken(userId, request.getAddress());
+                System.out.println("dddddd");
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN); // 권한 없음
@@ -115,9 +116,8 @@ public class WalletController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 유효하지 않은 토큰
-        } finally {
-            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
 }
+
