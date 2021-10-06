@@ -4,7 +4,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import {Router} from "react-router-dom";
 
-const TransferNFT = async (owner, price, tokenId) => {
+const TransferNFT = async (ownerAddress, price, tokenId) => {
 
     const Web3 = require('web3')
     const {REACT_APP_API_URL, REACT_APP_PUBLIC_KEY} = process.env;
