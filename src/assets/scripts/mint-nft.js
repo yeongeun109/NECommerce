@@ -48,12 +48,12 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
 
         //리턴값 받아서 BE에 전달(해시값 이랑 NFT 정보)
         //const formData = {address:account, ownerId:1, token:JSON.parse(window.localStorage.getItem("token"))}
-        const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName, transactionHash:hash, token:JSON.parse(window.localStorage.getItem("token"))}
+        //const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName, transactionHash:hash, token:JSON.parse(window.localStorage.getItem("token"))}
 
         //const formData = {email:"test1@naver.com", password:"ssafy407!"}
         //const formData = {email:"aaaa@naver.com", name:"aaaa", password:"aaaaaaaa!"}
         //api/v1/wallet/token
-        let result = false
+        let result = falseg
 
         const tx = {
             'from': REACT_APP_PUBLIC_KEY,
