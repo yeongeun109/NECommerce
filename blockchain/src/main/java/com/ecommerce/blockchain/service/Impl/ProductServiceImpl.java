@@ -77,11 +77,16 @@ public class ProductServiceImpl implements ProductService {
     public void isPurchased(ProductPurchaseRequestDto pprDto) throws NoProductException, NoNFTException, NoUserException {
         logger.debug("product {} 의 상태 false로 변경하기", pprDto.getNftId());
         Product product = productRepository.findById(pprDto.getNftId()).orElseThrow(() -> new NoProductException("해당하는 product가 없습니다."));
-        product.setStatus(false);
-        productRepository.save(product);
-        NFT nft = nftRepository.findById(pprDto.getNftId()).orElseThrow(() -> new NoNFTException("해당하는 NFT가 없습니다."));
-        nft.setUser(userRepository.findById(pprDto.getBuyerId()).orElseThrow(() -> new NoUserException("해당하는 사용자가 없습니다.")));
-        nftRepository.save(nft);
+        if(product.isStatus()){
+            product.setStatus(false);
+            productRepository.save(product);
+            NFT nft = nftRepository.findById(pprDto.getNftId()).orElseThrow(() -> new NoNFTException("해당하는 NFT가 없습니다."));
+            nft.setUser(userRepository.findById(pprDto.getBuyerId()).orElseThrow(() -> new NoUserException("해당하는 사용자가 없습니다.")));
+            nftRepository.save(nft);
+        }else{
+            throw new NoProductException("해당하는 product는 이미 판매 완료된 상품입니다.");
+        }
+
     }
 
 }

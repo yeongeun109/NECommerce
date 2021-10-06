@@ -67,7 +67,7 @@ public class ProductController {
         return new ResponseEntity<>(successResponseDto,HttpStatus.OK);
     }
 
-    @PutMapping("/product/purchase/{productId}")
+    @PutMapping("/product/purchase")
     public ResponseEntity<SuccessResponseDto> purchaseProduct(@RequestBody ProductPurchaseRequestDto PPRDto) throws Exception {
         productService.isPurchased(PPRDto);
         SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse("Success");
