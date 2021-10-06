@@ -39,9 +39,8 @@ public class NFTServiceImpl implements NFTService {
     }
 
     @Override
-    public List<NFTMapping> getList(String userEmail) throws NoUserException {
-        User user = userRepository.findByEmail(userEmail);
-        return nftRepository.findBySellerId(user.getId());
+    public List<NFTMapping> getList(Long userId) throws NoUserException {
+        return nftRepository.findBySellerId(userId);
     }
 
     @Override
