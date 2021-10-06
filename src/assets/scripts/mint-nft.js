@@ -48,7 +48,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
 
         //리턴값 받아서 BE에 전달(해시값 이랑 NFT 정보)
         //const formData = {address:account, ownerId:1, token:JSON.parse(window.localStorage.getItem("token"))}
-        const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName}
+        const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName, transactionHash:hash, token:JSON.parse(window.localStorage.getItem("token"))}
 
         //const formData = {email:"test1@naver.com", password:"ssafy407!"}
         //const formData = {email:"aaaa@naver.com", name:"aaaa", password:"aaaaaaaa!"}
@@ -69,6 +69,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
             web3js.eth.sendSignedTransaction(signedTx.rawTransaction, function(err, hash) {
                 if (!err) {
                     console.log("The hash of your transaction is: ", hash);
+                    const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName, transactionHash:hash, token:JSON.parse(window.localStorage.getItem("token"))}
                     axios
                         .post(
                             '/api/v1/nft/register',
