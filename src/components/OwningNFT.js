@@ -10,30 +10,29 @@ const OwningNFT = (props) => {
     useEffect(() => {
         const fetchData = async () => {
           const userPK = GetUserPK()
-          console.log(userPK)
+          // console.log(userPK)
           const result = await axios.get(
             `api/v1/nft/list/${userPK}`,
           );
-          setMyNFT(result.data);
+          console.log(result.data.success)
+          setMyNFT(result.data.success);
           setLoading(false);
         };
         fetchData();
       }, []);
     
-    const showAsTable = (NFT) => {
+    const showAsTable = (NFT, idx) => {
       return (
-      <tbody>
-
-        <tr>
-          <Link to={`/detail/${NFT.NFTid}`}>
-            <Image src={NFT.ImageUrl}/>
-          </Link> 
-        </tr>
-        <tr>
-          <p>{NFT.Title} </p>
-
-        </tr>
-      </tbody>)
+        <tr key={idx}>
+          <td>
+          <Link to={`/detail/${NFT.id}`}>
+            <Image src={NFT.imageUrl}/>
+          </Link>
+          </td> 
+          <td>
+          <p>{NFT.title} </p>
+          </td>
+        </tr>)
     }
 
     return(
@@ -45,10 +44,15 @@ const OwningNFT = (props) => {
           ) : (
             <Table>
               <thead>
+                <tr>
                 <th>이미지</th>
                 <th>제목</th>
+                </tr>
               </thead>
+              <tbody>
+
               {MyNFT.map(showAsTable)}
+              </tbody>
             </Table>
             
           )}

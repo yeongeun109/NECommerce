@@ -12,7 +12,7 @@ import Enter from './pages/Enter';
 import MyPage from './pages/MyPage';
 import MintingNFT from './pages/MintingNFT';
 import Main from './pages/Main';
-import SellingNFT from './pages/SellingNFT';
+import CreatingOrder from './pages/CreatingOrder';
 import NFTDetail from './pages/NFTDetail';
 function App() {
 
@@ -26,7 +26,7 @@ function App() {
             <PrivateRouter component={MyPage} path="/mypage" exact />
             <PrivateRouter component={Main} path="/main" exact />
             <PrivateRouter component={MintingNFT} path="/minting" exact/>
-            <PrivateRouter component={SellingNFT} path="/creatingorder" exact/>
+            <PrivateRouter component={CreatingOrder} path="/creatingorder" exact/>
             <PrivateRouter component={NFTDetail} path="/detail/:id" exact/>
           </Container>
         </Layout>

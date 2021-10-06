@@ -2,7 +2,7 @@ import MyPage from "../pages/MyPage";
 import Enter from "../pages/Enter";
 import MintingNFT from "../pages/MintingNFT";
 import Main from "../pages/Main";
-import SellingNFT from "../pages/SellingNFT";
+import CreatingOrder from "../pages/CreatingOrder";
 
 const routes = [
   
@@ -31,7 +31,7 @@ const routes = [
   },
   {
     path: "/creatingorder",
-    component: SellingNFT,
+    component: CreatingOrder,
     mode: "private",
   },
 
