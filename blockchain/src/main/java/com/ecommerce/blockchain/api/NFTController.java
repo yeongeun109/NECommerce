@@ -2,6 +2,7 @@ package com.ecommerce.blockchain.api;
 
 import com.ecommerce.blockchain.domain.global.SuccessResponseDto;
 import com.ecommerce.blockchain.domain.global.service.ResponseGenerateService;
+import com.ecommerce.blockchain.domain.jwt.JwtRequestDto;
 import com.ecommerce.blockchain.domain.nft.NFT;
 import com.ecommerce.blockchain.domain.nft.NFTRequestDto;
 import com.ecommerce.blockchain.domain.nft.NFTResponseDto;
@@ -82,7 +83,7 @@ public class NFTController {
     }
 
     @PostMapping("/nft/detail/{nftId}")
-    public Object loadNFT(@PathVariable Long nftId, @RequestBody String token) throws Exception {
+    public Object loadNFT(@PathVariable Long nftId, @RequestBody JwtRequestDto token) throws Exception {
         System.out.println(token);
         Optional<NFT> NFTOpt = nftService.getNFT(nftId);
         if (!NFTOpt.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없는 NFT
@@ -90,7 +91,7 @@ public class NFTController {
         logger.debug("nft detail에 넣은 jwt {}", token);
 
         try {
-            jwtService.getUserId(token);
+            jwtService.getUserId(token.getToken());
             NFTResponseDto tmp = nftService.getDetail(nftId);
             SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse(tmp);
             return new ResponseEntity<>(successResponseDto,HttpStatus.OK);
