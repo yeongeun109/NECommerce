@@ -6,10 +6,13 @@ import { useForm, Controller } from "react-hook-form";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TransactNFT from "../assets/scripts/mint-nft";
+//import jwt from 'jwt-decode';
 
 const MintingNFT = ({history}) => {
     const [imgFile, setImgFile] = useState("");
     const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+    const [obj, setObj] = useState({ });
+    // let obj = TransactNFT(nftName, imgURI, intro, category);
     const categoryValue = useRef();
     // const [value, setValue] = useState();
     const introValue = useRef()
@@ -52,10 +55,14 @@ const MintingNFT = ({history}) => {
         // formData.append("thumbnail", imgFile);
         // formData.append("price", watch("price", ""));
         // formData.append("URI", watch("tokenURI", ""))
-        TransactNFT(nftName, imgURI, intro, category); // 상품명, 상품 이미지 URI, 상품설명, 상품 카테고리
-        //history.push(`/Mypage`);
-      };
-    
+
+        const obj = TransactNFT(nftName, imgURI, intro, category) // 상품명, 상품 이미지 URI, 상품설명, 상품 카테고리
+        // .then((respons) => {
+        //     console.log(respons)
+        // })
+        if(obj) history.push(`/MyPage`);
+      }
+
   
     return(
         <div>
