@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public interface UserService {
 
-    public Optional<User> getUser(int userId);
+    public Optional<User> getUser(Long userId);
     User registerUser(UserRequestDto userRequestDto);
     public User getUserByEmail(String email);
     int deleteUser(String email);
