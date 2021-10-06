@@ -41,21 +41,20 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
         const nonce = await web3js.eth.getTransactionCount(account, 'latest'); //get latest nonce
         let tx_hash;
 
-        web3js.eth.sendTransaction({
-            'from': account,
-            'to': contractAddress,
-            'nonce': nonce,
-            'gas': 500000,
-            'maxPriorityFeePerGas': 1999999987,
-            'input': nftContract.methods.mintImage(nftName, account, "ddd.jpg", "explane", 0).encodeABI()
-        },function(error, hash){
-            tx_hash = hash;
-            console.log(tx_hash);
-        }).then({
+        // web3js.eth.sendTransaction({
+        //     'from': account,
+        //     'to': contractAddress,
+        //     'nonce': nonce,
+        //     'gas': 500000,
+        //     'maxPriorityFeePerGas': 1999999987,
+        //     'input': nftContract.methods.mintImage(nftName, account, "ddd.jpg", "explane", 0).encodeABI()
+        // },function(error, hash){
+        //     tx_hash = hash;
+        //     console.log(tx_hash);
+        // }).then({
+        //
+        // });
 
-        });
-
-        console.log(account)
         // const signPromise = web3js.eth.accounts.signTransaction(tx, REACT_APP_PRIVATE_KEY);
 
         // signPromise.then((signedTx) => {
@@ -73,22 +72,14 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
 
         //리턴값 받아서 BE에 전달(해시값 이랑 NFT 정보)
         let token = window.localStorage.getItem("token");
-        const formData = {address:account, ownerId:1}
+        const formData = {address:account, ownerId:1, token:JSON.parse(window.localStorage.getItem("token"))}
         //const formData = {email:"test1@naver.com", password:"ssafy407!"}
-        console.log(JSON.parse(window.localStorage.getItem("token")))
         //api/v1/wallet/token
 
         axios
             .put(
                 'api/v1/wallet/token',
-                formData,
-                {
-                    headers: {
-                        token:
-                            JSON.parse(window.localStorage.getItem("token")),
-                        "Content-Type": `multipart/form-data`,
-                    },
-                }
+                formData
             )
             .then((response) => {
                 alert("상품 등록에 성공하였습니다");
