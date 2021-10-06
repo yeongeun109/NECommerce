@@ -43,34 +43,17 @@ const MintingNFT = ({history}) => {
 
     const onSubmit = () => {
         const formData = new FormData();
-        const tokenURI = watch("tokenURI", "")
-        formData.append("category", categoryValue.current.value);
+        const nftName = watch("nftName", "")
+        const imgURI = imgFile.name;
+        const intro = introValue.current.value
+        const category = categoryValue.current.value
+        // formData.append("category", categoryValue.current.value);
         // formData.append("nftName", watch("name", ""));
-        formData.append("thumbnail", imgFile);
-        formData.append("price", watch("price", ""));
-        formData.append("URI", watch("tokenURI", ""))
-        console.log(tokenURI)
-        TransactNFT(tokenURI)
-        // axios
-        //   .post(
-        //     '/api/nft/create',
-        //     formData,
-        //     {
-        //       headers: {
-        //         Authorization:
-        //            JSON.parse(window.localStorage.getItem("token")),
-        //         "Content-Type": `multipart/form-data`,
-        //       },
-        //     }
-        //   )
-        //   .then((response) => {
-        //     alert("상품 등록에 성공하였습니다");
-        //     history.push(`/detail/${response.data}`);
-        //     //response.data = NFT의 ID값
-        //   })
-        //   .catch((error) => {
-        //     alert("상품을 등록하지 못햇습니다");
-        //   });
+        // formData.append("thumbnail", imgFile);
+        // formData.append("price", watch("price", ""));
+        // formData.append("URI", watch("tokenURI", ""))
+        TransactNFT(nftName, imgURI, intro, category); // 상품 이미지url, 상품명, 상품설명, 상품 카테고리
+
       };
     
   
@@ -84,7 +67,7 @@ const MintingNFT = ({history}) => {
                     <div className="content">
                         <div className="input-box">
                             <Controller
-                                name="tokenURI"
+                                name="nftName"
                                 control={control}
                                 defaultValue=""
                                 rules={{
@@ -93,7 +76,7 @@ const MintingNFT = ({history}) => {
                                 render={({ field }) => (
                                     <div>
                                         <h4>
-                                        tokenURI
+                                        상품명
                                         {errors.title && <span>{errors.title.message}</span>}
                                         </h4>
 
@@ -198,8 +181,8 @@ const MintingNFT = ({history}) => {
                         custom
                         ref={categoryValue}>
                             <option>Check the Category</option>
-                            <option value="1">ART</option>
-                            <option value="2">PHOTO</option>
+                            <option value="0">ART</option>
+                            <option value="1">PHOTO</option>
                         </Form.Control>
                         </div>
 

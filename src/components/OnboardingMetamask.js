@@ -41,7 +41,7 @@ const OnboardingButton = () => {
                 .then(handleNewAccounts);
             window.ethereum.on('accountsChanged', handleNewAccounts);
             return () => {
-                window.ethereum.off('accountsChanged', handleNewAccounts);
+                //window.ethereum.off('accountsChanged', handleNewAccounts);
             };
         }
     }, []);
