@@ -36,7 +36,7 @@ public class NFTController {
     @ApiOperation(value = "NFT 등록")
     @PostMapping("/nft/register")
     public Object registerNFT(@RequestBody NFTRequestDto nftDto) throws Exception {
-        Long sellerId = nftDto.getSeller_id();
+        Long sellerId = nftDto.getOwner_id();
         logger.debug("nft 생성 후 DB에 등록, 유저아이디 : {}", sellerId);
         Optional<User> userOpt = userService.getUser(sellerId);
 

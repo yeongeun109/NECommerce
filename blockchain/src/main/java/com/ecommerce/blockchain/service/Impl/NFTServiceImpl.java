@@ -5,7 +5,6 @@ import com.ecommerce.blockchain.domain.nft.NFT;
 import com.ecommerce.blockchain.domain.nft.NFTRequestDto;
 import com.ecommerce.blockchain.domain.nft.NFTResponseDto;
 import com.ecommerce.blockchain.domain.nft.exception.NoNFTException;
-import com.ecommerce.blockchain.domain.user.User;
 import com.ecommerce.blockchain.repository.NFTMapping;
 import com.ecommerce.blockchain.repository.NFTRepository;
 import com.ecommerce.blockchain.repository.UserRepository;
@@ -36,22 +35,22 @@ public class NFTServiceImpl implements NFTService {
     @Override
     @Transactional
     public void register(NFTRequestDto nftDto) throws NoUserException {
-        logger.debug("유저 {}가 만든 nft 등록", nftDto.getSeller_id());
+        logger.debug("유저 {}가 만든 nft 등록", nftDto.getOwner_id());
         NFT newItem = nftDto.toEntity();
-        newItem.setUser(userRepository.findById(nftDto.getSeller_id()).orElseThrow(() -> new NoUserException("해당하는 사용자가 없습니다.")));
+        newItem.setUser(userRepository.findById(nftDto.getOwner_id()).orElseThrow(() -> new NoUserException("해당하는 사용자가 없습니다.")));
         nftRepository.save(newItem);
         logger.debug("NFT Title : {}, 등록 완료",nftDto.getTitle());
     }
 
     @Override
     public List<NFTMapping> getList(Long userId) throws NoUserException {
-        return nftRepository.findBySellerId(userId);
+        return nftRepository.findByOwnerId(userId);
     }
 
     @Override
     public NFTResponseDto getDetail(Long nftId) throws NoNFTException {
         logger.debug("getDetail");
-        Optional<NFT> nft = Optional.ofNullable(nftRepository.findById(nftId).orElseThrow(() -> new NoNFTException("해당하는 루트가 없습니다.")));
+        Optional<NFT> nft = Optional.ofNullable(nftRepository.findById(nftId).orElseThrow(() -> new NoNFTException("해당하는 nft가 없습니다.")));
         logger.debug("nft Repository를 이용해 nft불러옴 {}",nft.get());
         return new NFTResponseDto(nft.get());
     }
