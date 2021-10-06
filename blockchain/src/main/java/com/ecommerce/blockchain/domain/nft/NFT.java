@@ -3,15 +3,13 @@ package com.ecommerce.blockchain.domain.nft;
 import com.ecommerce.blockchain.domain.BaseTime;
 import com.ecommerce.blockchain.domain.user.User;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @Entity
 public class NFT extends BaseTime {
