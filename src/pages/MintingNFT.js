@@ -201,7 +201,7 @@ const MintingNFT = ({history}) => {
 
                     
                         <div>
-                            <Button>Upload</Button>
+                            <Button type="submit">Upload</Button>
                         </div>
                 </div>
             </div>
