@@ -39,7 +39,9 @@ const Header = () => {
           <Nav>
             <div className="nav-link-right">
                 <>
-                  <Link to="/minting">Minting</Link>
+
+                  <Link to="/creatingorder">판매등록</Link>
+                  <Link to="/minting">NFT등록</Link>
                   <Link to="/MyPage">MyPage</Link>
                   <span className="logout" onClick={logout}>
                     로그아웃

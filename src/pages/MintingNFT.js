@@ -6,7 +6,10 @@ import { useForm, Controller } from "react-hook-form";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TransactNFT from "../assets/scripts/mint-nft";
-//import jwt from 'jwt-decode';
+
+import { uploadFile } from 'react-s3';
+import GetUserPK from "../assets/GetUserPK";
+
 
 const MintingNFT = ({history}) => {
     const [imgFile, setImgFile] = useState("");
@@ -16,6 +19,8 @@ const MintingNFT = ({history}) => {
     const categoryValue = useRef();
     // const [value, setValue] = useState();
     const introValue = useRef()
+    const [imageURL, setImageURL] = useState("")
+    const userPK = GetUserPK()
     const {
         watch,
         handleSubmit,
@@ -43,6 +48,30 @@ const MintingNFT = ({history}) => {
         setImgFile(event.target.files[0]);
         }
     };
+    const S3_BUCKET = process.env.REACT_APP_S3_BUCKET;
+    const REGION = process.env.REACT_APP_REGION;
+    const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
+    const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+    // const EXAMPLE = process.env.REACT_APP_EXAMPLE;
+    const config = {
+        bucketName: S3_BUCKET,
+        region: REGION,
+        accessKeyId: ACCESS_KEY,
+        secretAccessKey: SECRET_ACCESS_KEY
+    }
+
+    const handleUpload = async () => {
+        // console.log(file)
+        uploadFile(imgFile, config)
+            .then(data => setImageURL(data.location))
+            .then(() => {
+                console.log(imageURL)
+                onSubmit()
+            }
+            )
+
+            .catch(error => console.error(error))
+    }
 
     const onSubmit = () => {
         const formData = new FormData();
@@ -63,17 +92,17 @@ const MintingNFT = ({history}) => {
         if(obj) history.push(`/MyPage`);
       }
 
-  
     return(
         <div>
             <div className="title">
                 <h2>NFT 생성</h2>
             </div>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={handleSubmit(handleUpload)}>
                 <div className="nft-detail">
                     <div className="content">
                         <div className="input-box">
                             <Controller
+
                                 name="nftName"
                                 control={control}
                                 defaultValue=""
@@ -90,36 +119,13 @@ const MintingNFT = ({history}) => {
                                         <Form.Control
                                         type="text"
                                         placeholder="상품명을 입력해주세요"
+
                                         {...field}
                                         />
                                     </div>
                                 )}
                             />
                         </div>
-                        {/*<div className="input-box">*/}
-                        {/*    <Controller*/}
-                        {/*        name="price"*/}
-                        {/*        control={control}*/}
-                        {/*        defaultValue=""*/}
-                        {/*        rules={{*/}
-                        {/*        required: { value: true, message: "필수 항목입니다" },*/}
-                        {/*        }}*/}
-                        {/*        render={({ field }) => (*/}
-                        {/*        <div>*/}
-                        {/*            <h4>*/}
-                        {/*            가격*/}
-                        {/*            {errors.price && <span>{errors.price.message}</span>}*/}
-                        {/*            </h4>*/}
-
-                        {/*            <Form.Control*/}
-                        {/*            type="number"*/}
-                        {/*            placeholder="상품의 가격을 입력해주세요"*/}
-                        {/*            {...field}*/}
-                        {/*            />*/}
-                        {/*        </div>*/}
-                        {/*        )}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
 
                         <div className="input-box thumbnail">
                             <h4> 이미지</h4>
@@ -194,9 +200,9 @@ const MintingNFT = ({history}) => {
                         </div>
 
                     
-                    <Button type="submit" style={{ marginTop: "15px", float: "right" }}>
-                        상품등록
-                    </Button>
+                        <div>
+                            <Button>Upload</Button>
+                        </div>
                 </div>
             </div>
             </Form>

@@ -1,6 +1,6 @@
 const Category = {
-    1: "Art",
-    2: "Photo"
+    0: "Art",
+    1: "Photo"
 
 }
 

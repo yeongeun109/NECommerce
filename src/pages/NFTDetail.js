@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useParams } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import axios from "axios";
 import Category from "../assets/Category";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown, faCheck } from "@fortawesome/free-solid-svg-icons";
+import GetUserPK from "../assets/GetUserPK";
 
-
-const NFTDetail = ({history}) => {
-    const { code } = useParams();
-
+const NFTDetail = (props,{history}) => {
+    const userPK = GetUserPK();
     const [NFTDetail, setNFTDetail] = useState("")
     const [loading, setLoading] = useState(true);
 
@@ -19,18 +18,14 @@ const NFTDetail = ({history}) => {
         }
       }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
         const result = await axios.get(
-        `api/detail/${code}`,
-        {
-            headers: {
-            Authorization:
-                JSON.parse(window.localStorage.getItem("token")),
-            },
-        }
+        `api/v1/nft/detail/9`,
+        
         );
-        setNFTDetail(result.data);
+        console.log(result)
+        setNFTDetail(result);
         setLoading(false);
     };
     fetchData();
@@ -38,7 +33,30 @@ const NFTDetail = ({history}) => {
     
   return (
     <div>
-      
+      <Container>
+        <Row>
+          <Col>
+            <Image src={NFTDetail.tokenURI} fulid id="tokenURI"/>
+          </Col>
+          <Col>
+            <div>
+              상품이름 : {NFTDetail.name}
+            </div>
+            <div>
+              상품 설명 : {NFTDetail.introValue}
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <div>
+            거래내역
+            <span>{NFTDetail.transactionHistory}</span>
+          </div>
+          <div>
+            
+          </div>
+        </Row>
+      </Container>
     </div>
   );
 
