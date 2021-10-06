@@ -63,13 +63,13 @@ public class NFTController {
     *   seller를 변경한다면 seller가 소유하고있는 nft 전체 목록
      */
     @PostMapping("/nft/list/{userId}")
-    public Object loadAllNFT(@PathVariable Long userId, @RequestBody String token) throws Exception {
+    public Object loadAllNFT(@PathVariable Long userId, @RequestBody JwtRequestDto token) throws Exception {
         Optional<User> userOpt = userService.getUser(userId);
         if (!userOpt.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 비회원
         logger.debug("등록한 nft 목록 요청 : 유저 pk {}",userId);
 
         try {
-            if (userId == jwtService.getUserId(token)) { // 요청자가 토큰 발급한 유저와 같다면
+            if (userId == jwtService.getUserId(token.getToken())) { // 요청자가 토큰 발급한 유저와 같다면
                 SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse(nftService.getList(userId));
                 return new ResponseEntity<>(successResponseDto,HttpStatus.OK);
 
