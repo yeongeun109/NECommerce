@@ -29,8 +29,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
     token = token.replace('Bearer', "")
     let jwt = require('jsonwebtoken')
     let uid = jwt.decode(token).uid;
-    console.log("uid : ", uid)
-
+    
     async function mintNFT(nftName, imgURI, intro, category) {
 
         let account = await web3js.eth.getAccounts().then(function (array) {
@@ -48,12 +47,12 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
 
         //리턴값 받아서 BE에 전달(해시값 이랑 NFT 정보)
         //const formData = {address:account, ownerId:1, token:JSON.parse(window.localStorage.getItem("token"))}
-        const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName}
+        //const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName, transactionHash:hash, token:JSON.parse(window.localStorage.getItem("token"))}
 
         //const formData = {email:"test1@naver.com", password:"ssafy407!"}
         //const formData = {email:"aaaa@naver.com", name:"aaaa", password:"aaaaaaaa!"}
         //api/v1/wallet/token
-        let result = false
+        let result = falseg
 
         const tx = {
             'from': REACT_APP_PUBLIC_KEY,
@@ -69,6 +68,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
             web3js.eth.sendSignedTransaction(signedTx.rawTransaction, function(err, hash) {
                 if (!err) {
                     console.log("The hash of your transaction is: ", hash);
+                    const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName, transactionHash:hash, token:JSON.parse(window.localStorage.getItem("token"))}
                     axios
                         .post(
                             '/api/v1/nft/register',

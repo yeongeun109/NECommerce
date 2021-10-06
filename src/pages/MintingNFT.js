@@ -63,20 +63,20 @@ const MintingNFT = ({history}) => {
     const handleUpload = async () => {
         // console.log(file)
         uploadFile(imgFile, config)
-            .then(data => setImageURL(data.location))
-            .then(() => {
-                console.log(imageURL)
-                onSubmit()
-            }
-            )
+            .then(data => {
+                
+                setImageURL(data.location)
+                console.log(data.location)
+                onSubmit(data.location)
+            })
 
             .catch(error => console.error(error))
     }
 
-    const onSubmit = () => {
+    const onSubmit = (imgURI) => {
         const formData = new FormData();
         const nftName = watch("nftName", "")
-        const imgURI = imgFile.name;
+        
         const intro = introValue.current.value
         const category = categoryValue.current.value
         // formData.append("category", categoryValue.current.value);
