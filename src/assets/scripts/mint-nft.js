@@ -22,13 +22,13 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
         console.log("web3 undefined");
     }
 
-    const contractAddress = "0x7fc994cDCA6d4863f76E15BAbC583Be8Cc1B9250";
+    const contractAddress = "0x467cAea8a04E52EbF79b5a64b0d6306B38096E65";
     const nftContract = new web3js.eth.Contract(contract.abi, contractAddress)
 
-    var token = JSON.parse(window.localStorage.getItem("token"));
+    let token = JSON.parse(window.localStorage.getItem("token"));
     token = token.replace('Bearer', "")
-    var jwt = require('jsonwebtoken')
-    var uid = jwt.decode(token).uid;
+    let jwt = require('jsonwebtoken')
+    let uid = jwt.decode(token).uid;
     console.log("uid : ", uid)
 
     async function mintNFT(nftName, imgURI, intro, category) {
@@ -48,7 +48,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
 
         //리턴값 받아서 BE에 전달(해시값 이랑 NFT 정보)
         //const formData = {address:account, ownerId:1, token:JSON.parse(window.localStorage.getItem("token"))}
-        const formData = {category:category, explanation:intro, imageUrl:imgURI, seller_id:uid, title:nftName}
+        const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName}
 
         //const formData = {email:"test1@naver.com", password:"ssafy407!"}
         //const formData = {email:"aaaa@naver.com", name:"aaaa", password:"aaaaaaaa!"}
