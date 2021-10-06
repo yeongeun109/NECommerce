@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface NFTService {
     void register(NFTRequestDto nftDto) throws NoUserException;
-    List<NFTMapping> getList(Long userId) throws NoUserException;
+    List<NFTMapping> getList(String userEmail) throws NoUserException;
     NFTResponseDto getDetail(Long nftId) throws NoNFTException;
 }

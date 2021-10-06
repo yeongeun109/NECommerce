@@ -5,6 +5,7 @@ import com.ecommerce.blockchain.domain.nft.NFT;
 import com.ecommerce.blockchain.domain.nft.NFTRequestDto;
 import com.ecommerce.blockchain.domain.nft.NFTResponseDto;
 import com.ecommerce.blockchain.domain.nft.exception.NoNFTException;
+import com.ecommerce.blockchain.domain.user.User;
 import com.ecommerce.blockchain.repository.NFTMapping;
 import com.ecommerce.blockchain.repository.NFTRepository;
 import com.ecommerce.blockchain.repository.UserRepository;
@@ -38,8 +39,9 @@ public class NFTServiceImpl implements NFTService {
     }
 
     @Override
-    public List<NFTMapping> getList(Long userId) throws NoUserException {
-        return nftRepository.findBySellerId(userId);
+    public List<NFTMapping> getList(String userEmail) throws NoUserException {
+        User user = userRepository.findByEmail(userEmail);
+        return nftRepository.findBySellerId(user.getId());
     }
 
     @Override
