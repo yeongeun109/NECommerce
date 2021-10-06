@@ -19,11 +19,11 @@ public class Product {
     @Column
     Long id;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
     private User user;
 
-    @ManyToOne(targetEntity = NFT.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = NFT.class, fetch = FetchType.EAGER)
     @JoinColumn(name="nft_id")
     private NFT nft;
 

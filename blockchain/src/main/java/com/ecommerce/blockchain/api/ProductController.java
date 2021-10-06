@@ -4,6 +4,7 @@ import com.ecommerce.blockchain.domain.global.SuccessResponseDto;
 import com.ecommerce.blockchain.domain.global.service.ResponseGenerateService;
 import com.ecommerce.blockchain.domain.product.ProductPurchaseRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductRequestDto;
+import com.ecommerce.blockchain.domain.product.ProductResponseDto;
 import com.ecommerce.blockchain.service.Impl.ProductServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -58,13 +59,13 @@ public class ProductController {
         return new ResponseEntity<>(successResponseDto, HttpStatus.OK);
     }
 
-//    @GetMapping("/product/detail/{productId}")
-//    public ResponseEntity<SuccessResponseDto> loadProduct(@PathVariable Long productId) throws Exception {
-//        logger.debug("product 상세 정보 요청 : product PK {}", productId);
-//        ProductResponseDto product = productService.getDetail(productId);
-//        SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse(product);
-//        return new ResponseEntity<>(successResponseDto,HttpStatus.OK);
-//    }
+    @GetMapping("/product/detail/{productId}")
+    public ResponseEntity<SuccessResponseDto> loadProduct(@PathVariable Long productId) throws Exception {
+        logger.debug("product 상세 정보 요청 : product PK {}", productId);
+        ProductResponseDto product = productService.getDetail(productId);
+        SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse(product);
+        return new ResponseEntity<>(successResponseDto,HttpStatus.OK);
+    }
 
     @PutMapping("/product/purchase/{productId}")
     public ResponseEntity<SuccessResponseDto> purchaseProduct(@RequestBody ProductPurchaseRequestDto PPRDto) throws Exception {
