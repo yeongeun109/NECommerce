@@ -45,7 +45,7 @@ public class NFTServiceImpl implements NFTService {
     @Override
     public NFTResponseDto getDetail(Long nftId) throws NoNFTException {
         logger.debug("getDetail");
-        Optional<NFT> nft = Optional.ofNullable(nftRepository.findById(nftId).orElseThrow(() -> new NoNFTException("해당하는 루트가 없습니다.")));
+        Optional<NFT> nft = Optional.ofNullable(nftRepository.findById(nftId).orElseThrow(() -> new NoNFTException("해당하는 nft가 없습니다.")));
         logger.debug("nft Repository를 이용해 nft불러옴 {}",nft.get());
         return new NFTResponseDto(nft.get());
     }
