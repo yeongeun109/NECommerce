@@ -6,7 +6,7 @@ import { Link, Redirect } from "react-router-dom";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import allActions from "../actions/index";
-
+import favicon  from "../assets/favicon.ico"
 import "./Header.css";
 
 const Header = () => {
@@ -32,7 +32,7 @@ const Header = () => {
         <Container>
           <div className="navbar-left">
             <Link to="/">
-              로고 박을 곳
+              <img src={favicon} height="100px" width="100px"/>
             </Link>
           </div>
 

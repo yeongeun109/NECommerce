@@ -29,8 +29,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
     token = token.replace('Bearer', "")
     let jwt = require('jsonwebtoken')
     let uid = jwt.decode(token).uid;
-    console.log("uid : ", uid)
-
+    
     async function mintNFT(nftName, imgURI, intro, category) {
 
         let account = await web3js.eth.getAccounts().then(function (array) {
