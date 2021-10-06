@@ -10,8 +10,12 @@ import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.Transfer;
+import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.utils.Convert;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import static org.web3j.tx.Transfer.GAS_LIMIT;
@@ -26,10 +30,10 @@ public class ERC20Service {
     String testnetToken = "9aa3d95b3bc440fa88ea12eaa4456161";
 
 //    @Value("${erc20.privateKey}")
-    private String privateKey = "dabfca3161aeb1bfdbed8fc43f34437addf16e04d694530cb0f26092371badb5";
+    private final String privateKey = "dabfca3161aeb1bfdbed8fc43f34437addf16e04d694530cb0f26092371badb5";
     private final String SmartContract = "0xDA4a547a5622fc3D592F0144fBCae2754679245e";
 
-    Web3j web3j = Web3j.build(new HttpService(testnetUrl + "/" + testnetToken));
+    private final Web3j web3j = Web3j.build(new HttpService(testnetUrl + "/" + testnetToken));
 
     Logger logger = LoggerFactory.getLogger(ERC20Service.class);
 
@@ -47,7 +51,7 @@ public class ERC20Service {
         BigInteger gasPrice = new BigInteger("3500000");
         BigInteger gasLimit = new BigInteger("3500000");
         logger.debug("ERC20 배포");
-        RemoteCall<NeERC20_sol_NeERC20> contract = NeERC20_sol_NeERC20.deploy(web3j, credentials, gasPrice, gasLimit, "NeToken", "NE", decimal);
+        RemoteCall<NeERC20_sol_NeERC20> contract = NeERC20_sol_NeERC20.deploy(web3j, credentials, gasPrice, gasLimit, "NeToken", "NE",decimal);
         String result = contract.send().getContractAddress();  // constructor params
         logger.debug("배포한 컨트랙트 : {}", result);
     }
@@ -75,14 +79,24 @@ public class ERC20Service {
 
     public void transferERC20Test() throws Exception {
         Credentials credentials = Credentials.create(privateKey);
-        BigInteger gasPrice = new BigInteger("50000");
-        BigInteger gasLimit = new BigInteger("50000");
-        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load(SmartContract, web3j, credentials, gasPrice, gasLimit);
-        logger.debug("로드한 컨트랙트 : {}", contract);
-        BigInteger amount = new BigInteger("5000000000000000000");
-        TransactionReceipt transactionReceipt = contract.transfer("0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074", amount).send();
-        logger.debug("트랜잭션 결과 : {}", transactionReceipt);
-    }
+//        BigInteger gasPrice = new BigInteger("5000000");
+//        BigInteger gasLimit = new BigInteger("5000000");
+//        NeERC20_sol_NeERC20 contract = NeERC20_sol_NeERC20.load(SmartContract, web3j, credentials, GAS_PRICE, GAS_LIMIT);
+//        logger.debug("로드한 컨트랙트 : {}", contract);
+//        BigInteger amount = new BigInteger("5000000000000000000");
+////        BigInteger transactionReceipt = contract.balanceOf("0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074").send();
+//        TransactionReceipt transactionReceipt = contract.transfer("0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074", amount).send();
+//        logger.debug("트랜잭션 결과 : {}", transactionReceipt);
 
+        TransactionReceipt transactionReceipt = Transfer.sendFundsEIP1559(
+                web3j, credentials,
+                "0x7cbe440132bdeA85e826DE9DfA6eb7b93fbB1074", //toAddress
+                BigDecimal.ONE.valueOf(1), //value
+                Convert.Unit.ETHER, //unit
+                BigInteger.valueOf(8_000_000),
+                DefaultGasProvider.GAS_LIMIT, //maxPriorityFeePerGas (max fee per gas transaction willing to give to miners)
+                BigInteger.valueOf(3_100_000_000L) //maxFeePerGas (max fee transaction willing to pay)
+        ).send();
+    }
 
 }
