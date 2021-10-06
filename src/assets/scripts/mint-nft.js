@@ -47,7 +47,8 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
         //const formData = {email:"test1@naver.com", password:"ssafy407!"}
         //const formData = {email:"aaaa@naver.com", name:"aaaa", password:"aaaaaaaa!"}
         //api/v1/wallet/token
-        let result = false;
+
+        let result = false
 
         const tx = {
             'from': REACT_APP_PUBLIC_KEY,
