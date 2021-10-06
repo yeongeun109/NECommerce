@@ -32,7 +32,11 @@ public class NFTController {
         SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse("Success");
         return new ResponseEntity<>(successResponseDto,status);
     }
-
+    @ApiOperation(value = "testAPI")
+    @PostMapping("/test")
+    public Object test(@RequestBody NFTRequestDto nftDto) throws Exception {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     /*
     *   seller를 변경한다면 seller가 소유하고있는 nft 전체 목록
      */
