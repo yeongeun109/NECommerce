@@ -10,6 +10,7 @@ public class NFTRequestDto {
     private String title;
     private String category;
     private String explanation;
+    private String token;
 
     public NFT toEntity() {
         return NFT.builder().title(title).imageUrl(imageUrl).category(category).explanation(explanation).build();
