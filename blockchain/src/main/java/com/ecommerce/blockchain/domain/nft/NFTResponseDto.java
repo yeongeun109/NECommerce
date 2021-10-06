@@ -12,7 +12,7 @@ public class NFTResponseDto {
     private String title;
     private String category;
     private String explanation;
-    private String transectionHash;
+    private String transactionHash;
 
     public NFTResponseDto(NFT entity) {
         this.id = entity.getId();
@@ -21,7 +21,7 @@ public class NFTResponseDto {
         this.title = entity.getTitle();
         this.category = entity.getCategory();
         this.explanation = entity.getExplanation();
-        this.transectionHash=entity.getTransectionHash();
+        this.transactionHash=entity.getTransactionHash();
     }
 
     @Override
