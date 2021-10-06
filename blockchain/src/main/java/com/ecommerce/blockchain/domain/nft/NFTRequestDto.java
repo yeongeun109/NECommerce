@@ -11,6 +11,7 @@ public class NFTRequestDto {
     private String category;
     private String explanation;
     private String transectionHash;
+    private String token;
 
     public NFT toEntity() {
         return NFT.builder().title(title).imageUrl(imageUrl).category(category).explanation(explanation).transectionHash(transectionHash).build();

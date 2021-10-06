@@ -28,6 +28,11 @@ public class NFTServiceImpl implements NFTService {
     Logger logger = LoggerFactory.getLogger(NFTServiceImpl.class);
 
     @Override
+    public Optional<NFT> getNFT(Long id) {
+        return nftRepository.findById(id);
+    }
+
+    @Override
     @Transactional
     public void register(NFTRequestDto nftDto) throws NoUserException {
         logger.debug("유저 {}가 만든 nft 등록", nftDto.getOwner_id());
