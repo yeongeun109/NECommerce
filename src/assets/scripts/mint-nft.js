@@ -16,7 +16,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
 
     if (typeof web3 !== 'undefined') {
         web3js = new Web3(window.web3.currentProvider);
-        console.log("web3 okay");
+        //console.log("web3 okay");
     } else {
         web3js = new Web3(new Web3.providers.HttpProvider(REACT_APP_API_URL));
         console.log("web3 undefined");
@@ -35,11 +35,6 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
         let account = await web3js.eth.getAccounts().then(function (array) {
             return array[0]
         });
-        console.log(nftName)
-        console.log(imgURI)
-        console.log(intro)
-        console.log(category)
-        console.log(account)
 
         const nonce = await web3js.eth.getTransactionCount(REACT_APP_PUBLIC_KEY, 'latest'); //get latest nonce
         let tx_hash;
@@ -52,7 +47,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
         //const formData = {email:"test1@naver.com", password:"ssafy407!"}
         //const formData = {email:"aaaa@naver.com", name:"aaaa", password:"aaaaaaaa!"}
         //api/v1/wallet/token
-        let result = falseg
+        let result = false;
 
         const tx = {
             'from': REACT_APP_PUBLIC_KEY,
@@ -63,12 +58,24 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
         }
 
         const signPromise = web3js.eth.accounts.signTransaction(tx, REACT_APP_PRIVATE_KEY);
+        let token = JSON.parse(window.localStorage.getItem("token"))
+        let tokenId
+        nftContract.getPastEvents('Transfer', {
+            fromBlock: 0,
+            toBlock: 'latest'
+        }, function(error, events){
+            if(!error){
+                tokenId = events.length;
+
+            }
+        })
 
         signPromise.then((signedTx) => {
             web3js.eth.sendSignedTransaction(signedTx.rawTransaction, function(err, hash) {
                 if (!err) {
-                    console.log("The hash of your transaction is: ", hash);
-                    const formData = {category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName, transactionHash:hash, token:JSON.parse(window.localStorage.getItem("token"))}
+
+                    const formData = {tokenId:tokenId, category:category, explanation:intro, imageUrl:imgURI, owner_id:uid, title:nftName, transactionHash:hash, token:token}
+
                     axios
                         .post(
                             '/api/v1/nft/register',
@@ -76,16 +83,17 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
                         )
                         .then((response) => {
                             alert("상품 등록에 성공하였습니다");
-                            result = true;
+                            return true;
 
                         })
                         .catch((error) => {
-                            result = false;
+                            return false;
                             alert("상품을 등록하지 못햇습니다");
                         })
                 } else {
                     console.log("Something went wrong when submitting your transaction:", err)
                     console.log(signedTx.transactionHash)
+                    return false
                 }
             });
         }).catch((err) => {
@@ -155,8 +163,6 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
         //   .catch((error) => {
         //     alert("상품을 등록하지 못햇습니다");
         //   });
-        const nftId = 2;
-        return true;
     }
     return mintNFT(nftName, imgURI, intro, category)
     // .then((respons) => {
