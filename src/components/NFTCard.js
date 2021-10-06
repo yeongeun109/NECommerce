@@ -11,7 +11,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 
-import "./RoomCard.css";
+import "./NFTCard.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
 
 const category = (s) => {
   switch (s) {
-    case 1:
+    case 0:
       return "Art";
-    case 2:
+    case 1:
       return "Photo";
     default:
       return "";
