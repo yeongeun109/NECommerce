@@ -87,6 +87,7 @@ public class NFTController {
         Optional<NFT> NFTOpt = nftService.getNFT(nftId);
         if (!NFTOpt.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없는 NFT
         logger.debug("nft 상세 정보 요청 : nft PK {}", nftId);
+        logger.debug("nft detail에 넣은 jwt {}", token);
 
         try {
             jwtService.getUserId(token);
