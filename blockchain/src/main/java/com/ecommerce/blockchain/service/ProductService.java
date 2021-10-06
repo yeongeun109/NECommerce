@@ -2,6 +2,7 @@ package com.ecommerce.blockchain.service;
 
 import com.ecommerce.blockchain.domain.global.exception.NoUserException;
 import com.ecommerce.blockchain.domain.nft.exception.NoNFTException;
+import com.ecommerce.blockchain.domain.product.ProductPurchaseRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductResponseDto;
 import com.ecommerce.blockchain.domain.product.exception.NoProductException;
@@ -16,5 +17,5 @@ public interface ProductService {
     List<ProductMapping> getFalseSaleList() throws NoProductException;
     List<ProductMapping> getList(Long userId) throws NoProductException;
     ProductResponseDto getDetail(Long nftId) throws NoNFTException, NoProductException, NoUserException;
-    void isPurchased(Long productId) throws NoProductException;
+    void isPurchased(ProductPurchaseRequestDto pprDto) throws NoProductException, NoNFTException, NoUserException;
 }

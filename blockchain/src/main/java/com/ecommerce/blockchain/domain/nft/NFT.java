@@ -18,11 +18,11 @@ public class NFT extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="seller_id")
-    private User seller;
+//    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+//    @JoinColumn(name="seller_id")
+//    private User seller;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name="owner_id")
     private User owner;
 
@@ -38,8 +38,8 @@ public class NFT extends BaseTime {
     @Column(nullable = true)
     private String explanation;
 
-    public void setUser(User seller) {
-        this.seller = seller;
+    public void setUser(User owner) {
+        this.owner = owner;
     }
 
     @Builder

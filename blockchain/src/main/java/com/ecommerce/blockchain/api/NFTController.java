@@ -26,7 +26,7 @@ public class NFTController {
     @ApiOperation(value = "NFT 등록")
     @PostMapping("/nft/register")
     public ResponseEntity<SuccessResponseDto> registerNFT(@RequestBody NFTRequestDto nftDto) throws Exception {
-        logger.debug("nft 생성 후 DB에 등록, 유저아이디 : {}", nftDto.getSeller_id());
+        logger.debug("nft 생성 후 DB에 등록, 유저아이디 : {}", nftDto.getOwner_id());
         nftService.register(nftDto);
         HttpStatus status = HttpStatus.OK;
         SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse("Success");

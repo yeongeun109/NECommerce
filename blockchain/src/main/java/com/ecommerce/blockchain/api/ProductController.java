@@ -2,6 +2,7 @@ package com.ecommerce.blockchain.api;
 
 import com.ecommerce.blockchain.domain.global.SuccessResponseDto;
 import com.ecommerce.blockchain.domain.global.service.ResponseGenerateService;
+import com.ecommerce.blockchain.domain.product.ProductPurchaseRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductRequestDto;
 import com.ecommerce.blockchain.service.Impl.ProductServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -66,8 +67,8 @@ public class ProductController {
 //    }
 
     @PutMapping("/product/purchase/{productId}")
-    public ResponseEntity<SuccessResponseDto> purchaseProduct(@PathVariable Long productId) throws Exception {
-        productService.isPurchased(productId);
+    public ResponseEntity<SuccessResponseDto> purchaseProduct(@RequestBody ProductPurchaseRequestDto PPRDto) throws Exception {
+        productService.isPurchased(PPRDto);
         SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse("Success");
         return new ResponseEntity<>(successResponseDto,HttpStatus.OK);
     }

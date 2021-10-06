@@ -1,11 +1,13 @@
 package com.ecommerce.blockchain.domain.nft;
 
+import com.ecommerce.blockchain.domain.user.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter
 public class NFTResponseDto {
     private Long id;
+    private UserDto owner;
     private String imageUrl;
     private String title;
     private String category;
@@ -13,6 +15,7 @@ public class NFTResponseDto {
 
     public NFTResponseDto(NFT entity) {
         this.id = entity.getId();
+        this.owner = new UserDto(entity.getOwner());
         this.imageUrl = entity.getImageUrl();
         this.title = entity.getTitle();
         this.category = entity.getCategory();

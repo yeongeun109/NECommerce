@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class NFTRequestDto {
-    private Long seller_id;
+    private Long owner_id;
     private String imageUrl;
     private String title;
     private String category;

@@ -1,8 +1,10 @@
 package com.ecommerce.blockchain.service.Impl;
 
 import com.ecommerce.blockchain.domain.global.exception.NoUserException;
+import com.ecommerce.blockchain.domain.nft.NFT;
 import com.ecommerce.blockchain.domain.nft.exception.NoNFTException;
 import com.ecommerce.blockchain.domain.product.Product;
+import com.ecommerce.blockchain.domain.product.ProductPurchaseRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductResponseDto;
 import com.ecommerce.blockchain.domain.product.exception.NoProductException;
@@ -72,10 +74,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void isPurchased(Long productId) throws NoProductException {
-        logger.debug("product {} 의 상태 false로 변경하기", productId);
-        Product product = productRepository.findById(productId).orElseThrow(() -> new NoProductException("해당하는 product가 없습니다."));
+    public void isPurchased(ProductPurchaseRequestDto pprDto) throws NoProductException, NoNFTException, NoUserException {
+        logger.debug("product {} 의 상태 false로 변경하기", pprDto.getNftId());
+        Product product = productRepository.findById(pprDto.getNftId()).orElseThrow(() -> new NoProductException("해당하는 product가 없습니다."));
         product.setStatus(false);
         productRepository.save(product);
+        NFT nft = nftRepository.findById(pprDto.getNftId()).orElseThrow(() -> new NoNFTException("해당하는 NFT가 없습니다."));
+        nft.setUser(userRepository.findById(pprDto.getBuyerId()).orElseThrow(() -> new NoUserException("해당하는 사용자가 없습니다.")));
+        nftRepository.save(nft);
     }
+
 }
