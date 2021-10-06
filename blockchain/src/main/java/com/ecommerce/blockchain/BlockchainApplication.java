@@ -1,6 +1,5 @@
 package com.ecommerce.blockchain;
 
-import com.ecommerce.blockchain.service.ERC20Service;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -15,10 +14,10 @@ public class BlockchainApplication {
 //        erc721.deployERC721();
 //        erc721.mintImageERC721Test();
 
-        ERC20Service erc20 = new ERC20Service();
+//        ERC20Service erc20 = new ERC20Service();
 //        erc20.deployERC20();
 //        erc20.loadERC20();
-        erc20.transferERC20Test();
+//        erc20.transferERC20Test();
     }
 
 }
