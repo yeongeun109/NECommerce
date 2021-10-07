@@ -41,16 +41,20 @@ public class NFT extends BaseTime {
     @Column(nullable = false)
     private String transactionHash;
 
+    @Column(nullable = false)
+    private Long tokenId;
+
     public void setUser(User owner) {
         this.owner = owner;
     }
 
     @Builder
-    public NFT(String imageUrl, String title, String category, String explanation, String transactionHash){
+    public NFT(String imageUrl, String title, String category, String explanation, String transactionHash, Long tokenId){
         this.imageUrl = imageUrl;
         this.title = title;
         this.category = category;
         this.explanation = explanation;
         this.transactionHash = transactionHash;
+        this.tokenId = tokenId;
     }
 }
