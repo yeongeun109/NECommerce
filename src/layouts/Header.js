@@ -1,26 +1,18 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Navbar, Container, Nav, Modal } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
 import allActions from "../actions/index";
 import Logo from "../assets/Logo.png";
 import "./Header.css";
 
 const Header = () => {
-  const [show, setShow] = useState(false);
-  const [clickvalue, setClickvalue] = useState("signin");
-  const [className, setClassName] = useState("");
-  const currentUser = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const token = window.localStorage.getItem("token");
   let isLoggedIn = false;
-  if (token == "" || token == null) isLoggedIn = false;
+  if (token === "" || token == null) isLoggedIn = false;
   else isLoggedIn = true;
 
   const logout = () => {
@@ -35,7 +27,7 @@ const Header = () => {
         <Container>
           <div className="navbar-left">
             <Link to="/">
-              <img src={Logo} height="50px" width="50px" />
+              <img src={Logo} height="50px" width="50px" alt="logo"/>
             </Link>
             <Link to="/">
               <span className="text-white header-logo-name">NECommerce</span>
@@ -46,7 +38,7 @@ const Header = () => {
             <div className="nav-link-right text-white">
               <>
                 <Link to="/minting" className="text-white">
-                  NFT 생성
+                  NFT 발급
                 </Link>
                 <Link to="/MyPage" className="text-white">
                   My Page

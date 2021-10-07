@@ -7,14 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TransactNFT from "../assets/scripts/mint-nft";
 
 import { uploadFile } from "react-s3";
-import GetUserPK from "../assets/GetUserPK";
 
 const MintingNFT = ({ history }) => {
   const [imgFile, setImgFile] = useState("");
   const [imgBase64, setImgBase64] = useState(""); // 파일 base64
   const categoryValue = useRef();
   const introValue = useRef();
-  const userPK = GetUserPK();
   const {
     watch,
     handleSubmit,
@@ -69,17 +67,8 @@ const MintingNFT = ({ history }) => {
 
     const intro = introValue.current.value;
     const category = categoryValue.current.value;
-    // formData.append("category", categoryValue.current.value);
-    // formData.append("nftName", watch("name", ""));
-    // formData.append("thumbnail", imgFile);
-    // formData.append("price", watch("price", ""));
-    // formData.append("URI", watch("tokenURI", ""))
 
     const obj = TransactNFT(nftName, imgURI, intro, category); // 상품명, 상품 이미지 URI, 상품설명, 상품 카테고리
-    // .then((respons) => {
-    //     console.log(respons)
-    // })
-    // if(obj) history.push(`/MyPage`);
   };
 
   const layoutCenter = {
@@ -101,7 +90,7 @@ const MintingNFT = ({ history }) => {
       <Row style={layoutCenter}>
         <div style={widthStyle}>
           <div className="title mt-3 pb-3">
-            <h2 style={titleCenter}>NFT 생성</h2>
+            <h2 style={titleCenter}>NFT 발급</h2>
           </div>
           <Form onSubmit={handleSubmit(handleUpload)}>
             <div className="nft-detail">

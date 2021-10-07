@@ -14,10 +14,8 @@ const CreatingOrder = ({ history }) => {
     formState: { errors },
   } = useForm();
   const [NFT, setNFT] = useState([]);
-  const [selectedNFT, setSelectedNFT] = useState({});
   const userPK = GetUserPK();
   const { NFTId } = useParams();
-  const [imageURL, setImageURL] = useState("");
   const prices = watch("price", "");
   const formData = { nftId: NFTId, price: prices, userId: userPK };
   useEffect(() => {

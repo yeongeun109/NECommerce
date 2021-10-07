@@ -52,7 +52,6 @@ const OwningNFT = (props) => {
         };
         fetchData();
     }, []);
-
     const cardStyle = {
         display: "block",
         height: "40vh",
@@ -62,25 +61,32 @@ const OwningNFT = (props) => {
 
     const showAsTable = (NFT, idx) => {
         return (
-            <Link to={`/detail/${NFT.id}`} className="text-decoration-none">
-                <Card id="NFT-card" style={cardStyle}>
-                    <CardHeader
-                        className="card-header"
-                        title={<Typography variant="subtitle1">{NFT.title}</Typography>}
-                    />
+            <div className="col my-4 mx-4">
 
-                    <div>
-                        <CardMedia id="card-image" className={NFTstyle.media} image={NFT.imageUrl}/>
-                    </div>
-                </Card>
-            </Link>
+                <Link to={`/detail/${NFT.id}`} className="text-decoration-none">
+                    <Card id="NFT-card" style={cardStyle}>
+                        <CardHeader
+                            className="card-header"
+                            title={<Typography variant="subtitle1">{NFT.title}</Typography>}
+                        />
+
+                        <div>
+                            <p className="card-desc-p">{NFT.explanation}</p>
+                            <CardMedia id="card-image" className={NFTstyle.media} image={NFT.imageUrl}/>
+                        </div>
+                    </Card>
+                </Link>
+            </div>
         )
     }
 
     return (
-        <>
-            {MyNFT.map(showAsTable)}
-        </>
+        <div className="container">
+            <div className="row">
+
+                {MyNFT.map(showAsTable)}
+            </div>
+        </div>
     )
 }
 

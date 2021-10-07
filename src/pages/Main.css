@@ -108,3 +108,18 @@ p {
   border: 1px solid #dfe1e5;
   background-color: white;
 }
+
+
+.card-desc-p {
+  position: absolute;
+  top: 35%;
+  left: 5%;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  display: none;
+}
+
+#NFT-card:hover .card-desc-p {
+  display: block;
+}

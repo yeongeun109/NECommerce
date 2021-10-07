@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useMetaMask } from "metamask-react";
 const PrivateRouter = ({ component: Component, ...rest }) => {
   const currentUser = useSelector((state) => state.currentUser);
-  const {status, connect, account } = useMetaMask();
+  useMetaMask();
 
   return (
     <Route

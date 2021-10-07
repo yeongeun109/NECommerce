@@ -8,7 +8,7 @@ const MyWallet = (props) => {
     }
 
     return (
-        <div>
+        <div className="mt-4">
             <GetAccount account={props.account}/>
             <div>
                 <button type="button" className="btn btn-warning" onClick={chargeNe}>NE 토큰 충전하기</button>
