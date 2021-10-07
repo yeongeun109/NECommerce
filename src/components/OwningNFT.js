@@ -58,7 +58,7 @@ const OwningNFT = (props) => {
     const cardStyle = {
         display: "block",
         height: "40vh",
-        width: "40vw",
+        maxWidth: "40vw",
     };
     const NFTstyle = useStyles();
 

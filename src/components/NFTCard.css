@@ -33,7 +33,9 @@
   opacity: 0.2;
 }
 
-
+.change-font{
+  font-family: "NEXON Lv1 Gothic OTF";
+}
 
 .ribbon-angle {
   position: absolute;
