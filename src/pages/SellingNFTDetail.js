@@ -18,7 +18,7 @@ const SellingNFTDetail = (props, { history }) => {
     if (t === "") {
       history.push("/");
     }
-  }, );
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,14 +71,14 @@ const SellingNFTDetail = (props, { history }) => {
             <li className="list-group-item">
               <b>가격</b>
             </li>
-            <li className="list-group-item">{price}Ne</li>
+            <li className="list-group-item">{price} Ne</li>
           </ul>
           <div className="card-body" style={layoutCenter}>
             <button type="button" className="btn btn-lg btn-info" onClick={buyProduct}>
               구매
             </button>
           </div>
-          <div className="card-footer text-muted">{NFTDetail.transactionHash}</div>
+          <div className="card-footer text-muted">트랜잭션 해시 : {NFTDetail.transactionHash}</div>
         </div>
       </div>
     </Row>

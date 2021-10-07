@@ -14,7 +14,7 @@ const NFTDetail = (props, { history }) => {
     if (t === "") {
       history.push("/");
     }
-  }, );
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +22,7 @@ const NFTDetail = (props, { history }) => {
       setNFTDetail(result.data.success);
     };
     fetchData();
-  }, );
+  });
 
   const cardStyle = {
     width: "70%",
@@ -33,7 +33,6 @@ const NFTDetail = (props, { history }) => {
     alignItems: "center",
     justifyContent: "center",
   };
-  
 
   const imgStyle = {
     minWidth: "500px",
@@ -55,7 +54,7 @@ const NFTDetail = (props, { history }) => {
           {/*    */}
           {/*</svg>*/}
           <div style={layoutCenter}>
-            <img src={NFTDetail.imageUrl} className="m-2" style={imgStyle} alt="nftimage"/>
+            <img src={NFTDetail.imageUrl} className="m-2" style={imgStyle} alt="nftimage" />
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
@@ -70,7 +69,7 @@ const NFTDetail = (props, { history }) => {
               </button>
             </Link>
           </div>
-          <div className="card-footer text-muted">{NFTDetail.transactionHash}</div>
+          <div className="card-footer text-muted">트랜잭션 해시 : {NFTDetail.transactionHash}</div>
         </div>
       </div>
     </Row>

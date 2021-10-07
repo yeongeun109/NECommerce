@@ -2,7 +2,7 @@ import React from "react";
 import BigNumber from "bignumber.js";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import {Router} from "react-router-dom";
+import { Router } from "react-router-dom";
 
 const TransferNFT = async (price, tokenId, nftId, userId, productId) => {
 
