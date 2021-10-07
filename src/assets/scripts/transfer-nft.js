@@ -98,7 +98,7 @@ const TransferNFT = async (price, tokenId, nftId, userId, productId) => {
         }, function (error, hash) {
             console.log(hash);
         }).then(() => {
-            console.log("오케이")
+            
         }).catch(() => {
         })
     }
