@@ -12,7 +12,7 @@ const MyWallet = (props) => {
     const transferNFT = () => {
         let price = 5;
         let tokenId = 12;
-        TransferNFT(price, tokenId);
+        TransferNFT("",price, tokenId);
     }
 
     return (
