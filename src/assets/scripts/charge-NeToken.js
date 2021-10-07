@@ -5,7 +5,7 @@ const chargeNeTokenButton = () => {
 
     const Web3 = require('web3')
     const contract = require("./NeERC20.json")
-    const {REACT_APP_API_URL, REACT_APP_PRIVATE_KEY, REACT_APP_PUBLIC_KEY, REACT_APP_MY_AMAZON_SERVER, REACT_APP_SERVER_BASE_URL} = process.env;
+    const {REACT_APP_API_URL, REACT_APP_PRIVATE_KEY, REACT_APP_PUBLIC_KEY} = process.env;
     let web3js
 
     if (typeof web3 !== 'undefined') {
@@ -43,6 +43,7 @@ const chargeNeTokenButton = () => {
             web3js.eth.sendSignedTransaction(signedTx.rawTransaction, function(err, hash) {
             if (!err) {
                 console.log("The hash of your transaction is: ", hash);
+                alert("충전 완료")
             } else {
                 console.log("Something went wrong when submitting your transaction:", err)
                 console.log(signedTx.transactionHash)

@@ -10,26 +10,27 @@ const NFTList = (props) => {
     const [filteredNFTs, setFilteredNFTs] = useState([]);
     const [NFTs, setNFTs] = useState([]);
   
-    // useEffect(() => {
-    //   axios
-    //     .get(`${process.env.REACT_APP_SERVER_BASE_URL}/api/home/list`)
-    //     .then((response) => {
-    //       setRooms(response.data);
-    //     })
-    //     .catch((error) => {});
-    // }, []);
-  
     useEffect(() => {
-      setFilteredNFTs(
-        NFTs.filter((NFT) => {
-          const filteredNFTs =
-            NFT.title.includes(props.searchText) ||
-            NFT.owner.userName.includes(props.searchText) ||
-            NFT.owner.userId.includes(props.searchText);
-          return filteredNFTs;
+      axios
+        .get(`api/v1/product/list/all`)
+        .then((response) => {
+          setNFTs(response.data.success);
+          console.log(response.data)
         })
-      );
-    }, [props.searchText, NFTs]);
+        .catch((error) => {});
+    }, []);
+  
+    // useEffect(() => {
+    //   setFilteredNFTs(
+    //     NFTs.filter((NFT) => {
+    //       const filteredNFTs =
+    //         NFT.title.includes(props.searchText) ||
+    //         NFT.owner.userName.includes(props.searchText) ||
+    //         NFT.owner.userId.includes(props.searchText);
+    //       return filteredNFTs;
+    //     })
+    //   );
+    // }, [props.searchText, NFTs]);
   
     const category = (s) => {
       switch (s) {
@@ -41,16 +42,16 @@ const NFTList = (props) => {
           return "";
       }
     };
-    useEffect(() => {
-      setFilteredNFTs(
-        NFTs.filter((NFT) => {
-          const filteredNFTs = category(NFT.category).includes(
-            props.searchCategory
-          );
-          return filteredNFTs;
-        })
-      );
-    }, [props.searchCategory, NFTs]);
+    // useEffect(() => {
+    //   setFilteredNFTs(
+    //     NFTs.filter((NFT) => {
+    //       const filteredNFTs = category(NFT.category).includes(
+    //         props.searchCategory
+    //       );
+    //       return filteredNFTs;
+    //     })
+    //   );
+    // }, [props.searchCategory, NFTs]);
   
     return (
         <>
@@ -74,15 +75,13 @@ const NFTList = (props) => {
               return (
                 <div key={idx}>
                   <NFTCard
-                    key={NFT.id}
+                    key={idx}
                     id={NFT.id}
-                    intro={NFT.intro}
-                    owner={NFT.owner}
-                    title={NFT.title}
-                    thumbnail={NFT.thumbnail}
-                    description={NFT.description}
-                    category={NFT.category}
                     price={NFT.price}
+                    owner={NFT.user}
+                    nft={NFT.nft}
+                    category={NFT.category}
+                    
                   />
                 </div>
               );

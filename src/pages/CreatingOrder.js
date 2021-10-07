@@ -41,13 +41,13 @@ const CreatingOrder = ({history}, props) => {
 
     const onSubmit = () => {
         const formData = new FormData();
-        formData.append("seller_id", userPK);
-        formData.append("NFTId", selectedNFT.id)
+        formData.append("userId", userPK);
+        formData.append("nftId", selectedNFT.id)
         formData.append("price", watch("price", ""));
         
         axios
           .post(
-            'api/v1/nft/sell',
+            'api/v1/product/register',
             formData,
           )
           .then((response) => {
