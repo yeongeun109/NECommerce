@@ -1,5 +1,6 @@
 package com.ecommerce.blockchain.service;
 
+import com.ecommerce.blockchain.domain.global.exception.NoUserException;
 import com.ecommerce.blockchain.domain.user.User;
 import com.ecommerce.blockchain.domain.user.UserRequestDto;
 import org.springframework.stereotype.Service;
@@ -14,4 +15,5 @@ public interface UserService {
     public User getUserByEmail(String email);
     int deleteUser(String email);
 
+    String getUserName(Long userId) throws NoUserException;
 }

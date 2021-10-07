@@ -1,10 +1,16 @@
 package com.ecommerce.blockchain.api;
 
 import com.ecommerce.blockchain.common.response.BaseResponseBody;
+import com.ecommerce.blockchain.domain.global.SuccessResponseDto;
+import com.ecommerce.blockchain.domain.global.exception.NoUserException;
+import com.ecommerce.blockchain.domain.global.service.ResponseGenerateService;
 import com.ecommerce.blockchain.domain.user.*;
 import com.ecommerce.blockchain.service.JwtService;
 import com.ecommerce.blockchain.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,11 +18,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+    private final ResponseGenerateService responseGenerateService;
+
+    Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     JwtService jwtService;
@@ -50,6 +59,18 @@ public class UserController {
         } catch (NullPointerException e) {
             return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null));
         }
+    }
+
+    // 로그인
+    // jwt token 사용시 관련 코드 추가 필요
+    @ApiOperation(value = "name")
+    @GetMapping("/{userId}")
+    public ResponseEntity<SuccessResponseDto> login(@PathVariable Long userId) throws NoUserException {
+        logger.debug("User PK : {}의 이름 가져오기", userId);
+        String name = userService.getUserName(userId);
+        HttpStatus status = HttpStatus.OK;
+        SuccessResponseDto successResponseDto = responseGenerateService.generateSuccessResponse(name);
+        return new ResponseEntity<>(successResponseDto,status);
     }
 
     // 회원탈퇴

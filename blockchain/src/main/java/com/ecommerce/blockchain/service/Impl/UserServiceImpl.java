@@ -1,8 +1,9 @@
 package com.ecommerce.blockchain.service.Impl;
 
+import com.ecommerce.blockchain.domain.global.exception.NoUserException;
 import com.ecommerce.blockchain.domain.user.User;
-import com.ecommerce.blockchain.repository.UserRepository;
 import com.ecommerce.blockchain.domain.user.UserRequestDto;
+import com.ecommerce.blockchain.repository.UserRepository;
 import com.ecommerce.blockchain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public int deleteUser(String email) {
         return userRepository.deleteByEmail(email);
+    }
+
+    @Override
+    public String getUserName(Long userId) throws NoUserException {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoUserException("해당하는 사용자가 없습니다."));
+        return user.getName();
     }
 //
 //    @Override
