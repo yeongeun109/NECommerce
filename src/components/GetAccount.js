@@ -32,6 +32,7 @@ const GetAccount = (props) => {
   baseAccountBalance()
   return (
     <div className="get-account">
+
       <div>
         현재 연결된 계정 {props.account}
       </div>
