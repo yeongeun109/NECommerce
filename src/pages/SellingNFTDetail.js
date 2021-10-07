@@ -11,9 +11,10 @@ const SellingNFTDetail = (props,{history}) => {
     const userPK = GetUserPK();
     const [NFTDetail, setNFTDetail] = useState("")
     const [loading, setLoading] = useState(true);
-    const { NFTId } = useParams()
-    const token = window.localStorage.getItem("token")
-    console.log(token)
+    const { productId } = useParams()
+    const [imageURL, setImageURL] = useState("")
+    const [explanation, setExplanation] = useState("")
+    const [price, setPrice] = useState("")
     useEffect(() => {
         var t = window.localStorage.getItem("token");
         if (t === "") {
@@ -23,17 +24,24 @@ const SellingNFTDetail = (props,{history}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-        const result = await axios.post(
-        `api/v1/nft/detail/${NFTId}`,
-        {token : token}
+        const result = await axios.get(
+        `api/v1/product/detail/${productId}`,
         );
         console.log(result)
-        setNFTDetail(result.data.success);
+        setNFTDetail(result.data.success.nft);
         setLoading(false);
+        setImageURL(result.data.success.nft.imageUrl);
+        setPrice(result.data.success.price);
+        setExplanation(result.data.success.nft.explanation);      
     };
+    
     fetchData();
+    
   }, []);
 
+  const buyProduct = () => {
+    // 뭘써야할까...
+  }
   const cardStyle ={
       width: "70%",
       //
@@ -53,13 +61,15 @@ const SellingNFTDetail = (props,{history}) => {
             {/*    <rect width="100%" height="100%" fill="#868e96"></rect>*/}
             {/*    */}
             {/*</svg>*/}
-            <img src={NFTDetail.imageUrl} className="m-2" />
+            <img src={imageURL} className="m-2" alt="NFTimage" />
             <ul className="list-group list-group-flush">
                 <li className="list-group-item"><b>상품 설명</b></li>
-                <li className="list-group-item">{NFTDetail.explanation}</li>
+                <li className="list-group-item">{explanation}</li>
+                <li className="list-group-item">가격</li>
+                <li className="list-group-item">{price}Ne</li>
             </ul>
             <div className="card-body">
-                <button type="button" className="btn btn-primary">판매등록하기</button>
+                <button type="button" className="btn btn-primary" onClick={buyProduct}>구매</button>
             </div>
             <div className="card-footer text-muted">
                 {NFTDetail.transactionHash}
