@@ -33,16 +33,6 @@ const NFTList = (props) => {
       };
     }, [props.searchText, NFTs]);
   
-    const category = (s) => {
-      switch (s) {
-        case 1:
-          return "Art";
-        case 2:
-          return "Photo";
-        default:
-          return "";
-      }
-    };
     // useEffect(() => {
     //   setFilteredNFTs(
     //     NFTs.filter((NFT) => {
@@ -83,7 +73,7 @@ const NFTList = (props) => {
                     owner={NFT.user}
                     nft={NFT.nft}
                     category={NFT.category}
-                    
+                    status={NFT.status}
                   />
                 </div>
               );

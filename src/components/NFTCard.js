@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: "50%", // 16:9 (56.25)
+    paddingTop: "70%", // 16:9 (56.25)
   },
   expand: {
     transform: "rotate(0deg)",
@@ -35,14 +35,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const category = (s) => {
+const status = (s) => {
   switch (s) {
-    case 0:
-      return "Art";
-    case 1:
-      return "Photo";
+    case true:
+      return "selling";
+    case false:
+      return "sold";
     default:
-      return "";
+      return "selling";
   }
 };
 const NFTCard = (props) => {
@@ -58,8 +58,8 @@ const NFTCard = (props) => {
   return (
     <Link to={`/product/${props.id}`} className="text-decoration-none">
       <Card id="NFT-card" style={cardStyle}>
-        <span className="ribbon-angle" id={category(props.category)}>
-          <small className="card-ribbon">{category(props.category)}</small>
+        <span className="ribbon-angle" id={status(props.status)}>
+          <small className="card-ribbon">{status(props.status)}</small>
         </span>
         <CardHeader
           className="card-header"
@@ -68,10 +68,10 @@ const NFTCard = (props) => {
               {ownerName && ownerName[0]}
             </Avatar>
           }
-          title={<Typography variant="subtitle1">{title}</Typography>}
+          title={<Typography variant="subtitle1">제목: {title}</Typography>}
           subheader={
             <Typography variant="subtitle2">
-              {props.price}
+              가격: {props.price} Ne
             </Typography>
           }
         />
