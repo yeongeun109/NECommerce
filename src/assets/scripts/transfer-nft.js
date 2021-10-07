@@ -83,7 +83,7 @@ const TransferNFT = async (price, tokenId, nftId, userId, productId) => {
   }
 
   async function transferNE() {
-    let amount = price * Math.pow(10, 18);
+    let amount = new BigNumber(price * Math.pow(10, 18)) ;
     web3js.eth
       .sendTransaction(
         {

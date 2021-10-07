@@ -8,10 +8,8 @@ const NFTDetail = (props, { history }) => {
   const [NFTDetail, setNFTDetail] = useState("");
   const { NFTId } = useParams();
   const token = window.localStorage.getItem("token");
-  console.log(token);
   useEffect(() => {
-    var t = window.localStorage.getItem("token");
-    if (t === "") {
+    if (token === "") {
       history.push("/");
     }
   });
