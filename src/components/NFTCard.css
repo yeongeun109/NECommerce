@@ -1,10 +1,18 @@
 #NFT-card {
   position: relative;
   max-height: 280px;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 
 #NFT-card:hover {
   background-color: rgba(20, 20, 20, 0.8);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .card-desc-p {
@@ -33,7 +41,7 @@
   opacity: 0.2;
 }
 
-.change-font{
+.change-font {
   font-family: "NEXON Lv1 Gothic OTF";
 }
 

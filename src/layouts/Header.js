@@ -6,7 +6,7 @@ import { Link, Redirect } from "react-router-dom";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import allActions from "../actions/index";
-import Logo  from "../assets/Logo.png"
+import Logo from "../assets/Logo.png";
 import "./Header.css";
 
 const Header = () => {
@@ -35,15 +35,20 @@ const Header = () => {
         <Container>
           <div className="navbar-left">
             <Link to="/">
-              <img src={Logo} height="75px" width="75px"/>
+              <img src={Logo} height="50px" width="50px" />
+              <span className="text-white header-logo-name">NECommerce</span>
             </Link>
           </div>
 
           <Nav>
             <div className="nav-link-right text-white">
               <>
-                <Link to="/minting" className="text-white">NFT등록</Link>
-                <Link to="/MyPage" className="text-white">MyPage</Link>
+                <Link to="/minting" className="text-white">
+                  NFT등록
+                </Link>
+                <Link to="/MyPage" className="text-white">
+                  MyPage
+                </Link>
                 {isLoggedIn && (
                   <span className="logout" onClick={logout}>
                     로그아웃

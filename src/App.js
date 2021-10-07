@@ -1,35 +1,33 @@
-import './App.css';
-import GetAccount from './components/GetAccount';
-import ChargeEther from './components/ChargeEther';
-import CreateWallet from './components/CreateWallet';
-import UploadImageToS3 from './components/Uploadfiles';
+import "./App.css";
+import GetAccount from "./components/GetAccount";
+import ChargeEther from "./components/ChargeEther";
+import CreateWallet from "./components/CreateWallet";
+import UploadImageToS3 from "./components/Uploadfiles";
 import { Container } from "react-bootstrap";
 import { HashRouter as Router, Switch } from "react-router-dom";
-import Layout from './layouts/Layout';
+import Layout from "./layouts/Layout";
 import PrivateRouter from "./router/PrivateRouter";
 import PublicRouter from "./router/PublicRouter";
-import Enter from './pages/Enter';
-import MyPage from './pages/MyPage';
-import MintingNFT from './pages/MintingNFT';
-import Main from './pages/Main';
-import CreatingOrder from './pages/CreatingOrder';
-import NFTDetail from './pages/NFTDetail';
-import SellingNFTDetail from './pages/SellingNFTDetail';
+import Enter from "./pages/Enter";
+import MyPage from "./pages/MyPage";
+import MintingNFT from "./pages/MintingNFT";
+import Main from "./pages/Main";
+import CreatingOrder from "./pages/CreatingOrder";
+import NFTDetail from "./pages/NFTDetail";
+import SellingNFTDetail from "./pages/SellingNFTDetail";
 function App() {
-
   return (
     <Router>
       <Switch>
         <Layout>
           <Container style={{ minHeight: "75vh", position: "relative" }}>
-          
             <PublicRouter component={Enter} path="/" exact />
             <PrivateRouter component={MyPage} path="/mypage" exact />
             <PrivateRouter component={Main} path="/main" exact />
-            <PrivateRouter component={MintingNFT} path="/minting" exact/>
-            <PrivateRouter component={CreatingOrder} path="/creatingorder/:NFTId" exact/>
-            <PrivateRouter component={NFTDetail} path="/detail/:NFTId" exact/>
-            <PrivateRouter component={SellingNFTDetail} path="/product/:productId" exact/>
+            <PrivateRouter component={MintingNFT} path="/minting" exact />
+            <PrivateRouter component={CreatingOrder} path="/creatingorder/:NFTId" exact />
+            <PrivateRouter component={NFTDetail} path="/detail/:NFTId" exact />
+            <PrivateRouter component={SellingNFTDetail} path="/product/:productId" exact />
           </Container>
         </Layout>
       </Switch>

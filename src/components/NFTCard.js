@@ -30,9 +30,6 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: "rotate(180deg)",
   },
-  avatar: {
-    backgroundColor: red[500],
-  },
 }));
 
 const status = (s) => {
@@ -49,7 +46,7 @@ const NFTCard = (props) => {
   const NFT = useStyles();
   const title = props.nft.title;
   const ownerName = props.owner.name;
-   // base64 디코딩하는 부분
+  // base64 디코딩하는 부분
   const imgSrc = props.nft.imageUrl;
   const cardStyle = {
     display: "block",
@@ -65,11 +62,15 @@ const NFTCard = (props) => {
         <CardHeader
           className="card-header"
           avatar={
-            <Avatar className={NFT.avatar} id="card-avatar">
+            <Avatar className="bg-primary" id="card-avatar">
               {ownerName && ownerName[0]}
             </Avatar>
           }
-          title={<text variant="subtitle1" className="change-font">{title}</text>}
+          title={
+            <text variant="subtitle1" className="change-font">
+              {title}
+            </text>
+          }
           subheader={
             <text variant="subtitle2" className="change-font">
               {props.price} Ne
@@ -81,7 +82,6 @@ const NFTCard = (props) => {
           <p className="card-desc-p">{props.nft.explanation}</p>
           <CardMedia id="card-image" className={NFT.media} image={imgSrc} />
         </div>
-
       </Card>
     </Link>
   );

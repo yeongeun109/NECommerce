@@ -46,18 +46,18 @@ const SignUp = (props) => {
   //       });
   //   }
 
-    // if (id.current === "123") {
-    //   setCheckedId(id.current);
+  // if (id.current === "123") {
+  //   setCheckedId(id.current);
 
-    //   setAvailable(true);
-    // } else {
-    //   setAvailable(false);
-    // }
+  //   setAvailable(true);
+  // } else {
+  //   setAvailable(false);
+  // }
   // };
 
   const signup = () => {
     axios
-      .post('api/v1/users/register', {
+      .post("api/v1/users/register", {
         email: watch("email", ""),
         name: watch("name", ""),
         password: watch("password", ""),
@@ -73,18 +73,15 @@ const SignUp = (props) => {
 
   return (
     <>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>회원 가입</Modal.Title>
       </Modal.Header>
 
       <Form onSubmit={handleSubmit(signup)}>
         <Modal.Body>
           <Form.Group>
-            
-          <div className="input-box">
-              <Form.Label>
-                Email {errors.email && <span>{errors.email.message}</span>}
-              </Form.Label>
+            <div className="input-box">
+              <Form.Label>Email {errors.email && <span>{errors.email.message}</span>}</Form.Label>
 
               <Controller
                 name="email"
@@ -98,10 +95,7 @@ const SignUp = (props) => {
                   },
                 }}
                 render={({ field }) => (
-                  <Form.Control
-                    placeholder="Email을 입력해 주세요"
-                    {...field}
-                  />
+                  <Form.Control placeholder="Email을 입력해 주세요" {...field} />
                 )}
               />
             </div>
@@ -116,21 +110,15 @@ const SignUp = (props) => {
                 control={control}
                 rules={{
                   required: { value: true, message: "필수 항목입니다" },
-                  
+
                   pattern: {
-                    value:
-                      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*\-_=+\\|;:'",./?])/,
-                    message:
-                      "영문 / 숫자 / 특수문자가 반드시 포함되어야 합니다",
+                    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*\-_=+\\|;:'",./?])/,
+                    message: "영문 / 숫자 / 특수문자가 반드시 포함되어야 합니다",
                   },
                 }}
                 defaultValue=""
                 render={({ field }) => (
-                  <Form.Control
-                    type="password"
-                    placeholder="비밀번호를 입력해 주세요"
-                    {...field}
-                  />
+                  <Form.Control type="password" placeholder="비밀번호를 입력해 주세요" {...field} />
                 )}
               />
             </div>
@@ -162,9 +150,7 @@ const SignUp = (props) => {
               />
             </div>
             <div className="input-box">
-              <Form.Label>
-                이름 {errors.name && <span>{errors.name.message}</span>}
-              </Form.Label>
+              <Form.Label>이름 {errors.name && <span>{errors.name.message}</span>}</Form.Label>
 
               <Controller
                 name="name"
@@ -181,7 +167,6 @@ const SignUp = (props) => {
                 )}
               />
             </div>
-
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
