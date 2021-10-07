@@ -29,16 +29,21 @@ const MyPage = () => {
         fontSize: "30px",
         fontWeight: "bold"
     }
-
+    const layoutCenter = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      };
+    
     return (
-        <div className="mt-5">
+        <div className="mt-5 mx-5">
             <div className="mb-5" style={fontName}>{userName}님 환영합니다.</div>
 
             {(status !== "connected") ?
                 (<div><OnboardingButton/></div>)
                 :
                 (
-                    <div>
+                    <div className="container">
                         <Tabs activeKey={key} onSelect={(k) => setKey(k)} id="my-page">
                             <Tab title="Wallet" eventKey="wallet">
                                 <MyWallet account={account}/>

@@ -1,6 +1,6 @@
 import web3 from './Wallet';
 import React, { useState } from 'react';
-import { Button, InputGroup, FormControl } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { useMetaMask } from "metamask-react";
 const GetAccount = (props) => {
   // console.log(props.account)
@@ -24,25 +24,38 @@ const GetAccount = (props) => {
 
     // let contract = web3.eth.contract(myItem.abi).at(contractAddress);
     const contract = new web3.eth.Contract(ne.abi, contractAddress)
-    setNeBalance(await contract.methods.balanceOf(props.account).call());
     // console.log("neBalance : " + neBalance)
+    
+    setNeBalance(await contract.methods.balanceOf(props.account).call());
+    
   }
 
   getERC20TokenBalance()
   baseAccountBalance()
   return (
-    <div className="get-account">
-
-      <div>
-        현재 연결된 계정 {props.account}
-      </div>
-      <div>
-        현재 ETH 잔액 {addressBalance}
-      </div>
-      <div>
-        현재 NE 잔액 {neBalance} NE
-      </div>
-    </div>
+    <Container className="get-account">
+      <Row>
+          <div className="card border-primary mb-3" style={{height:100}}>
+            <div className="card-header">현재 연결된 계정</div>
+            <div className="card-body">
+              <h4 className="card-title">{props.account}</h4>
+            </div>
+          </div>
+        
+          <div className="card border-primary mb-3">
+            <div className="card-header">현재 ETH 잔액</div>
+            <div className="card-body">
+              <h4 className="card-title">{addressBalance}</h4>
+            </div>
+          </div>
+          <div className="card border-primary mb-3">
+            <div className="card-header">현재 NE 잔액</div>
+            <div className="card-body">
+              <h4 className="card-title">{neBalance / 1000000000000000000} NE</h4>
+            </div>
+          </div>
+      </Row>
+    </Container>
   );
 }
 
