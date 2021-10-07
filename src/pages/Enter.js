@@ -56,10 +56,14 @@ const Enter = (props) => {
     justifyContent: "center",
   };
 
+  const widthHalf = {
+    width: "50%",
+  };
+
   return (
     <Container>
-      <Row>
-        <Col>
+      <Row style={textCenter}>
+        <div style={widthHalf}>
           <Card>
             <Card.Header>
               <Card.Title>로그인</Card.Title>
@@ -148,8 +152,7 @@ const Enter = (props) => {
               <SignUp onHide={handleClose} />
             </Modal>
           </Card>
-        </Col>
-        <Col></Col>
+        </div>
       </Row>
     </Container>
   );

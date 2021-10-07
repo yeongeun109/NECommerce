@@ -36,6 +36,8 @@ const Header = () => {
           <div className="navbar-left">
             <Link to="/">
               <img src={Logo} height="50px" width="50px" />
+            </Link>
+            <Link to="/">
               <span className="text-white header-logo-name">NECommerce</span>
             </Link>
           </div>
@@ -44,10 +46,10 @@ const Header = () => {
             <div className="nav-link-right text-white">
               <>
                 <Link to="/minting" className="text-white">
-                  NFT등록
+                  NFT 등록
                 </Link>
                 <Link to="/MyPage" className="text-white">
-                  MyPage
+                  My Page
                 </Link>
                 {isLoggedIn && (
                   <span className="logout" onClick={logout}>

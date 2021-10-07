@@ -44,34 +44,49 @@ const SellingNFTDetail = (props, { history }) => {
   };
   const cardStyle = {
     width: "70%",
-    //
-    // maxHeight: "40vh",
-    // maxWidth: "40vw"
   };
+
+  const layoutCenter = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  const imgStyle = {
+    minWidth: "500px",
+    maxWidth: "600px",
+  };
+
   return (
-    <div style={cardStyle}>
-      <div className="card mb-3">
-        <h3 className="card-header">{NFTDetail.title}</h3>
-        <div className="card-body">
-          <span className="badge bg-dark">{NFTDetail.category === "0" ? "Art" : "Photo"}</span>
+    <Row style={layoutCenter}>
+      <div style={cardStyle}>
+        <div className="card mb-3">
+          <h3 className="card-header">{NFTDetail.title}</h3>
+          <div className="card-body">
+            <span className="badge bg-dark">{NFTDetail.category === "0" ? "Art" : "Photo"}</span>
+          </div>
+          <div style={layoutCenter}>
+            <img src={imageURL} className="m-2" style={imgStyle} />
+          </div>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <b>상품 설명</b>
+            </li>
+            <li className="list-group-item">{explanation}</li>
+            <li className="list-group-item">
+              <b>가격</b>
+            </li>
+            <li className="list-group-item">{price}Ne</li>
+          </ul>
+          <div className="card-body" style={layoutCenter}>
+            <button type="button" className="btn btn-lg btn-info" onClick={buyProduct}>
+              구매
+            </button>
+          </div>
+          <div className="card-footer text-muted">{NFTDetail.transactionHash}</div>
         </div>
-        <img src={imageURL} className="m-2" alt="NFTimage" />
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <b>상품 설명</b>
-          </li>
-          <li className="list-group-item">{explanation}</li>
-          <li className="list-group-item">가격</li>
-          <li className="list-group-item">{price}Ne</li>
-        </ul>
-        <div className="card-body">
-          <button type="button" className="btn btn-primary" onClick={buyProduct}>
-            구매
-          </button>
-        </div>
-        <div className="card-footer text-muted">{NFTDetail.transactionHash}</div>
       </div>
-    </div>
+    </Row>
   );
 };
 
