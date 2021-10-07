@@ -31,7 +31,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar className={className}>
+      <Navbar className="navbar-dark bg-primary">
         <Container>
           <div className="navbar-left">
             <Link to="/">
@@ -40,11 +40,10 @@ const Header = () => {
           </div>
 
           <Nav>
-            <div className="nav-link-right">
+            <div className="nav-link-right text-white">
               <>
-                <Link to="/creatingorder">판매등록</Link>
-                <Link to="/minting">NFT등록</Link>
-                <Link to="/MyPage">MyPage</Link>
+                <Link to="/minting" className="text-white">NFT등록</Link>
+                <Link to="/MyPage" className="text-white">MyPage</Link>
                 {isLoggedIn && (
                   <span className="logout" onClick={logout}>
                     로그아웃

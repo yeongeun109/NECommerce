@@ -55,6 +55,7 @@ const NFTCard = (props) => {
     display: "block",
     height: "35vw",
   };
+
   return (
     <Link to={`/product/${props.id}`} className="text-decoration-none">
       <Card id="NFT-card" style={cardStyle}>
@@ -68,11 +69,11 @@ const NFTCard = (props) => {
               {ownerName && ownerName[0]}
             </Avatar>
           }
-          title={<Typography variant="subtitle1">제목: {title}</Typography>}
+          title={<text variant="subtitle1" className="change-font">{title}</text>}
           subheader={
-            <Typography variant="subtitle2">
-              가격: {props.price} Ne
-            </Typography>
+            <text variant="subtitle2" className="change-font">
+              {props.price} Ne
+            </text>
           }
         />
 
