@@ -5,6 +5,8 @@ import com.ecommerce.blockchain.domain.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter @Setter
 public class ProductResponseDto {
 
@@ -12,7 +14,7 @@ public class ProductResponseDto {
     private User user;
     private NFT nft;
     private boolean status;
-    private double price;
+    private BigDecimal price;
 
     public ProductResponseDto(Product entity) {
         this.id = entity.getId();

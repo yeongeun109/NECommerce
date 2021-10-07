@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void isPurchased(ProductPurchaseRequestDto pprDto) throws NoProductException, NoNFTException, NoUserException {
         logger.debug("product {} 의 상태 false로 변경하기", pprDto.getNftId());
-        Product product = productRepository.findById(pprDto.getNftId()).orElseThrow(() -> new NoProductException("해당하는 product가 없습니다."));
+        Product product = productRepository.findById(pprDto.getProductId()).orElseThrow(() -> new NoProductException("해당하는 product가 없습니다."));
         if(product.isStatus()){
             product.setStatus(false);
             productRepository.save(product);

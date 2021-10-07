@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -30,11 +31,11 @@ public class Product {
     @Column(nullable = false)
     private boolean status = Boolean.TRUE;
 
-    @Column(nullable = false)
-    private double price;
+    @Column(nullable = false, precision = 18, scale = 13)
+    private BigDecimal price;
 
     @Builder
-    public Product(User user, NFT nft, double price) {
+    public Product(User user, NFT nft, BigDecimal price) {
         this.user = user;
         this.nft = nft;
         this.price = price;
