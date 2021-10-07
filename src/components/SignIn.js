@@ -91,7 +91,7 @@ const SignIn = () => {
           <Card.Body>
             <div className="input-box">
               <Form.Label>
-                Email {errors.email && <span>{errors.email.message}</span>}
+                이메일 {errors.email && <span>{errors.email.message}</span>}
               </Form.Label>
 
               <Controller
@@ -152,7 +152,7 @@ const SignIn = () => {
         )}
         <Card.Footer>
             <Button variant="primary" type="submit">
-              Sign in
+              로그인
             </Button>
           <Button variant="secondary" 
           onClick={() => {

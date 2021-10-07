@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import { Form, InputGroup  } from "react-bootstrap";
-import SearchButton from "../components/Buttons/SearchButton";
 import NFTList from "../components/NFTList";
+import {Icon} from "semantic-ui-react"
+import "./Main.css"
 const Main = () => {
     const [searchText, setSearchText] = useState("");
     const [searchCategory, setSearchCategory] = useState("");
@@ -19,8 +20,6 @@ const Main = () => {
 
     return(
         <div>
-            MainPage
-            
             <div>
                 <div className="main-explore">
 
@@ -30,9 +29,11 @@ const Main = () => {
                     value={searchText}
                     onChange={onChangeInput}
                     />
-                    <SearchButton />
-                </InputGroup>
 
+                </InputGroup>
+                    
+                <Icon name='search plus' color='green' fitted/>
+                    
                 <div className="main-explore-option justify-content-end">
                     <div className="btn-group mt-3 mb-3">
                         <input
@@ -46,7 +47,7 @@ const Main = () => {
                         </label>
 
                         <input
-                            className="btn-check btn-light"
+                            className="btn-check btn-dark"
                             autoComplete="off"
                             onClick={onClickCategory}
                             id="Art"

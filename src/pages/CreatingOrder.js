@@ -1,16 +1,24 @@
-import React, {useState, useRef, useEffect} from "react";
-import { Button, Form, Image } from "react-bootstrap";
+import React, {useState, useEffect} from "react";
+import { Button, Form} from "react-bootstrap";
 import axios from "axios";
-import { useForm, Controller, set } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 // import MDEditor from "@uiw/react-md-editor";
 import GetUserPK from "../assets/GetUserPK";
 
-const CreatingOrder = ({history}, props) => {
+const CreatingOrder = ({history}) => {
+    
+    const {
+        watch,
+        handleSubmit,
+        control,
+        formState: { errors },
+    } = useForm();
     const [NFTs, setNFTs] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedNFT, setSelectedNFT] = useState("")
+    const [selectedNFT, setSelectedNFT] = useState({})
     const userPK = GetUserPK()
     const [imageURL, setImageURL] = useState("")
+    const prices = watch("price", "")
+    const formData = {userId: userPK, nftId:selectedNFT, price: prices}
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios.post(
@@ -19,40 +27,27 @@ const CreatingOrder = ({history}, props) => {
           );
         //   console.log(result)
           setNFTs(result.data.success);
-          setLoading(false);
         };
-        
         fetchData();
-        console.log(NFTs)
       }, []);
     
-    const {
-        watch,
-        handleSubmit,
-        control,
-        formState: { errors },
-    } = useForm();
     const handleChangeNFT = (e) => {
         if (e.target.value !== "" && e.target.value !== "Choose your NFT") {
-            setSelectedNFT(e.target.value)
+            setSelectedNFT(NFTs[e.target.value].id)
             setImageURL(NFTs[e.target.value].imageUrl)
-            console.log(NFTs[e.target.value].imageUrl)}
+            console.log(NFTs[e.target.value])}
         }  
+           
 
     const onSubmit = () => {
-        const formData = new FormData();
-        formData.append("userId", userPK);
-        formData.append("nftId", selectedNFT.id)
-        formData.append("price", watch("price", ""));
-        
         axios
-          .post(
+        .post(
             'api/v1/product/register',
-            formData,
-          )
-          .then((response) => {
-            alert("상품 등록에 성공하였습니다");
-            // history.push(`/detail/${response.data}`);
+            formData
+            )
+            .then((response) => {
+                alert("상품 등록에 성공하였습니다");
+                history.push('/');
             //response.data = NFT의 ID값
           })
           .catch((error) => {
@@ -80,11 +75,17 @@ const CreatingOrder = ({history}, props) => {
                 <div className="title">
                     <h2>판매 등록</h2>
                 </div>
+            
+                <div className="input-box thumbnail">
+                    <h4> 이미지</h4>
+                    <div className="input-box-thumbnail-content">
+                        <img src={imageURL} alt="img" />        
+                    </div>
+                </div>
+                
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <div className="nft-detail">
                         <div className="content">
-                            <div className="select-box">
-                            </div>
                             <>
                             <div className="input-box">
                             <Controller
@@ -110,14 +111,6 @@ const CreatingOrder = ({history}, props) => {
                                 )}
                             />
                         </div>
-                    
-                        <div className="input-box thumbnail">
-                            <h4> 이미지</h4>
-                            <div className="input-box-thumbnail-content">
-                                <img src={imageURL} alt="img" />        
-                            </div>
-                        </div>
-                        
                         <div>
                             <Button type="submit" style={{ marginTop: "15px", float: "right" }}>
                                 판매등록
