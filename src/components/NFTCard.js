@@ -47,18 +47,17 @@ const category = (s) => {
 };
 const NFTCard = (props) => {
   const NFT = useStyles();
-  const Title = props.title;
-  const ownerName = props.owner.userName;
-  const ownerID = props.owner.userId;
-  // base64 디코딩하는 부분
-  const imgSrc = "data:image/png;base64,".concat(props.thumbnail);
+  const title = props.nft.title;
+  const ownerName = props.owner.name;
+   // base64 디코딩하는 부분
+  const imgSrc = props.nft.imageUrl;
   const cardStyle = {
     display: "block",
     height: "35vw",
   };
   return (
-    <Link to={`/detail/${props.id}`} className="text-decoration-none">
-      <Card className={NFT.root} id="NFT-card" style={cardStyle}>
+    <Link to={`/product/${props.id}`} className="text-decoration-none">
+      <Card id="NFT-card" style={cardStyle}>
         <span className="ribbon-angle" id={category(props.category)}>
           <small className="card-ribbon">{category(props.category)}</small>
         </span>
@@ -69,16 +68,16 @@ const NFTCard = (props) => {
               {ownerName && ownerName[0]}
             </Avatar>
           }
-          title={<Typography variant="subtitle1">{Title}</Typography>}
+          title={<Typography variant="subtitle1">{title}</Typography>}
           subheader={
             <Typography variant="subtitle2">
-              {ownerName}({ownerID})
+              {props.price}
             </Typography>
           }
         />
 
         <div>
-          <p className="card-desc-p">{props.intro}</p>
+          <p className="card-desc-p">{props.nft.explanation}</p>
           <CardMedia id="card-image" className={NFT.media} image={imgSrc} />
         </div>
 

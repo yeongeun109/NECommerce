@@ -9,28 +9,29 @@ import axios from "axios";
 const NFTList = (props) => {
     const [filteredNFTs, setFilteredNFTs] = useState([]);
     const [NFTs, setNFTs] = useState([]);
-  
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
       axios
         .get(`api/v1/product/list/all`)
         .then((response) => {
-          setNFTs(response.data.success);
-          console.log(response.data)
+          setNFTs(response.data.success)
+          setLoading(false)
         })
         .catch((error) => {});
     }, []);
   
-    // useEffect(() => {
-    //   setFilteredNFTs(
-    //     NFTs.filter((NFT) => {
-    //       const filteredNFTs =
-    //         NFT.title.includes(props.searchText) ||
-    //         NFT.owner.userName.includes(props.searchText) ||
-    //         NFT.owner.userId.includes(props.searchText);
-    //       return filteredNFTs;
-    //     })
-    //   );
-    // }, [props.searchText, NFTs]);
+    useEffect(() => {
+      if (NFTs !== []) {
+        setFilteredNFTs(
+          NFTs.filter((NFT) => {
+            const filteredNFTs =
+              NFT.nft.title.includes(props.searchText) ||
+              NFT.user.name.includes(props.searchText);
+            return filteredNFTs;
+          })
+        );
+      };
+    }, [props.searchText, NFTs]);
   
     const category = (s) => {
       switch (s) {
@@ -55,6 +56,7 @@ const NFTList = (props) => {
   
     return (
         <>
+
         {filteredNFTs.length === 0 ? (
           <div className="NFT-search-result">
             <>
@@ -87,7 +89,7 @@ const NFTList = (props) => {
               );
             })}
           </div>
-        )}
+         )}
       </>
     );
 }

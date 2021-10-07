@@ -1,6 +1,5 @@
 import React, {useState, useRef} from "react";
 import { Button, Form } from "react-bootstrap";
-import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 // import MDEditor from "@uiw/react-md-editor";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
@@ -14,12 +13,8 @@ import GetUserPK from "../assets/GetUserPK";
 const MintingNFT = ({history}) => {
     const [imgFile, setImgFile] = useState("");
     const [imgBase64, setImgBase64] = useState(""); // 파일 base64
-    const [obj, setObj] = useState({ });
-    // let obj = TransactNFT(nftName, imgURI, intro, category);
     const categoryValue = useRef();
-    // const [value, setValue] = useState();
     const introValue = useRef()
-    const [imageURL, setImageURL] = useState("")
     const userPK = GetUserPK()
     const {
         watch,
@@ -65,8 +60,6 @@ const MintingNFT = ({history}) => {
         uploadFile(imgFile, config)
             .then(data => {
                 
-                setImageURL(data.location)
-                console.log(data.location)
                 onSubmit(data.location)
             })
 
@@ -74,7 +67,6 @@ const MintingNFT = ({history}) => {
     }
 
     const onSubmit = (imgURI) => {
-        const formData = new FormData();
         const nftName = watch("nftName", "")
         
         const intro = introValue.current.value
