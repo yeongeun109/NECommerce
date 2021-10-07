@@ -178,7 +178,7 @@ const MintingNFT = ({ history }) => {
 
                 <div className="mt-4" style={layoutCenter}>
                   <button type="submit" className="btn btn-lg btn-success">
-                    생성하기
+                    발급하기
                   </button>
                 </div>
               </div>

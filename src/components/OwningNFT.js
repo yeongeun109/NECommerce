@@ -61,7 +61,7 @@ const OwningNFT = (props) => {
 
     const showAsTable = (NFT, idx) => {
         return (
-            <div className="col my-4 mx-4">
+            <div className="col-4 my-4 mx-4">
 
                 <Link to={`/detail/${NFT.id}`} className="text-decoration-none">
                     <Card id="NFT-card" style={cardStyle}>
