@@ -32,18 +32,23 @@ const NFTDetail = (props, { history }) => {
     fetchData();
   }, []);
 
-  const wrapper = {
+  const cardStyle = {
+    width: "70%",
+  };
+
+  const layoutCenter = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   };
 
-  const cardStyle = {
-    width: "70%",
+  const imgStyle = {
+    minWidth: "500px",
+    maxWidth: "600px",
   };
 
   return (
-    <div style={wrapper}>
+    <Row style={layoutCenter}>
       <div style={cardStyle}>
         <div className="card mb-3">
           <h3 className="card-header">{NFTDetail.title}</h3>
@@ -56,7 +61,9 @@ const NFTDetail = (props, { history }) => {
           {/*    <rect width="100%" height="100%" fill="#868e96"></rect>*/}
           {/*    */}
           {/*</svg>*/}
-          <img src={NFTDetail.imageUrl} className="m-2" />
+          <div style={layoutCenter}>
+            <img src={NFTDetail.imageUrl} className="m-2" style={imgStyle} />
+          </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
               <b>상품 설명</b>
@@ -65,15 +72,15 @@ const NFTDetail = (props, { history }) => {
           </ul>
           <div className="card-body">
             <Link to={`/creatingorder/${NFTDetail.id}`} className="text-decoration-none">
-              <button type="button" className="btn btn-primary">
-                판매등록하기
+              <button type="button" className="btn btn-lg btn-info">
+                판매 등록
               </button>
             </Link>
           </div>
           <div className="card-footer text-muted">{NFTDetail.transactionHash}</div>
         </div>
       </div>
-    </div>
+    </Row>
   );
 };
 
