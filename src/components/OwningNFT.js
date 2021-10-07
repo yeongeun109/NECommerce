@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Table, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import GetUserPK from "../assets/GetUserPK";
 import "../pages/Main.css"
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import CardMedia from "@material-ui/core/CardMedia";
 import {makeStyles} from "@material-ui/core/styles";
@@ -64,17 +62,6 @@ const OwningNFT = (props) => {
 
     const showAsTable = (NFT, idx) => {
         return (
-            // <tr key={idx}>
-            //     <td className="myNft-table">
-            //         <Link to={`/detail/${NFT.id}`}>
-            //             <Image src={NFT.imageUrl}/>
-            //         </Link>
-            //     </td>
-            //     <td>
-            //         <p>{NFT.title} </p>
-            //     </td>
-            // </tr>
-
             <Link to={`/detail/${NFT.id}`} className="text-decoration-none">
                 <Card id="NFT-card" style={cardStyle}>
                     <CardHeader
