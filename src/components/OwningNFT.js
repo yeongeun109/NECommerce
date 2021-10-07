@@ -10,9 +10,10 @@ const OwningNFT = (props) => {
     useEffect(() => {
         const fetchData = async () => {
           const userPK = GetUserPK()
-          // console.log(userPK)
-          const result = await axios.get(
+          console.log(userPK)
+          const result = await axios.post(
             `api/v1/nft/list/${userPK}`,
+            {token: JSON.parse(window.localStorage.getItem("token"))}
           );
           console.log(result.data.success)
           setMyNFT(result.data.success);

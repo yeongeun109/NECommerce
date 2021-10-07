@@ -27,7 +27,7 @@ function App() {
             <PrivateRouter component={Main} path="/main" exact />
             <PrivateRouter component={MintingNFT} path="/minting" exact/>
             <PrivateRouter component={CreatingOrder} path="/creatingorder" exact/>
-            <PrivateRouter component={NFTDetail} path="/detail/:id" exact/>
+            <PrivateRouter component={NFTDetail} path="/detail/:NFTId" exact/>
           </Container>
         </Layout>
       </Switch>

@@ -7,21 +7,23 @@ import GetUserPK from "../assets/GetUserPK";
 
 const CreatingOrder = ({history}, props) => {
     const [NFTs, setNFTs] = useState([]);
-    const [NFTData, setNFTData] = useState({});
     const [loading, setLoading] = useState(true);
-    const selectNFT = useRef()
+    const [selectedNFT, setSelectedNFT] = useState("")
     const userPK = GetUserPK()
+    const [imageURL, setImageURL] = useState("")
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios.get(
+            const result = await axios.post(
             `api/v1/nft/list/${userPK}`,
+            {token: JSON.parse(window.localStorage.getItem("token"))}
           );
-          console.log(result)
+        //   console.log(result)
           setNFTs(result.data.success);
           setLoading(false);
         };
-    
+        
         fetchData();
+        console.log(NFTs)
       }, []);
     
     const {
@@ -30,12 +32,17 @@ const CreatingOrder = ({history}, props) => {
         control,
         formState: { errors },
     } = useForm();
-
+    const handleChangeNFT = (e) => {
+        if (e.target.value !== "" && e.target.value !== "Choose your NFT") {
+            setSelectedNFT(e.target.value)
+            setImageURL(NFTs[e.target.value].imageUrl)
+            console.log(NFTs[e.target.value].imageUrl)}
+        }  
 
     const onSubmit = () => {
         const formData = new FormData();
         formData.append("seller_id", userPK);
-        formData.append("NFTId", NFTData.NFTid)
+        formData.append("NFTId", selectedNFT.id)
         formData.append("price", watch("price", ""));
         
         axios
@@ -56,10 +63,18 @@ const CreatingOrder = ({history}, props) => {
   
     return(
         <div>
-            {loading ? (
-                <div>Loading...</div>
-            )
+            <select value={selectedNFT} onChange={handleChangeNFT} >
+                <option>Choose your NFT</option>
+                {NFTs.map((NFT, idx) => {
+                   return (<option key={idx} value={idx}>{NFT.title}</option>)
+                })}
+            </select>
+            {selectedNFT === "" || selectedNFT === "Choose your NFT" ? 
+                            (
+                            <></>
+                                )
             : (
+
             <div>
         
                 <div className="title">
@@ -69,17 +84,7 @@ const CreatingOrder = ({history}, props) => {
                     <div className="nft-detail">
                         <div className="content">
                             <div className="select-box">
-                                <Form.Select ref={selectNFT}>
-                                    {NFTs.map((NFT, idx) => {
-                                        
-                                        return <option key={idx}>{NFT.title}</option>
-                                    })}
-                                </Form.Select>
                             </div>
-                            {NFTData === "" ? 
-                            (<></>)
-                            :
-                            (
                             <>
                             <div className="input-box">
                             <Controller
@@ -109,7 +114,7 @@ const CreatingOrder = ({history}, props) => {
                         <div className="input-box thumbnail">
                             <h4> 이미지</h4>
                             <div className="input-box-thumbnail-content">
-                                <Image src={NFTData.ImageUrl} alt="img" />        
+                                <img src={imageURL} alt="img" />        
                             </div>
                         </div>
                         
@@ -118,13 +123,14 @@ const CreatingOrder = ({history}, props) => {
                                 판매등록
                             </Button>
                         </div>
-                        </>)
-                        }
+                        </>
+                        
                             
                         </div>
                     </div>
                 </Form>
-            </div>)}
+            </div>
+            )}
 
         </div>
     )

@@ -6,7 +6,7 @@ import { Link, Redirect } from "react-router-dom";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import allActions from "../actions/index";
-import favicon  from "../assets/favicon.ico"
+import Logo  from "../assets/Logo.png"
 import "./Header.css";
 
 const Header = () => {
@@ -18,7 +18,10 @@ const Header = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const token = window.localStorage.getItem("token");
+  let isLoggedIn = false;
+  if (token == "" || token == null) isLoggedIn = false;
+  else isLoggedIn = true;
 
   const logout = () => {
     alert("로그아웃 되었습니다.");
@@ -32,21 +35,22 @@ const Header = () => {
         <Container>
           <div className="navbar-left">
             <Link to="/">
-              <img src={favicon} height="100px" width="100px"/>
+              <img src={Logo} height="75px" width="75px"/>
             </Link>
           </div>
 
           <Nav>
             <div className="nav-link-right">
-                <>
-
-                  <Link to="/creatingorder">판매등록</Link>
-                  <Link to="/minting">NFT등록</Link>
-                  <Link to="/MyPage">MyPage</Link>
+              <>
+                <Link to="/creatingorder">판매등록</Link>
+                <Link to="/minting">NFT등록</Link>
+                <Link to="/MyPage">MyPage</Link>
+                {isLoggedIn && (
                   <span className="logout" onClick={logout}>
                     로그아웃
                   </span>
-                </>
+                )}
+              </>
             </div>
           </Nav>
         </Container>
