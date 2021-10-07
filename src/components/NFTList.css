@@ -1,5 +1,5 @@
 .NFT-grid {
-  padding: 100px 0;
+  padding: 1vh 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   column-gap: 50px;
