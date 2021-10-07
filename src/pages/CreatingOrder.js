@@ -20,7 +20,7 @@ const CreatingOrder = ({history}) => {
     const {NFTId} = useParams()
     const [imageURL, setImageURL] = useState("")
     const prices = watch("price", "")
-    const formData = {userId: userPK, nftId: selectedNFT, price: prices}
+    const formData = {nftId: NFTId, price: prices, userId: userPK}
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios.post(
