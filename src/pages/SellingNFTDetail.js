@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import GetUserPK from "../assets/GetUserPK";
 import { useParams } from "react-router";
+import TransferNFT from "../assets/scripts/transfer-nft";
 
 const SellingNFTDetail = (props,{history}) => {
     const userPK = GetUserPK();
@@ -15,6 +16,7 @@ const SellingNFTDetail = (props,{history}) => {
     const [imageURL, setImageURL] = useState("")
     const [explanation, setExplanation] = useState("")
     const [price, setPrice] = useState("")
+    const [nftId, setNftId] = useState("")
     useEffect(() => {
         var t = window.localStorage.getItem("token");
         if (t === "") {
@@ -32,7 +34,8 @@ const SellingNFTDetail = (props,{history}) => {
         setLoading(false);
         setImageURL(result.data.success.nft.imageUrl);
         setPrice(result.data.success.price);
-        setExplanation(result.data.success.nft.explanation);      
+        setExplanation(result.data.success.nft.explanation);
+        setNftId(result.data.success.nft.id);
     };
     
     fetchData();
@@ -40,7 +43,7 @@ const SellingNFTDetail = (props,{history}) => {
   }, []);
 
   const buyProduct = () => {
-    // 뭘써야할까...
+      TransferNFT(price, NFTDetail.tokenId, nftId, userPK, productId)
   }
   const cardStyle ={
       width: "70%",
@@ -55,12 +58,6 @@ const SellingNFTDetail = (props,{history}) => {
             <div className="card-body">
                 <span className="badge bg-dark">{NFTDetail.category === "0" ? "Art" : "Photo"}</span>
             </div>
-            {/*<svg xmlns="http://www.w3.org/2000/svg" className="d-block user-select-none" width="100%" height="200"*/}
-            {/*     aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"*/}
-            {/*     viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">*/}
-            {/*    <rect width="100%" height="100%" fill="#868e96"></rect>*/}
-            {/*    */}
-            {/*</svg>*/}
             <img src={imageURL} className="m-2" alt="NFTimage" />
             <ul className="list-group list-group-flush">
                 <li className="list-group-item"><b>상품 설명</b></li>
@@ -75,30 +72,6 @@ const SellingNFTDetail = (props,{history}) => {
                 {NFTDetail.transactionHash}
             </div>
         </div>
-      {/*<Container>*/}
-      {/*  <Row>*/}
-      {/*    <Col>*/}
-      {/*      <Image src={NFTDetail.imageUrl} height={500} id="imageUrl"/>*/}
-      {/*    </Col>*/}
-      {/*    <Col>*/}
-      {/*      <div>*/}
-      {/*        상품이름 : {NFTDetail.title}*/}
-      {/*      </div>*/}
-      {/*      <div>*/}
-      {/*        상품 설명 : {NFTDetail.explanation}*/}
-      {/*      </div>*/}
-      {/*    </Col>*/}
-      {/*  </Row>*/}
-      {/*  <Row>*/}
-      {/*    <div>*/}
-      {/*      거래내역*/}
-      {/*      <span>{NFTDetail.transactionHistory}</span>*/}
-      {/*    </div>*/}
-      {/*    <div>*/}
-      {/*      */}
-      {/*    </div>*/}
-      {/*  </Row>*/}
-      {/*</Container>*/}
     </div>
   );
 

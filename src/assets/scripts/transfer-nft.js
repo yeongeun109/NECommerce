@@ -4,7 +4,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import {Router} from "react-router-dom";
 
-const TransferNFT = async (ownerAddress, price, tokenId) => {
+const TransferNFT = async (price, tokenId, nftId, userId, productId) => {
 
     const Web3 = require('web3')
     const {REACT_APP_API_URL, REACT_APP_PUBLIC_KEY} = process.env;
@@ -23,13 +23,9 @@ const TransferNFT = async (ownerAddress, price, tokenId) => {
     const NEContract = new web3js.eth.Contract(neContractABI.abi, neContractAddress)
 
     const nftContractABI = require("./MyItem.json")
-    const nftContractAddress = "0x9d83e140330758a8fFD07F8Bd73e86ebcA8a5692"
+    const nftContractAddress = "0x467cAea8a04E52EbF79b5a64b0d6306B38096E65"
     const nftContract = new web3js.eth.Contract(nftContractABI.abi, nftContractAddress)
 
-    // nftContract.methods.ownerOf(tokenId).call().then(
-    //
-    // );
-    // Router.push(`/campaigns/${REACT_APP_PUBLIC_KEY}/requests`)
     // nftContract.methods.ownerOf(0).call(function (err, res) {
     //     if (err) {
     //         console.log("An error occured", err)
@@ -38,19 +34,30 @@ const TransferNFT = async (ownerAddress, price, tokenId) => {
     //     console.log("The balance is: ", res.address)
     // })
 
+    const ownerAddress = await nftContract.methods.ownerOf(tokenId).call();
+    console.log("ownerAddress : " + ownerAddress)
+    console.log("price : " + price)
+    console.log("tokenId : " + tokenId)
+
+    const h = "0x6ce928a6fc817168af1591498fa09de256915d7d8ef5f160b98e97dc85684116";
+    let x = (await web3js.eth.getTransaction(h))
+    console.log(x)
 
     let account = await web3js.eth.getAccounts().then(function (array) {
         return array[0]
     });
 
-    let token = JSON.parse(window.localStorage.getItem("token"));
-    token = token.replace('Bearer', "")
-    let jwt = require('jsonwebtoken')
-    let uid = jwt.decode(token).uid;
-    console.log("uid : ", uid)
+    // let token = window.localStorage.getItem("token");
+    // token = token.replace('Bearer', "")
+    // let jwt = require('jsonwebtoken')
+    // console.log("jwt : " +jwt.decode(token))
+    // let uid = jwt.decode(token).uid;
+    // console.log("uid : ", uid.toString().trim())
 
-    const formData = {buyerId:uid, nftId:tokenId}
+    const formData = {buyerId: userId, nftId: nftId, productId: productId}
 
+    console.log("uid:" + userId)
+    console.log("nftId:" + nftId)
     const nonce = await web3js.eth.getTransactionCount(account, 'latest'); //get latest nonce
 
     async function transferNFT() {
@@ -63,7 +70,7 @@ const TransferNFT = async (ownerAddress, price, tokenId) => {
         }).then(() => {
             console.log("nft transfer 오케이")
             axios
-                .post(
+                .put(
                     '/api/v1/product/purchase',
                     formData
                 )
@@ -84,7 +91,7 @@ const TransferNFT = async (ownerAddress, price, tokenId) => {
             'to': neContractAddress,
             'nonce': nonce,
             'gas': 500000,
-            'maxPriorityFeePerGas': 1999999987,
+            // 'maxPriorityFeePerGas': 1999999987,
             'input': NEContract.methods.transfer(ownerAddress, amount).encodeABI()
         }, function (error, hash) {
             console.log(hash);
