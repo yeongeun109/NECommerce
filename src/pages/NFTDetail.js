@@ -12,7 +12,7 @@ const NFTDetail = (props,{history}) => {
     const [NFTDetail, setNFTDetail] = useState("")
     const [loading, setLoading] = useState(true);
     const { NFTId } = useParams()
-    const token = JSON.parse(window.localStorage.getItem("token"))
+    const token = window.localStorage.getItem("token")
     console.log(token)
     useEffect(() => {
         var t = window.localStorage.getItem("token");

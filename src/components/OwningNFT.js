@@ -3,10 +3,41 @@ import axios from "axios";
 import {Table, Image} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import GetUserPK from "../assets/GetUserPK";
+import "../pages/Main.css"
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+import CardMedia from "@material-ui/core/CardMedia";
+import {makeStyles} from "@material-ui/core/styles";
+import {red} from "@material-ui/core/colors";
 
 const OwningNFT = (props) => {
     const [loading, setLoading] = useState(true)
     const [MyNFT, setMyNFT] = useState([])
+
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            maxWidth: 345,
+        },
+        media: {
+            height: 0,
+            paddingTop: "50%", // 16:9 (56.25)
+        },
+        expand: {
+            transform: "rotate(0deg)",
+            marginLeft: "auto",
+            transition: theme.transitions.create("transform", {
+                duration: theme.transitions.duration.shortest,
+            }),
+        },
+        expandOpen: {
+            transform: "rotate(180deg)",
+        },
+        avatar: {
+            backgroundColor: red[500],
+        },
+    }));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,42 +55,44 @@ const OwningNFT = (props) => {
         fetchData();
     }, []);
 
+    const cardStyle = {
+        display: "block",
+        height: "40vh",
+        width: "40vw",
+    };
+    const NFTstyle = useStyles();
+
     const showAsTable = (NFT, idx) => {
         return (
-            <tr key={idx}>
-                <td>
-                    <Link to={`/detail/${NFT.id}`}>
-                        <Image src={NFT.imageUrl}/>
-                    </Link>
-                </td>
-                <td>
-                    <p>{NFT.title} </p>
-                </td>
-            </tr>)
+            // <tr key={idx}>
+            //     <td className="myNft-table">
+            //         <Link to={`/detail/${NFT.id}`}>
+            //             <Image src={NFT.imageUrl}/>
+            //         </Link>
+            //     </td>
+            //     <td>
+            //         <p>{NFT.title} </p>
+            //     </td>
+            // </tr>
+
+            <Link to={`/detail/${NFT.id}`} className="text-decoration-none">
+                <Card id="NFT-card" style={cardStyle}>
+                    <CardHeader
+                        className="card-header"
+                        title={<Typography variant="subtitle1">{NFT.title}</Typography>}
+                    />
+
+                    <div>
+                        <CardMedia id="card-image" className={NFTstyle.media} image={NFT.imageUrl}/>
+                    </div>
+                </Card>
+            </Link>
+        )
     }
 
     return (
         <>
-            {/*{loading ? (*/}
-            {/*  <div>*/}
-            {/*    Loading...*/}
-            {/*  </div>*/}
-            {/*) : (*/}
-            <Table>
-                <thead>
-                <tr>
-                    <th>이미지</th>
-                    <th>제목</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                {MyNFT.map(showAsTable)}
-                </tbody>
-            </Table>
-
-            {/*)}*/}
-
+            {MyNFT.map(showAsTable)}
         </>
     )
 }
