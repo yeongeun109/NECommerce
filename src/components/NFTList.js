@@ -19,7 +19,17 @@ const NFTList = (props) => {
         })
         .catch((error) => {});
     }, []);
-  
+
+    
+    const category = (s) => {
+      switch (s) {
+        case "0":
+          return "Art";
+        case "1":
+          return "Photo";
+        default: return "";
+      }
+    }
     useEffect(() => {
       if (NFTs !== []) {
         setFilteredNFTs(
@@ -33,16 +43,16 @@ const NFTList = (props) => {
       };
     }, [props.searchText, NFTs]);
   
-    // useEffect(() => {
-    //   setFilteredNFTs(
-    //     NFTs.filter((NFT) => {
-    //       const filteredNFTs = category(NFT.category).includes(
-    //         props.searchCategory
-    //       );
-    //       return filteredNFTs;
-    //     })
-    //   );
-    // }, [props.searchCategory, NFTs]);
+    useEffect(() => {
+      setFilteredNFTs(
+        NFTs.filter((NFT) => {
+          const filteredNFTs = category(NFT.nft.category).includes(
+            props.searchCategory
+          );
+          return filteredNFTs;
+        })
+      );
+    }, [props.searchCategory, NFTs]);
   
     return (
         <>

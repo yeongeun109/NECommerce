@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import MetaMaskOnboarding from '@metamask/onboarding'
 
 const ONBOARD_TEXT = "여기를 눌러 메타마스크를 설치해주세요";
-const CONNECT_TEXT = "연결중입니다";
+const CONNECT_TEXT = "연결이 완료되면 눌러주세요";
 const CONNECTED_TEXT = "연결이 완료되었습니다";
 
 const OnboardingButton = () => {
@@ -50,7 +50,8 @@ const OnboardingButton = () => {
         if (MetaMaskOnboarding.isMetaMaskInstalled()) {
             window.ethereum
                 .request({method: 'eth_requestAccounts'})
-                .then((newAccounts) => setAccounts(newAccounts));
+                .then((newAccounts) => setAccounts(newAccounts))
+                .then(() => window.location.reload());
         } else {
             onboarding.current.startOnboarding();
         }

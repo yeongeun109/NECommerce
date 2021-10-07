@@ -35,9 +35,9 @@ const Main = () => {
                 <Icon name='search plus' color='green' fitted/>
                     
                 <div className="main-explore-option justify-content-end">
-                    <div className="btn-group mt-3 mb-3">
+                    <div className="category-button btn-group mt-3 mb-3">
                         <input
-                            className="btn-check btn-info"
+                            className="btn-check"
                             autoComplete="off"
                             onClick={onClickCategory}
                             id="전체"
