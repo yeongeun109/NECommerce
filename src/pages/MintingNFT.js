@@ -149,7 +149,7 @@ const MintingNFT = ({history}) => {
                                     {imgBase64 === "" ? (
                                     <>
                                         <label htmlFor="imgFile" className="btn btn-primary ">
-                                        사진 업로드
+                                        이미지 업로드
                                         </label>
                                         <input
                                         type="file"
@@ -158,6 +158,7 @@ const MintingNFT = ({history}) => {
                                         name="imgFile"
                                         id="imgFile"
                                         onChange={handleChangeFile}
+                                        style={{display:"none"}}
                                         />
                                     </>
                                     ) : (
