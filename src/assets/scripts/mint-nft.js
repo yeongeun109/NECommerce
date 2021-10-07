@@ -25,7 +25,7 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
     const contractAddress = "0x467cAea8a04E52EbF79b5a64b0d6306B38096E65";
     const nftContract = new web3js.eth.Contract(contract.abi, contractAddress)
 
-    let token = JSON.parse(window.localStorage.getItem("token"));
+    let token = window.localStorage.getItem("token");
     token = token.replace('Bearer', "")
     let jwt = require('jsonwebtoken')
     let uid = jwt.decode(token).uid;
@@ -58,7 +58,6 @@ const TransactNFT = (nftName, imgURI, intro, category) => {
         }
 
         const signPromise = web3js.eth.accounts.signTransaction(tx, REACT_APP_PRIVATE_KEY);
-        let token = JSON.parse(window.localStorage.getItem("token"))
         let tokenId
         nftContract.getPastEvents('Transfer', {
             fromBlock: 0,

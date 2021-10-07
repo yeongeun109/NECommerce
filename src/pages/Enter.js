@@ -26,7 +26,7 @@ const Enter = (props) => {
   
     useEffect(() => {
       // console.log(onHide);
-      window.localStorage.setItem("token", JSON.stringify(token));
+      window.localStorage.setItem("token", token);
     }, [token]);
     
     const signin = () => {

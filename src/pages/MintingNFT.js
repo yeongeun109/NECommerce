@@ -81,7 +81,7 @@ const MintingNFT = ({history}) => {
         // .then((respons) => {
         //     console.log(respons)
         // })
-        if(obj) history.push(`/MyPage`);
+        // if(obj) history.push(`/MyPage`);
       }
 
     return(
