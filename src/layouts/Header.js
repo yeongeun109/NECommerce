@@ -46,7 +46,7 @@ const Header = () => {
             <div className="nav-link-right text-white">
               <>
                 <Link to="/minting" className="text-white">
-                  NFT 등록
+                  NFT 생성
                 </Link>
                 <Link to="/MyPage" className="text-white">
                   My Page
