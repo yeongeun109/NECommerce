@@ -14,6 +14,7 @@ import MintingNFT from './pages/MintingNFT';
 import Main from './pages/Main';
 import CreatingOrder from './pages/CreatingOrder';
 import NFTDetail from './pages/NFTDetail';
+import SellingNFTDetail from './pages/SellingNFTDetail';
 function App() {
 
   return (
@@ -28,6 +29,7 @@ function App() {
             <PrivateRouter component={MintingNFT} path="/minting" exact/>
             <PrivateRouter component={CreatingOrder} path="/creatingorder/:NFTId" exact/>
             <PrivateRouter component={NFTDetail} path="/detail/:NFTId" exact/>
+            <PrivateRouter component={SellingNFTDetail} path="/sell/:NFTId" exact/>
           </Container>
         </Layout>
       </Switch>

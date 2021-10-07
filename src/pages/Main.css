@@ -64,6 +64,12 @@ p {
   align-items: center;
 }
 
+.main-explore-option .category-button  {
+  background-color: #3eb489;
+  line-height: 1rem;
+
+} 
+
 .card-category {
   position: absolute;
   background-color: rgb(238, 106, 106);
