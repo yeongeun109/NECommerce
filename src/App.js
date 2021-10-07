@@ -29,7 +29,7 @@ function App() {
             <PrivateRouter component={MintingNFT} path="/minting" exact/>
             <PrivateRouter component={CreatingOrder} path="/creatingorder" exact/>
             <PrivateRouter component={NFTDetail} path="/detail/:NFTId" exact/>
-            <PrivateRouter component={SellingNFTDetail} path="/sell/:NFTId" exact/>
+            <PrivateRouter component={SellingNFTDetail} path="/product/:productId" exact/>
           </Container>
         </Layout>
       </Switch>
