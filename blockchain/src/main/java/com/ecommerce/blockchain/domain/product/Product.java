@@ -31,10 +31,10 @@ public class Product {
     private boolean status = Boolean.TRUE;
 
     @Column(nullable = false)
-    private Long price;
+    private double price;
 
     @Builder
-    public Product(User user, NFT nft, Long price) {
+    public Product(User user, NFT nft, double price) {
         this.user = user;
         this.nft = nft;
         this.price = price;

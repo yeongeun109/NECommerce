@@ -12,7 +12,7 @@ public class ProductResponseDto {
     private User user;
     private NFT nft;
     private boolean status;
-    private Long price;
+    private double price;
 
     public ProductResponseDto(Product entity) {
         this.id = entity.getId();

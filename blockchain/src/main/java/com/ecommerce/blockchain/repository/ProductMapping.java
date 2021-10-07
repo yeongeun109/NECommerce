@@ -6,7 +6,7 @@ import com.ecommerce.blockchain.domain.user.User;
 public interface ProductMapping {
     Long getId();
     boolean isStatus();
-    Long getPrice();
+    double getPrice();
     User getUser();
     NFT getNft();
 }
