@@ -9,6 +9,8 @@ import axios from "axios";
 import "../components/SignIn.css";
 import SignUp from "../components/SignUp";
 import allActions from "../actions";
+import Logo from "../assets/Logo.png";
+
 const Enter = (props) => {
   const [token, setToken] = useState("");
   const [nowLoading, setNowLoading] = useState(false);
@@ -64,6 +66,9 @@ const Enter = (props) => {
     <Container>
       <Row style={textCenter}>
         <div style={widthHalf}>
+          <div class="logo-area">
+            <img src={Logo} class="infinite_rotating_logo" />
+          </div>
           <Card>
             <Card.Header>
               <Card.Title>로그인</Card.Title>
