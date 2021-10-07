@@ -13,6 +13,7 @@ public class NFTResponseDto {
     private String category;
     private String explanation;
     private String transactionHash;
+    private Long tokenId;
 
     public NFTResponseDto(NFT entity) {
         this.id = entity.getId();
@@ -22,10 +23,11 @@ public class NFTResponseDto {
         this.category = entity.getCategory();
         this.explanation = entity.getExplanation();
         this.transactionHash=entity.getTransactionHash();
+        this.tokenId = entity.getTokenId();
     }
 
     @Override
     public String toString() {
-        return "id : "+ this.id +" img : "+this.imageUrl +" title : "+ this.title + " cat : "+ this.category + " explanation : " + this.explanation;
+        return "id : "+ this.id +" img : "+this.imageUrl +" title : "+ this.title + " cat : "+ this.category + " explanation : " + this.explanation+ " transactionHash : " + this.transactionHash+ " tokenId : " + this.tokenId;
     }
 }

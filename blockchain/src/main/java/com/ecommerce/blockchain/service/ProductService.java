@@ -6,12 +6,13 @@ import com.ecommerce.blockchain.domain.product.ProductPurchaseRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductResponseDto;
 import com.ecommerce.blockchain.domain.product.exception.NoProductException;
+import com.ecommerce.blockchain.domain.product.exception.preProductException;
 import com.ecommerce.blockchain.repository.ProductMapping;
 
 import java.util.List;
 
 public interface ProductService {
-    void register(ProductRequestDto productDto) throws NoNFTException, NoUserException;
+    void register(ProductRequestDto productDto) throws NoNFTException, NoUserException, preProductException;
     List<ProductMapping> getAllList() throws NoProductException;
     List<ProductMapping> getTrueSaleList() throws NoProductException;
     List<ProductMapping> getFalseSaleList() throws NoProductException;

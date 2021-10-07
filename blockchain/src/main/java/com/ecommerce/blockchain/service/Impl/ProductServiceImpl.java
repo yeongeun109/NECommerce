@@ -8,6 +8,7 @@ import com.ecommerce.blockchain.domain.product.ProductPurchaseRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductRequestDto;
 import com.ecommerce.blockchain.domain.product.ProductResponseDto;
 import com.ecommerce.blockchain.domain.product.exception.NoProductException;
+import com.ecommerce.blockchain.domain.product.exception.preProductException;
 import com.ecommerce.blockchain.repository.NFTRepository;
 import com.ecommerce.blockchain.repository.ProductMapping;
 import com.ecommerce.blockchain.repository.ProductRepository;
@@ -31,12 +32,17 @@ public class ProductServiceImpl implements ProductService {
     Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Override
-    public void register(ProductRequestDto productDto) throws NoNFTException, NoUserException {
+    public void register(ProductRequestDto productDto) throws NoNFTException, NoUserException, preProductException {
         Product newItem = productDto.toEntity();
-        newItem.setUser(userRepository.findById(productDto.getUserId()).orElseThrow(() -> new NoUserException("해당하는 사용자가 없습니다.")));
-        newItem.setNft(nftRepository.findById(productDto.getNftId()).orElseThrow(() -> new NoNFTException("해당하는 사용자가 없습니다.")));
-        productRepository.save(newItem);
-        logger.debug("Product {}의 가격 : {}", newItem.getId(), newItem.getPrice());
+        if(productRepository.existsByUserIdAndNftId(productDto.getUserId(),productDto.getNftId())) {
+            logger.debug("product 확인 !!!!!!!!!!!!");
+            throw new preProductException("이미 등록된 product입니다.");
+        }else{
+            newItem.setUser(userRepository.findById(productDto.getUserId()).orElseThrow(() -> new NoUserException("해당하는 사용자가 없습니다.")));
+            newItem.setNft(nftRepository.findById(productDto.getNftId()).orElseThrow(() -> new NoNFTException("해당하는 사용자가 없습니다.")));
+            productRepository.save(newItem);
+            logger.debug("Product {}의 가격 : {}", newItem.getId(), newItem.getPrice());
+        }
     }
 
     @Override

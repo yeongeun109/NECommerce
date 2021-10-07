@@ -5,6 +5,7 @@ import com.ecommerce.blockchain.domain.global.exception.NoUserException;
 import com.ecommerce.blockchain.domain.global.service.ResponseGenerateService;
 import com.ecommerce.blockchain.domain.nft.exception.NoNFTException;
 import com.ecommerce.blockchain.domain.product.exception.NoProductException;
+import com.ecommerce.blockchain.domain.product.exception.preProductException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +59,16 @@ public class ExceptionController {
         logger.error("[No Route Exception] ", e);
         HttpStatus httpStatus = HttpStatus.NOT_FOUND;
         String message = "판매 상품이 없습니다.";
+
+        ExceptionResponseDto exceptionResponseDto = responseGenerateService.generateExceptionResponse(httpStatus, message);
+        return new ResponseEntity<ExceptionResponseDto>(exceptionResponseDto, httpStatus);
+    }
+
+    @ExceptionHandler(preProductException.class)
+    public ResponseEntity<ExceptionResponseDto> noNFTHandler(preProductException e) {
+        logger.error("[No Route Exception] ", e);
+        HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+        String message = "판매 상품이 이미 등록되어 있습니다.";
 
         ExceptionResponseDto exceptionResponseDto = responseGenerateService.generateExceptionResponse(httpStatus, message);
         return new ResponseEntity<ExceptionResponseDto>(exceptionResponseDto, httpStatus);
