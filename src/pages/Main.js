@@ -30,41 +30,41 @@ const Main = () => {
           </InputGroup>
 
           <div className="main-explore-option justify-content-end">
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
               <input
                 type="radio"
-                class="btn-check"
+                className="btn-check"
                 name="btnradio"
                 id="전체"
-                autocomplete="off"
+                autoComplete="off"
                 onClick={onClickCategory}
                 checked=""
               />
-              <label class="btn btn-outline-primary" for="전체">
+              <label className="btn btn-outline-primary" htmlFor="전체">
                 전체
               </label>
               <input
                 type="radio"
-                class="btn-check"
+                className="btn-check"
                 name="btnradio"
                 id="Art"
-                autocomplete="off"
+                autoComplete="off"
                 onClick={onClickCategory}
                 checked=""
               />
-              <label class="btn btn-outline-primary" for="Art">
+              <label className="btn btn-outline-primary" htmlFor="Art">
                 Art
               </label>
               <input
                 type="radio"
-                class="btn-check"
+                className="btn-check"
                 name="btnradio"
                 id="Photo"
-                autocomplete="off"
+                autoComplete="off"
                 onClick={onClickCategory}
                 checked=""
               />
-              <label class="btn btn-outline-primary" for="Photo">
+              <label className="btn btn-outline-primary" htmlFor="Photo">
                 Photo
               </label>
             </div>

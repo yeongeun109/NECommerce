@@ -59,7 +59,7 @@ const OnboardingButton = () => {
     }
   };
   return (
-    <div class="d-grid gap-2 m-3">
+    <div className="d-grid gap-2 m-3">
       <button
         className={"btn btn-lg " + statusClass}
         type="button"

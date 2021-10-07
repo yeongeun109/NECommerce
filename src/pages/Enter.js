@@ -66,8 +66,8 @@ const Enter = (props) => {
     <Container>
       <Row style={textCenter}>
         <div style={widthHalf}>
-          <div class="logo-area">
-            <img src={Logo} class="infinite_rotating_logo" />
+          <div className="logo-area">
+            <img src={Logo} className="infinite_rotating_logo" alt="logo" />
           </div>
           <Card>
             <Card.Header>

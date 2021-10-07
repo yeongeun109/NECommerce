@@ -67,14 +67,14 @@ const NFTCard = (props) => {
             </Avatar>
           }
           title={
-            <text variant="subtitle1" className="change-font">
+            <p variant="subtitle1" className="change-font">
               {title}
-            </text>
+            </p>
           }
           subheader={
-            <text variant="subtitle2" className="change-font">
+            <p variant="subtitle2" className="change-font">
               {props.price} Ne
-            </text>
+            </p>
           }
         />
 
