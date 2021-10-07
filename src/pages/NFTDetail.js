@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import GetUserPK from "../assets/GetUserPK";
 import { useParams } from "react-router";
+import {Link} from "react-router-dom";
 
 const NFTDetail = (props,{history}) => {
     const userPK = GetUserPK();
@@ -35,11 +36,9 @@ const NFTDetail = (props,{history}) => {
   }, []);
 
   const cardStyle ={
-      width: "70%",
-      //
-      // maxHeight: "40vh",
-      // maxWidth: "40vw"
+      width: "70%"
   }
+
   return (
     <div style={cardStyle}>
         <div className="card mb-3" >
@@ -59,7 +58,9 @@ const NFTDetail = (props,{history}) => {
                 <li className="list-group-item">{NFTDetail.explanation}</li>
             </ul>
             <div className="card-body">
-                <button type="button" className="btn btn-primary">판매등록하기</button>
+                <Link to={`/creatingorder/${NFTDetail.id}`} className="text-decoration-none">
+                    <button type="button" className="btn btn-primary">판매등록하기</button>
+                </Link>
             </div>
             <div className="card-footer text-muted">
                 {NFTDetail.transactionHash}
