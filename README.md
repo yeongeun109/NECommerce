@@ -1,4 +1,4 @@
-![로고](/uploads/faaf063b3362f39b541bb34391511250/logo.png)
+<img src="/uploads/faaf063b3362f39b541bb34391511250/logo.png" alt="로고" width="200"/>
 
 # NECommerce
 
@@ -12,27 +12,25 @@
 
 ## 🎯 핵심기능
 
-- 메인 페이지
+### 상품 목록 조회 - 메인 페이지
 
-![메인페이지](/uploads/ae49f2e69fb8588617e12190dbb40a88/메인페이지.gif)
+<img src="/uploads/ae49f2e69fb8588617e12190dbb40a88/메인페이지.gif" alt="메인페이지" width="1000"/>
 
-#### 1. NFT 발행
+### NFT 발행
 
-![NFT_발급](/uploads/45112d6dc75ae0a6ea2e4cac19d8fe30/NFT_발급.gif)
+<img src="/uploads/45112d6dc75ae0a6ea2e4cac19d8fe30/NFT_발급.gif" alt="NFT_발급" width="1000"/>
 
-#### 2. 소유한 NFT 조회
+### 소유한 NFT 조회 - 마이 페이지
 
-- 마이 페이지
+<img src="/uploads/1db3444f478d176dce813c28c60c6fc5/마이페이지.gif" alt="마이페이지" width="1000"/>
 
-![마이페이지](/uploads/1db3444f478d176dce813c28c60c6fc5/마이페이지.gif)
-
-#### 3. NFT 거래 기능
+### NFT 거래 기능
 
 - 판매
-![판매_등록](/uploads/7e417f03f39f2c9cc6e34293a1bd1050/판매_등록.gif)
+<img src="/uploads/7e417f03f39f2c9cc6e34293a1bd1050/판매_등록.gif" alt="판매_등록" width="1000"/>
 
 - 구매
-![구매](/uploads/78cd21fc013dfb6948d4964aad2432f2/구매.gif)
+<img src="/uploads/78cd21fc013dfb6948d4964aad2432f2/구매.gif" alt="구매" width="1000"/>
 
 ## ⛓ 블록체인
 
@@ -51,4 +49,4 @@
 
 ## ⚙️ 아키텍처
 
-![특화_아키텍처](/uploads/6e872bb3022b5cad7aa5e5f6e9bb6270/특화_아키텍처.png)
+<img src="/uploads/6e872bb3022b5cad7aa5e5f6e9bb6270/특화_아키텍처.png" alt="아키텍처" width="800"/>
