@@ -1,0 +1,47 @@
+/* header {
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.01);
+} */
+header span,
+header a {
+  font-size: 14px;
+}
+header h1 {
+  font-weight: 400;
+}
+.navbar {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+nav a,
+nav h1,
+.logout {
+  text-decoration: none;
+  cursor: pointer;
+  align-items: center;
+}
+
+nav a {
+  color: #55595c !important;
+}
+nav a:hover {
+  color: black;
+}
+
+nav .nav-link-right a,
+nav .nav-link-right span {
+  margin: 0 10px;
+}
+
+.navbar-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-logo-name {
+  font-size: 1.3rem;
+  margin-left: 5px;
+}

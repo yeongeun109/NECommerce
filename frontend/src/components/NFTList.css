@@ -1,0 +1,16 @@
+.NFT-grid {
+  padding: 1vh 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  column-gap: 50px;
+  row-gap: 50px;
+}
+
+.NFT-search-result {
+  text-align: center;
+  margin: 100px auto;
+}
+
+.NFT-search-result > * {
+  margin-bottom: 50px;
+}

@@ -1,0 +1,12 @@
+{
+    "attributes" : [ {
+      "trait_type" : "Breed",
+      "value" : "Maltipoo"
+    }, {
+      "trait_type" : "Eye color",
+      "value" : "Mocha"
+    } ],
+    "description" : "The logo for saffy",
+    "image" : "https://myimageuploadserver.s3.ap-northeast-2.amazonaws.com/ssafy-logo.png",
+    "name" : "SSAFY Logo"
+}

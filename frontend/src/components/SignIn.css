@@ -1,0 +1,28 @@
+.spinner {
+  min-height: 100px;
+}
+
+.spinner-border {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+}
+
+.logo-area {
+  position: relative;
+  margin: 30px auto;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+}
+
+img.infinite_rotating_logo {
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3), 0 12px 20px -10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3), 0 12px 20px -10px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 45px rgba(255, 255, 255, 0.3), 0 12px 20px -10px rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,33 @@
+.form-control {
+  height: 45px;
+}
+
+.form-label {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-label span {
+  color: red;
+  font-size: small;
+  text-align: right;
+}
+
+.input-box {
+  min-height: 100px;
+}
+
+#success {
+  color: green;
+}
+
+.modal-body {
+  padding: 1.5rem !important;
+}
+
+.form-control:focus,
+.btn:focus,
+.form-select:focus {
+  box-shadow: none !important;
+}
