@@ -1,7 +1,7 @@
 import React from 'react';
 import contract from "./MyItem.json";
 import axios from "axios";
-import jwt from "jsonwebtoken";
+
 import BigNumber from "bignumber.js";
 
 const TransactNFT = (nftName, imgURI, intro, category) => {
