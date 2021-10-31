@@ -1,4 +1,4 @@
-# RoutingStar 프로젝트 포팅 매뉴얼
+# NEcommerce 프로젝트 포팅 매뉴얼
 
 ## 1. gitlab 소스 크론 이후 빌드 및 배포할수 있는 작업 문서
 
@@ -84,34 +84,32 @@ dependencies {
 <br>
 3) 배포 환경 설명
 
-- ec2위에 nginx를 이용해 forward proxy를 만들어 https통신을 구현했습니다.
+- ec2위에 nginx를 이용해 Reverse Proxy(forward proxy)를 만들고 ssl인증서를 통해 https통신을 구현했습니다.
 
-- 백엔드 서버와 프론트엔드 서버는 jenkins를 이용해 gitlab의 backend_master, frontend_master 각각의 브랜치에서 webhook을 트리거로 build되어 백엔드는 docker위에 이미지로 배포하고 frontend는 볼륨을 공유하는 nginx를 통해 docker위에 nginx 이미지를 통해 배포되었습니다.
+- 백엔드 서버는 jenkins를 이용해 gitlab의 backend 브랜치에서 webhook을 트리거로 build되어 docker img로 만든후 dockerhub에 repository로 관리하며 갱신된 후에 EC2 서버위 docker에 이미지로 배포했습니다.
+- frontend는 EC2서버위에 직접 code를 git을 통해 받고 build한 파일을 nginx를 통해 배포했습니다.
 
 <br>
 4) 데이터베이스 접속 정보
 
 ```
-3306번 포트에 mariaDB이미지로 존재합니다.
+8083번 포트에 docker mariaDB이미지로 존재합니다.
 접근 계정은
-ID : test
-PW : routingstar12345
-url = jdbc:mariadb://i5a309.p.ssafy.io:3306/RoutingStar?autoReconnect=true&useUnicode=true&characterEncoding=utf8mb4&serverTimezone=KST
+ID : a407
+PW : a407maria
+url = jdbc:mariadb://j5a407.p.ssafy.io:8083/blockchain?useUnicode=true&serverTimezone=KST&characterEncoding=utf8mb4&autoReconnect=true
 ```
 
 프로퍼티 정의된 목록은 없습니다.
 
 ## 2. 프로젝트에서 사용하는 외부 서비스 정보문서
 
-FCM => (https://firebase.google.com/docs/cloud-messaging?hl=ko) dawit0310@gmail.com으로 등록 : 알림메시지 클라우드<br>
-AWS S3 => (https://aws.amazon.com/ko/) edkim3275@gmail.com으로 가입된 S3 버켓을 사용{벗켓 주소 : https://s3.console.aws.amazon.com/s3/buckets/routingstar-photo-album?region=ap-northeast-2&tab=objects}<br>
-GoogleMap => .env.local에 api key등록 (등록 이메일 : hyun.ohenn@gmail.com)<br>
-Google Cloud => dawit0310@gmail.com으로 등록<br>
-Kakao developer => dawit0310@gmail.com으로 등록<br>
+AWS S3 => (https://aws.amazon.com/ko/) wkjung0329@gmail.com으로 가입된 S3 버켓을 사용<br>
+Metamask => .env에 관리자 계정 private key등록 (지갑 가입자 : 다윗팀장)<br>
 
 ## 3. 데이터베이스 덤프 파일 최신본
 
-exec폴더 내에 `backup20211008.sql`파일로 별도 첨부합니다.
+exec폴더 내에 `backup2021008.zip`파일로 별도 첨부합니다.
 
 ## 4. 시연 시나리오
 
